@@ -1,13 +1,13 @@
 package cs3500.excellence.model.hw05;
 
 public final class State {
-  private double width = 0;
-  private double height = 0;
-  private double posX = 0;
-  private double posY = 0;
-  private int red = 0;
-  private int green = 0;
-  private int blue = 0;
+  private double width;
+  private double height;
+  private double posX;
+  private double posY;
+  private int red;
+  private int green;
+  private int blue ;
 
   public State(double w, double h, double x, double y, int r, int g, int b){
     if(r > 255 || g > 255|| b > 255){

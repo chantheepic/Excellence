@@ -3,9 +3,8 @@ package cs3500.excellence.model.hw05.shapes;
 import cs3500.excellence.model.hw05.State;
 
 public abstract class SmartShape implements IShape{
-  protected State[] states;
+  protected State[] states = new State[0];
   protected int endTick = 0;
-  protected int lastPresentIndex = 0;
 
   // each object created calculates its own position when given a tick. To do so, it creates a array that is of length <endTick> where
   // each index of the array represents a tick and the content of the array represents the state of this object at tick.
@@ -23,9 +22,7 @@ public abstract class SmartShape implements IShape{
     if(this.endTick < endTick){
       this.endTick = endTick;
       State[] newStates = new State[endTick + 1];
-      if(states != null){
-        System.arraycopy(states, 0, newStates, 0, states.length);
-      }
+      System.arraycopy(states, 0, newStates, 0, states.length);
       states = newStates;
       System.out.println("new array created");
       System.out.println(states.length);
@@ -44,15 +41,14 @@ public abstract class SmartShape implements IShape{
     // plug in values
     if(spaceFree){
       for(int tick = initialTick; tick <= endTick; tick++){
-        double posX = initialState.x() + ((endState.x() - initialState.x()) / (endTick - initialTick)) * tick;
-        double posY = initialState.y() + ((endState.y() - initialState.y()) / (endTick - initialTick)) * tick;
-        double width = initialState.w() + ((endState.w() - initialState.w()) / (endTick - initialTick)) * tick;
-        double height = initialState.h() + ((endState.h() - initialState.h()) / (endTick - initialTick)) * tick;
-        int red = initialState.red() + ((endState.red() - initialState.red()) / (endTick - initialTick)) * tick;
-        int green = initialState.green() + ((endState.green() - initialState.green()) / (endTick - initialTick)) * tick;
-        int blue = initialState.blue() + ((endState.blue() - initialState.blue()) / (endTick - initialTick)) * tick;
+        double posX = initialState.x() + ((endState.x() - initialState.x()) / (endTick - initialTick)) * (tick - initialTick);
+        double posY = initialState.y() + ((endState.y() - initialState.y()) / (endTick - initialTick)) * (tick - initialTick);
+        double width = initialState.w() + ((endState.w() - initialState.w()) / (endTick - initialTick)) * (tick - initialTick);
+        double height = initialState.h() + ((endState.h() - initialState.h()) / (endTick - initialTick)) * (tick - initialTick);
+        int red = initialState.red() + ((endState.red() - initialState.red()) / (endTick - initialTick)) * (tick - initialTick);
+        int green = initialState.green() + ((endState.green() - initialState.green()) / (endTick - initialTick)) * (tick - initialTick);
+        int blue = initialState.blue() + ((endState.blue() - initialState.blue()) / (endTick - initialTick)) * (tick - initialTick);
         states[tick] = new State(width, height, posX, posY, red, green, blue);
-        lastPresentIndex = tick;
         System.out.println("State created for tick " + tick);
         //System.out.println(posX + " " + posY + " " + red + " " + green + " " + blue);
       }
@@ -69,7 +65,7 @@ public abstract class SmartShape implements IShape{
     if(states.length > tick && states[tick] != null){
       return states[tick];
     } else{
-      return states[lastPresentIndex];
+      return this.getStateAtTick(tick - 1);
     }
   }
 
