@@ -1,25 +1,26 @@
 package cs3500.excellence.model.hw05;
 
-import cs3500.excellence.model.hw05.shapes.Circle;
 import cs3500.excellence.model.hw05.shapes.IShape;
-import cs3500.excellence.model.hw05.shapes.Rectangle;
+
 import java.util.HashMap;
 
-public class Model {
+public class Model implements IModel {
   HashMap<String, IShape> registeredShapes;
 
   public Model(){
-    this.registeredShapes = new HashMap<String, IShape>();
+    this.registeredShapes = new HashMap<>();
   }
 
   // Do we allow the shape to change?
-  public void addObject(String id, IShape shape) {
+  @Override
+  public void addShape(String id, IShape shape) {
     if(!registeredShapes.containsKey(id)){
       registeredShapes.put(id, shape);
     } else{
       throw new IllegalArgumentException("Object already exists");
     }
   }
+
 
   public void addCommand(String id, State initialState, State endState, int initialTick, int endTick){
     if(registeredShapes.containsKey(id)){

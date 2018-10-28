@@ -22,8 +22,8 @@ public class Main {
     State s2 = new State(0, 0, 4, 5, 0, 0, 0);
     IShape c = new Circle();
     IShape r = new Rectangle();
-    m.addObject("c", c);
-    m.addObject("r", r);
+    m.addShape("c", c);
+    m.addShape("r", r);
     m.addCommand("c", s1, s2, 2, 4);
     m.addCommand("r", s2, s1, 2, 4);
 

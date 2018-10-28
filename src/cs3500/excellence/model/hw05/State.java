@@ -1,6 +1,7 @@
 package cs3500.excellence.model.hw05;
 
 public final class State {
+
   private double width;
   private double height;
   private double posX;

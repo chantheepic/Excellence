@@ -2,7 +2,7 @@ package cs3500.excellence.model.hw05.shapes;
 
 import cs3500.excellence.model.hw05.State;
 
-public abstract class SmartShape implements IShape{
+public abstract class SmartShape implements IShape {
   protected State[] states = new State[0];
   protected int endTick = 0;
 
