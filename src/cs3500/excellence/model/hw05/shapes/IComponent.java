@@ -1,5 +1,6 @@
 package cs3500.excellence.model.hw05.shapes;
 
+import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
 
 public interface IComponent {
@@ -7,12 +8,8 @@ public interface IComponent {
 
   /**
    * Adds a motion to the shape
-   * @param initialState
-   * @param endState
-   * @param initialTick
-   * @param endTick
    */
-  void addMotion(State initialState, State endState, int initialTick, int endTick);
+  void addMotion(IMotion motion);
 
 
   /**
@@ -25,9 +22,8 @@ public interface IComponent {
 
   /**
    * Gets overview of shape between start and end tick.
-   * @param initialTick
-   * @param endTick
+
    * @return
    */
-  String getOverview(int initialTick, int endTick);
+  String getOverview();
 }

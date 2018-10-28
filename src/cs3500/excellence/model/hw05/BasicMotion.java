@@ -8,6 +8,9 @@ public class BasicMotion implements IMotion {
   int endTick;
 
   public BasicMotion(State initial, State end, int initialTick, int endTick) {
+    if(initialTick > endTick){
+      throw new IllegalArgumentException("end tick must be greater than begin tick");
+    }
     this.initial = initial;
     this.end = end;
     this.initialTick = initialTick;
@@ -16,60 +19,49 @@ public class BasicMotion implements IMotion {
 
   @Override
   public State getStateAtTick(int tick) {
-    return null;
+
+      double tickDelta = endTick - initialTick;
+      double relTick = tick - initialTick;
+
+      double timeDelta = relTick / tickDelta;
+
+
+      int posX = (int) (initial.x() + ((end.x() - initial.x()) * timeDelta));
+      int posY = (int) (initial.y() + ((end.y() - initial.y()) * timeDelta));
+      int width = (int) (initial.w() + ((end.w() - initial.w()) * timeDelta));
+      int height = (int) (initial.h() + ((end.h() - initial.h()) * timeDelta));
+      int red = (int) (initial.red() + ((end.red() - initial.red()) * timeDelta));
+      int green = (int) (initial.green() + ((end.green() - initial.green()) * timeDelta));
+      int blue = (int) (initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
+      State newState = new State(width, height, posX, posY, red, green, blue);
+      System.out.println("State created for tick " + tick);
+      //System.out.println(posX + " " + posY + " " + red + " " + green + " " + blue);
+
+
+    return newState;
   }
 
-
-  private class State {
-
-    private int width;
-    private int height;
-    private int posX;
-    private int posY;
-    private int red;
-    private int green;
-    private int blue;
-
-    public State(int w, int h, int x, int y, int r, int g, int b) {
-      if (r > 255 || g > 255 || b > 255) {
-        throw new IllegalArgumentException("Color values cannot exceed 255");
-      }
-      this.width = w;
-      this.height = h;
-      this.posX = x;
-      this.posY = y;
-      this.red = r;
-      this.green = g;
-      this.blue = b;
-    }
-
-    // getters
-    public int w() {
-      return width;
-    }
-
-    public int h() {
-      return height;
-    }
-
-    public int x() {
-      return posX;
-    }
-
-    public int y() {
-      return posY;
-    }
-
-    public int red() {
-      return red;
-    }
-
-    public int green() {
-      return green;
-    }
-
-    public int blue() {
-      return blue;
-    }
+  @Override
+  public int initialTick() {
+    return initialTick;
   }
+
+  @Override
+  public int endTick() {
+    return endTick;
+  }
+
+  @Override
+  public String getOverview() {
+    StringBuilder output = new StringBuilder();
+    output.append(initialTick ).append(" ").append(initial)
+            .append("\t").append(endTick).append(" ").append(end);
+    return output.toString();
+  }
+
+  @Override
+  public boolean containsTick(int tick) {
+    return tick <= endTick && tick >= initialTick;
+  }
+
 }

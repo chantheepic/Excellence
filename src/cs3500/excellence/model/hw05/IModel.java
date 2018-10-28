@@ -1,6 +1,6 @@
 package cs3500.excellence.model.hw05;
 
-import cs3500.excellence.model.hw05.shapes.IShape;
+import cs3500.excellence.model.hw05.shapes.IComponent;
 
 public interface IModel {
 
@@ -10,7 +10,7 @@ public interface IModel {
    * @param id
    * @param shape
    */
-  void addShape(String id, IShape shape);
+  void addShape(String id, IComponent shape);
 
   /**
    * Adds a

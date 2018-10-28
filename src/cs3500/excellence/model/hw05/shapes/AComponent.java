@@ -16,51 +16,11 @@ public abstract class AComponent implements IComponent {
 
 
   @Override
-  public void addMotion(State initialState, State endState, int initialTick, int endTick){
-    if(initialTick != motions.get(motions.size()-1).)
-
-
-    if(initialTick > endTick){
-      throw new IllegalArgumentException("end tick must be greater than begin tick");
-    }
-
-    // extend and clone array when new command has endTick that is greater than that of previous endTick
-    if(this.endTick < endTick){
-      this.endTick = endTick;
-      State[] newStates = new State[endTick + 1];
-      System.arraycopy(states, 0, newStates, 0, states.length);
-      states = newStates;
-      System.out.println("new array created");
-      System.out.println(states.length);
-    }
-
-    // check if new command given doesn't interfere with previously generated commands
-    boolean spaceFree = true;
-    for(int i = initialTick; i <= endTick; i++){
-      if(states[i] != null){
-        spaceFree = false;
-        break;
-      }
-      System.out.println("space allocated");
-    }
-
-    // plug in values
-    if(spaceFree){
-      for(int tick = initialTick; tick <= endTick; tick++){
-        int posX = initialState.x() + ((endState.x() - initialState.x()) / (endTick - initialTick)) * (tick - initialTick);
-        int posY = initialState.y() + ((endState.y() - initialState.y()) / (endTick - initialTick)) * (tick - initialTick);
-        int width = initialState.w() + ((endState.w() - initialState.w()) / (endTick - initialTick)) * (tick - initialTick);
-        int height = initialState.h() + ((endState.h() - initialState.h()) / (endTick - initialTick)) * (tick - initialTick);
-        int red = initialState.red() + ((endState.red() - initialState.red()) / (endTick - initialTick)) * (tick - initialTick);
-        int green = initialState.green() + ((endState.green() - initialState.green()) / (endTick - initialTick)) * (tick - initialTick);
-        int blue = initialState.blue() + ((endState.blue() - initialState.blue()) / (endTick - initialTick)) * (tick - initialTick);
-        states[tick] = new State(width, height, posX, posY, red, green, blue);
-        System.out.println("State created for tick " + tick);
-        //System.out.println(posX + " " + posY + " " + red + " " + green + " " + blue);
-      }
-    } else{
-      throw new IllegalArgumentException("There is already a pre-allocated move during time");
-    }
+  public void addMotion(IMotion motion){
+//    if(motion.initialTick() != motions.get(motions.size()).endTick()) {
+//      throw new IllegalArgumentException("Not adjacent motions");
+//    }
+    motions.add(motion);
   }
 
   // Returning a overview is as simple as fetching the index wanted from the array
@@ -68,18 +28,22 @@ public abstract class AComponent implements IComponent {
   // fetch last successfully created state (as if the object isn't moving during this period)
   @Override
   public State getStateAtTick(int tick){
-    if(states.length > tick && states[tick] != null){
-      return states[tick];
-    } else{
-      return this.getStateAtTick(tick - 1);
+    for (IMotion motion : motions) {
+      if (motion.containsTick(tick)) {
+        return motion.getStateAtTick(tick);
+      }
     }
+
+    throw new IllegalArgumentException("Tick not valid");
+
   }
 
   @Override
-  public String getOverview(int initial, int end){
-    State initialState = this.getStateAtTick(initial);
-    State endState = this.getStateAtTick(end);
-    return initial + " " + initialState.x() + " " + initialState.y() + " " + initialState.red() + " " + initialState.green() + " " + initialState.blue() + " " + "\n" +
-        endTick + " " + endState.x() + " " + endState.y() + " " + endState.red() + " " + endState.green() + " " + endState.blue();
+  public String getOverview(){
+    StringBuilder output = new StringBuilder();
+    for (IMotion m : motions) {
+      output.append(m.getOverview()).append("\n");
+    }
+    return output.toString();
   }
 }

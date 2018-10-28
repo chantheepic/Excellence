@@ -1,6 +1,9 @@
 package cs3500.excellence.model.hw05;
 
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Represents a state of a motion. IComponent has two states (initial and end)
  */
@@ -57,5 +60,15 @@ public final class State {
   public int blue(){
     return blue;
   }
+
+  public String toString() {
+    return Arrays.asList(posX,posY,width,height,red,green,blue).stream()
+            .map( n -> n.toString() )
+            .collect( Collectors.joining( " " ) );
+
+
+
+  }
+
 
 }
