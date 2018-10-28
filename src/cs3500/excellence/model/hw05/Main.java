@@ -24,8 +24,8 @@ public class Main {
     IShape r = new Rectangle();
     m.addShape("c", c);
     m.addShape("r", r);
-    m.addCommand("c", s1, s2, 2, 4);
-    m.addCommand("r", s2, s1, 2, 4);
+    m.addMotion("c", s1, s2, 2, 4);
+    m.addMotion("r", s2, s1, 2, 4);
 
     for(int i = 2; i < 6; i++){
       State s3 = m.getStateAtTick("r", i);

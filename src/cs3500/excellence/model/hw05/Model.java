@@ -12,6 +12,7 @@ public class Model implements IModel {
   }
 
   // Do we allow the shape to change?
+  //no^
   @Override
   public void addShape(String id, IShape shape) {
     if(!registeredShapes.containsKey(id)){
@@ -22,10 +23,10 @@ public class Model implements IModel {
   }
 
 
-  public void addCommand(String id, State initialState, State endState, int initialTick, int endTick){
+  public void addMotion(String id, State initialState, State endState, int initialTick, int endTick){
     if(registeredShapes.containsKey(id)){
       IShape s = registeredShapes.get(id);
-      s.addCommand(initialState, endState, initialTick, endTick);
+      s.addMotion(initialState, endState, initialTick, endTick);
     } else{
       throw new IllegalArgumentException("Object does not exist");
     }
@@ -40,7 +41,7 @@ public class Model implements IModel {
     }
   }
 
-  public String getOverView(){
+  public String getOverview(){
     return null;
   }
 }

@@ -1,16 +1,22 @@
 package cs3500.excellence.model.hw05;
 
+
+/**
+ * Represents a state of a motion. IComponent has two states (initial and end)
+ */
 public final class State {
 
-  private double width;
-  private double height;
-  private double posX;
-  private double posY;
+
+  //Changed all to int because example only gave ints
+  private int width;
+  private int height;
+  private int posX;
+  private int posY;
   private int red;
   private int green;
   private int blue ;
 
-  public State(double w, double h, double x, double y, int r, int g, int b){
+  public State(int w, int h, int x, int y, int r, int g, int b){
     if(r > 255 || g > 255|| b > 255){
       throw new IllegalArgumentException("Color values cannot exceed 255");
     }
@@ -24,19 +30,19 @@ public final class State {
   }
 
   // getters
-  public double w(){
+  public int w(){
     return width;
   }
 
-  public double h(){
+  public int h(){
     return height;
   }
 
-  public double x(){
+  public int x(){
     return posX;
   }
 
-  public double y(){
+  public int y(){
     return posY;
   }
 

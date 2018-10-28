@@ -1,10 +1,13 @@
 package cs3500.excellence.model.hw05.shapes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
 
-public abstract class SmartShape implements IShape {
-  protected State[] states = new State[0];
-  protected int endTick = 0;
+public abstract class SmartShape2 implements IShape {
+  protected final List<IMotion> motions = new ArrayList<>();
 
   // each object created calculates its own position when given a tick. To do so, it creates a array that is of length <endTick> where
   // each index of the array represents a tick and the content of the array represents the state of this object at tick.
@@ -13,7 +16,7 @@ public abstract class SmartShape implements IShape {
 
 
   @Override
-  public void addCommand(State initialState, State endState, int initialTick, int endTick){
+  public void addMotion(State initialState, State endState, int initialTick, int endTick){
     if(initialTick > endTick){
       throw new IllegalArgumentException("end tick must be greater than begin tick");
     }
@@ -41,10 +44,10 @@ public abstract class SmartShape implements IShape {
     // plug in values
     if(spaceFree){
       for(int tick = initialTick; tick <= endTick; tick++){
-        double posX = initialState.x() + ((endState.x() - initialState.x()) / (endTick - initialTick)) * (tick - initialTick);
-        double posY = initialState.y() + ((endState.y() - initialState.y()) / (endTick - initialTick)) * (tick - initialTick);
-        double width = initialState.w() + ((endState.w() - initialState.w()) / (endTick - initialTick)) * (tick - initialTick);
-        double height = initialState.h() + ((endState.h() - initialState.h()) / (endTick - initialTick)) * (tick - initialTick);
+        int posX = initialState.x() + ((endState.x() - initialState.x()) / (endTick - initialTick)) * (tick - initialTick);
+        int posY = initialState.y() + ((endState.y() - initialState.y()) / (endTick - initialTick)) * (tick - initialTick);
+        int width = initialState.w() + ((endState.w() - initialState.w()) / (endTick - initialTick)) * (tick - initialTick);
+        int height = initialState.h() + ((endState.h() - initialState.h()) / (endTick - initialTick)) * (tick - initialTick);
         int red = initialState.red() + ((endState.red() - initialState.red()) / (endTick - initialTick)) * (tick - initialTick);
         int green = initialState.green() + ((endState.green() - initialState.green()) / (endTick - initialTick)) * (tick - initialTick);
         int blue = initialState.blue() + ((endState.blue() - initialState.blue()) / (endTick - initialTick)) * (tick - initialTick);
