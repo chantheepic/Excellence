@@ -12,11 +12,9 @@ public class Model implements IModel {
 
 
   public Model(){
-
     this.registeredShapes = new HashMap<>();
     this.compIDs = new ArrayList<>();
   }
-
 
   // Do we allow the shape to change?
   //no^

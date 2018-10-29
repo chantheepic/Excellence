@@ -19,12 +19,9 @@ public class BasicMotion implements IMotion {
 
   @Override
   public State getStateAtTick(int tick) {
-
       double tickDelta = endTick - initialTick;
       double relTick = tick - initialTick;
-
       double timeDelta = relTick / tickDelta;
-
 
       int posX = (int) (initial.x() + ((end.x() - initial.x()) * timeDelta));
       int posY = (int) (initial.y() + ((end.y() - initial.y()) * timeDelta));
@@ -34,10 +31,6 @@ public class BasicMotion implements IMotion {
       int green = (int) (initial.green() + ((end.green() - initial.green()) * timeDelta));
       int blue = (int) (initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
       State newState = new State(width, height, posX, posY, red, green, blue);
-      System.out.println("State created for tick " + tick);
-      //System.out.println(posX + " " + posY + " " + red + " " + green + " " + blue);
-
-
     return newState;
   }
 
