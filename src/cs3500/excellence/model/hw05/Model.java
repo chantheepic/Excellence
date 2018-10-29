@@ -3,34 +3,37 @@ package cs3500.excellence.model.hw05;
 import cs3500.excellence.model.hw05.components.IComponent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Model implements IModel {
-  HashMap<String, IComponent> registeredShapes;
-  List<String> compIDs;
+  SortedMap<String, IComponent> registeredShapes;
 
 
   public Model(){
-    this.registeredShapes = new HashMap<>();
-    this.compIDs = new ArrayList<>();
+    this.registeredShapes = new TreeMap<>();
   }
 
   // Do we allow the component to change?
   //no^
   @Override
   public void addComponent(String id, IComponent component) {
+    if (component == null) {
+      throw new IllegalArgumentException("Component cannot be null");
+    }
     if(!registeredShapes.containsKey(id)){
       registeredShapes.put(id, component);
-      compIDs.add(id);
     } else{
       throw new IllegalArgumentException("Object already exists");
     }
   }
 
   public void addMotion(String id, State initialState, State endState, int initialTick, int endTick){
+    if (initialState == null || endState == null) {
+      throw new IllegalArgumentException("States cannot be null");
+    }
     if(registeredShapes.containsKey(id)){
       IComponent component = registeredShapes.get(id);
       component.addMotion(new BasicMotion(initialState,endState,initialTick,endTick));
@@ -55,22 +58,19 @@ public class Model implements IModel {
       if(comp.hasMotionAtTick(tick)) {
         output.add(comp.copy());
       }
-
     }
-
     return output;
-
-
   }
 
   @Override
-  public List<String> getAllIds() {
-    return compIDs;
+  public Set<String> getAllIds() {
+    return registeredShapes.keySet();
   }
+
 
   public String getOverview(){
     StringBuilder output = new StringBuilder();
-    for( String componentId : compIDs) {
+    for( String componentId : registeredShapes.keySet()) {
       IComponent component = registeredShapes.get(componentId);
       output.append("shape " + componentId + " " + component).append("\n");
       output.append(component.getOverview(componentId)).append("\n\n");

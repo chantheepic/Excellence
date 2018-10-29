@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Set;
 
 public class Tests {
 
@@ -40,6 +39,10 @@ public class Tests {
     assertEquals(0, components.size()); //The addMotion only mutated the local version
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void nullComp() {
+    basicModel.addComponent("R", null);
+  }
 
 
   @Test

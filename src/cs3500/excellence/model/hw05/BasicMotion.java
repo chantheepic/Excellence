@@ -1,5 +1,6 @@
 package cs3500.excellence.model.hw05;
 
+
 public class BasicMotion implements IMotion {
 
   State initial;
@@ -13,6 +14,9 @@ public class BasicMotion implements IMotion {
     if(initialTick > endTick){
       throw new IllegalArgumentException("end tick must be greater than begin tick");
     }
+    if (initial == null || end == null) {
+      throw new IllegalArgumentException("States cannot be null");
+    }
     this.initial = initial;
     this.end = end;
     this.initialTick = initialTick;
@@ -20,6 +24,9 @@ public class BasicMotion implements IMotion {
   }
 
   public BasicMotion(BasicMotion bm) {
+    if (bm == null) {
+      throw new IllegalArgumentException("States cannot be null");
+    }
     this.initial = bm.initial;
     this.end = bm.end;
     this.initialTick = bm.initialTick;
@@ -68,7 +75,7 @@ public class BasicMotion implements IMotion {
   }
 
   @Override
-  public IMotion clone() {
+  public IMotion copy() {
     return new BasicMotion(this);
   }
 

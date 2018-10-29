@@ -30,4 +30,5 @@ public interface IComponent {
   boolean hasMotionAtTick(int tick);
 
   IComponent copy();
+
 }

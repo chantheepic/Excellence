@@ -1,9 +1,9 @@
 package cs3500.excellence.model.hw05.components;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.excellence.model.hw05.IModel;
 import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
 
@@ -13,6 +13,9 @@ public abstract class AComponent implements IComponent {
 
   @Override
   public void addMotion(IMotion motion){
+    if (motion == null) {
+      throw new IllegalArgumentException("Motion cannot be null");
+    }
     if(motions.size() > 0){
       if(motion.initialTick() != motions.get(motions.size()-1).endTick()) {
         throw new IllegalArgumentException("Not adjacent motions");

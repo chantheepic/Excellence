@@ -12,10 +12,10 @@ public final class Ellipse extends AComponent {
 
   }
 
-  public Ellipse(Ellipse e) {
+  public Ellipse( Ellipse e ) {
     List<IMotion> copy = new ArrayList<>();
     for(IMotion motion : e.motions) {
-      copy.add(motion.clone());
+      copy.add(motion.copy());
     }
     this.motions = copy;
   }

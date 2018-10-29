@@ -1,6 +1,7 @@
 package cs3500.excellence.model.hw05;
 
 import java.util.List;
+import java.util.Set;
 
 import cs3500.excellence.model.hw05.components.IComponent;
 
@@ -21,9 +22,9 @@ public interface IModel {
    */
   void addMotion(String id, State initialState, State endState, int initialTick, int endTick);
 
-  //State getStateAtTick(String id, int tick);
-
   /**
+   * Make sure List is a copy
+   *
    * Gets Set of Components at certain tick.
    */
   List<IComponent> getComponentsAtTick(int tick);
@@ -33,7 +34,7 @@ public interface IModel {
    * Make sure List is a copy
    * @return
    */
-  List<String> getAllIds();
+  Set<String> getAllIds();
 
   String getOverview();
 
