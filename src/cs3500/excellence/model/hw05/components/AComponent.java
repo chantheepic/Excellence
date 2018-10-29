@@ -1,4 +1,4 @@
-package cs3500.excellence.model.hw05.shapes;
+package cs3500.excellence.model.hw05.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,8 @@ import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
 
 public abstract class AComponent implements IComponent {
-  protected final List<IMotion> motions = new ArrayList<>();
+
+  protected List<IMotion> motions = new ArrayList<>();
 
   @Override
   public void addMotion(IMotion motion){
@@ -37,4 +38,5 @@ public abstract class AComponent implements IComponent {
     }
     return output.toString();
   }
+
 }

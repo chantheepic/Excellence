@@ -1,4 +1,4 @@
-package cs3500.excellence.model.hw05.shapes;
+package cs3500.excellence.model.hw05.components;
 
 import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
@@ -26,4 +26,6 @@ public interface IComponent {
    * @return
    */
   String getOverview(String id);
+
+  IComponent clone();
 }

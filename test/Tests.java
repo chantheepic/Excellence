@@ -2,9 +2,9 @@ import static org.junit.Assert.assertEquals;
 
 import cs3500.excellence.model.hw05.Model;
 import cs3500.excellence.model.hw05.State;
-import cs3500.excellence.model.hw05.shapes.Ellipse;
-import cs3500.excellence.model.hw05.shapes.IComponent;
-import cs3500.excellence.model.hw05.shapes.Rectangle;
+import cs3500.excellence.model.hw05.components.Ellipse;
+import cs3500.excellence.model.hw05.components.IComponent;
+import cs3500.excellence.model.hw05.components.Rectangle;
 import org.junit.Test;
 
 public class Tests {

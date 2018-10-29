@@ -2,7 +2,7 @@ package cs3500.excellence.model.hw05;
 
 
 /**
- * Represents a state of a motion. IComponent has two states (initial and end)
+ * Represents a state of a component. IComponent has two states (initial and end)
  */
 public final class State {
 

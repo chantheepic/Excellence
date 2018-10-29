@@ -1,10 +1,12 @@
 package cs3500.excellence.model.hw05;
 
-import cs3500.excellence.model.hw05.shapes.IComponent;
+import cs3500.excellence.model.hw05.components.IComponent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Model implements IModel {
   HashMap<String, IComponent> registeredShapes;
@@ -28,25 +30,34 @@ public class Model implements IModel {
     }
   }
 
-
   public void addMotion(String id, State initialState, State endState, int initialTick, int endTick){
     if(registeredShapes.containsKey(id)){
       IComponent component = registeredShapes.get(id);
-      //TODO: NOT LOOSELY COUPLED
-      IMotion motion = new BasicMotion(initialState,endState,initialTick,endTick);
-      component.addMotion(motion);
+      component.addMotion(new BasicMotion(initialState,endState,initialTick,endTick));
     } else{
       throw new IllegalArgumentException("Object does not exist");
     }
   }
 
-  public State getStateAtTick(String id, int tick) {
+  private State getStateAtTick(String id, int tick) {
     if(registeredShapes.containsKey(id)){
       IComponent s = registeredShapes.get(id);
       return s.getStateAtTick(tick);
     } else{
       throw new IllegalArgumentException("Object does not exist");
     }
+  }
+
+  @Override
+  public Set<IComponent> getComponentsAtTick(int tick) {
+    Set<IComponent> output = new HashSet<>();
+    for (IComponent comp : registeredShapes.values()){
+      output.add(comp.clone());
+    }
+
+    return output;
+
+
   }
 
   @Override
