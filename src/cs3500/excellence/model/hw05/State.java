@@ -62,6 +62,20 @@ public final class State {
     return String.format("%3d %3d %3d %3d %3d %3d %3d", posX, posY, width, height, red, green, blue);
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if(o instanceof State) {
+      State that = (State) o;
+      return that.posX == this.posX &&
+              that.posY == this.posY &&
+              that.width == this.width &&
+              that.height == this.height &&
+              that.red == this.red &&
+              that.green == this.green &&
+              that.green == this.green;
+    }
+    return false;
+  }
 
 
 }

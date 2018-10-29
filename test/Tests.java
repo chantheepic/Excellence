@@ -32,7 +32,7 @@ public class Tests {
 
     List<IComponent> components = basicModel.getComponentsAtTick(1);
     assertEquals(1, components.size()); //Contains one component
-    assertEquals( new State(200,200,50,100,255,0,0).toString(), components.get(0).getStateAtTick(1).toString());
+    assertEquals( new State(200,200,50,100,255,0,0), components.get(0).getStateAtTick(1));
 
     components.get(0).addMotion(new BasicMotion(new State(0,0,0,0,0,0,0), new State(0,0,0,0,0,0,0), 10, 20));
 
