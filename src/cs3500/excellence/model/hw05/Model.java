@@ -49,10 +49,13 @@ public class Model implements IModel {
   }
 
   @Override
-  public Set<IComponent> getComponentsAtTick(int tick) {
-    Set<IComponent> output = new HashSet<>();
+  public List<IComponent> getComponentsAtTick(int tick) {
+    List<IComponent> output = new ArrayList<>();
     for (IComponent comp : registeredShapes.values()){
-      output.add(comp.clone());
+      if(comp.hasMotionAtTick(tick)) {
+        output.add(comp.copy());
+      }
+
     }
 
     return output;

@@ -1,7 +1,6 @@
 package cs3500.excellence.model.hw05;
 
 import java.util.List;
-import java.util.Set;
 
 import cs3500.excellence.model.hw05.components.IComponent;
 
@@ -27,7 +26,7 @@ public interface IModel {
   /**
    * Gets Set of Components at certain tick.
    */
-  Set<IComponent> getComponentsAtTick(int tick);
+  List<IComponent> getComponentsAtTick(int tick);
 
 
   /**

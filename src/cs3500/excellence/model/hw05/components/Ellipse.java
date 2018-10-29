@@ -1,6 +1,9 @@
 package cs3500.excellence.model.hw05.components;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cs3500.excellence.model.hw05.IMotion;
 
 
 public final class Ellipse extends AComponent {
@@ -10,7 +13,11 @@ public final class Ellipse extends AComponent {
   }
 
   public Ellipse(Ellipse e) {
-    this.motions = new ArrayList<>(e.motions);
+    List<IMotion> copy = new ArrayList<>();
+    for(IMotion motion : e.motions) {
+      copy.add(motion.clone());
+    }
+    this.motions = copy;
   }
 
   public String toString() {
@@ -18,7 +25,7 @@ public final class Ellipse extends AComponent {
   }
 
   @Override
-  public IComponent clone() {
+  public IComponent copy() {
     return new Ellipse(this);
   }
 }

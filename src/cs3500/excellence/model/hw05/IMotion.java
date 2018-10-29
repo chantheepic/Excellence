@@ -12,4 +12,6 @@ public interface IMotion {
 
   boolean containsTick(int tick);
 
+  IMotion clone();
+
 }

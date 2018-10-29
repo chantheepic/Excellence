@@ -7,6 +7,8 @@ public class BasicMotion implements IMotion {
   int initialTick;
   int endTick;
 
+
+
   public BasicMotion(State initial, State end, int initialTick, int endTick) {
     if(initialTick > endTick){
       throw new IllegalArgumentException("end tick must be greater than begin tick");
@@ -15,6 +17,13 @@ public class BasicMotion implements IMotion {
     this.end = end;
     this.initialTick = initialTick;
     this.endTick = endTick;
+  }
+
+  public BasicMotion(BasicMotion bm) {
+    this.initial = bm.initial;
+    this.end = bm.end;
+    this.initialTick = bm.initialTick;
+    this.endTick = bm.endTick;
   }
 
   @Override
@@ -30,7 +39,7 @@ public class BasicMotion implements IMotion {
       int red = (int) (initial.red() + ((end.red() - initial.red()) * timeDelta));
       int green = (int) (initial.green() + ((end.green() - initial.green()) * timeDelta));
       int blue = (int) (initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
-      State newState = new State(width, height, posX, posY, red, green, blue);
+      State newState = new State(posX, posY, width, height, red, green, blue);
     return newState;
   }
 
@@ -56,6 +65,11 @@ public class BasicMotion implements IMotion {
   @Override
   public boolean containsTick(int tick) {
     return tick <= endTick && tick >= initialTick;
+  }
+
+  @Override
+  public IMotion clone() {
+    return new BasicMotion(this);
   }
 
 }

@@ -15,7 +15,7 @@ public final class Rectangle extends AComponent {
   public Rectangle(Rectangle rectangle) {
     List<IMotion> copy = new ArrayList<>();
     for(IMotion motion : rectangle.motions) {
-      copy.add(new BasicMotion(motion))
+      copy.add(motion.clone());
     }
     this.motions = new ArrayList<>(rectangle.motions);
   }
@@ -25,7 +25,7 @@ public final class Rectangle extends AComponent {
   }
 
   @Override
-  public IComponent clone() {
+  public IComponent copy() {
     return new Rectangle(this);
   }
 }

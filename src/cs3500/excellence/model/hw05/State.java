@@ -16,7 +16,7 @@ public final class State {
   private final int green;
   private final int blue;
 
-  public State(int w, int h, int x, int y, int r, int g, int b) {
+  public State(int x, int y, int w, int h, int r, int g, int b) {
     if (r > 255 || g > 255 || b > 255) {
       throw new IllegalArgumentException("Color values cannot exceed 255");
     }
@@ -61,6 +61,7 @@ public final class State {
   public String toString() {
     return String.format("%3d %3d %3d %3d %3d %3d %3d", posX, posY, width, height, red, green, blue);
   }
+
 
 
 }

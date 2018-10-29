@@ -3,6 +3,7 @@ package cs3500.excellence.model.hw05.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.excellence.model.hw05.IModel;
 import cs3500.excellence.model.hw05.IMotion;
 import cs3500.excellence.model.hw05.State;
 
@@ -37,6 +38,16 @@ public abstract class AComponent implements IComponent {
       output.append("motion " + id).append(m.getOverview()).append("\n");
     }
     return output.toString();
+  }
+
+  @Override
+  public boolean hasMotionAtTick(int tick) {
+    for(IMotion mot: motions) {
+      if (mot.containsTick(tick)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

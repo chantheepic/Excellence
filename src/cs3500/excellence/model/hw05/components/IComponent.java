@@ -27,5 +27,7 @@ public interface IComponent {
    */
   String getOverview(String id);
 
-  IComponent clone();
+  boolean hasMotionAtTick(int tick);
+
+  IComponent copy();
 }
