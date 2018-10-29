@@ -39,10 +39,10 @@ public abstract class AComponent implements IComponent {
   }
 
   @Override
-  public String getOverview(){
+  public String getOverview(String id){
     StringBuilder output = new StringBuilder();
     for (IMotion m : motions) {
-      output.append(m.getOverview()).append("\n");
+      output.append("motion " + id).append(m.getOverview()).append("\n");
     }
     return output.toString();
   }

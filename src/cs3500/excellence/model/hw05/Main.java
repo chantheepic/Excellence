@@ -1,6 +1,6 @@
 package cs3500.excellence.model.hw05;
 
-import cs3500.excellence.model.hw05.shapes.Circle;
+import cs3500.excellence.model.hw05.shapes.Ellipse;
 import cs3500.excellence.model.hw05.shapes.IComponent;
 import cs3500.excellence.model.hw05.shapes.Rectangle;
 
@@ -17,17 +17,21 @@ public class Main {
 
   public static void main(String[] args) {
     Model m = new Model();
-    State s1 = new State(0, 0, 2, 3, 0, 0, 0);
-    State s2 = new State(0, 0, 4, 5, 0, 0, 0);
-    IComponent c = new Circle();
+    State s1 = new State(0, 0, 2, 3, 255, 0, 0);
+    State s2 = new State(10, 10, 4, 5, 0, 255, 0);
+    State s3 = new State(20, 20, 2, 3, 255, 255, 0);
+    State s4 = new State(20, 40, 4, 5, 0, 255, 255);
+    IComponent c = new Ellipse();
     IComponent r = new Rectangle();
-    m.addShape("c", c);
-    m.addShape("r", r);
-    m.addMotion("c", s1, s2, 2, 4);
-    m.addMotion("r", s2, s1, 2, 4);
+    m.addShape("C", c);
+    m.addShape("R", r);
+    m.addMotion("C", s1, s2, 2, 10);
+    m.addMotion("C", s2, s3, 10, 30);
+    m.addMotion("C", s3, s4, 30, 35);
+    m.addMotion("R", s2, s1, 2, 4);
 
     System.out.println(m.getOverview());
-    State mid = m.getStateAtTick("c",3);
+    State mid = m.getStateAtTick("C",3);
     System.out.println(mid);
 //
 //    for(int i = 2; i < 6; i++){

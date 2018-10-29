@@ -53,10 +53,10 @@ public class Model implements IModel {
 
   public String getOverview(){
     StringBuilder output = new StringBuilder();
-    String title = String.format("%s%3s%3s%3s%3s%3s%3s%3s","t","x","y","w","h","r","g","b");
-    output.append(title).append(title).append("\n");
-    for( String component : compIDs) {
-      output.append(registeredShapes.get(component).getOverview()).append("\n\n");
+    for( String componentId : compIDs) {
+      IComponent component = registeredShapes.get(componentId);
+      output.append("shape " + componentId + " " + component).append("\n");
+      output.append(component.getOverview(componentId)).append("\n\n");
     }
     return output.toString();
   }

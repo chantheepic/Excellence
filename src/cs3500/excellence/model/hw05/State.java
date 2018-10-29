@@ -62,12 +62,7 @@ public final class State {
   }
 
   public String toString() {
-    return Arrays.asList(posX,posY,width,height,red,green,blue).stream()
-            .map( n -> n.toString() )
-            .collect( Collectors.joining( " " ) );
-
-
-
+    return String.format("%3d %3d %3d %3d %3d %3d %3d",posX,posY,width,height,red,green,blue);
   }
 
 

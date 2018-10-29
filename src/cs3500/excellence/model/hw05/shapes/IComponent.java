@@ -25,5 +25,5 @@ public interface IComponent {
 
    * @return
    */
-  String getOverview();
+  String getOverview(String id);
 }
