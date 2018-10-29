@@ -1,9 +1,6 @@
 package cs3500.excellence.model.hw05;
 
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 /**
  * Represents a state of a motion. IComponent has two states (initial and end)
  */
@@ -11,16 +8,16 @@ public final class State {
 
 
   //Changed all to int because example only gave ints
-  private int width;
-  private int height;
-  private int posX;
-  private int posY;
-  private int red;
-  private int green;
-  private int blue ;
+  private final int width;
+  private final int height;
+  private final int posX;
+  private final int posY;
+  private final int red;
+  private final int green;
+  private final int blue;
 
-  public State(int w, int h, int x, int y, int r, int g, int b){
-    if(r > 255 || g > 255|| b > 255){
+  public State(int w, int h, int x, int y, int r, int g, int b) {
+    if (r > 255 || g > 255 || b > 255) {
       throw new IllegalArgumentException("Color values cannot exceed 255");
     }
     this.width = w;
@@ -33,36 +30,36 @@ public final class State {
   }
 
   // getters
-  public int w(){
+  public int w() {
     return width;
   }
 
-  public int h(){
+  public int h() {
     return height;
   }
 
-  public int x(){
+  public int x() {
     return posX;
   }
 
-  public int y(){
+  public int y() {
     return posY;
   }
 
-  public int red(){
+  public int red() {
     return red;
   }
 
-  public int green(){
+  public int green() {
     return green;
   }
 
-  public int blue(){
+  public int blue() {
     return blue;
   }
 
   public String toString() {
-    return String.format("%3d %3d %3d %3d %3d %3d %3d",posX,posY,width,height,red,green,blue);
+    return String.format("%3d %3d %3d %3d %3d %3d %3d", posX, posY, width, height, red, green, blue);
   }
 
 

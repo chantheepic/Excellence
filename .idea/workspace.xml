@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37cb9ea1-3e2e-42c8-83c8-664e947c71e7" name="Default Changelist" comment="Please ignore everything except SmartShape and Main. I've only verified that those two work. The implementation is quite a bit different from what we discussed but the Interface and methods we discussed are there. In this implementation, the object created knows what its state is (position, size, color) when given a tick. It does so by taking in a command, pre-computing its states, and then storing the states in an array where each array index represents a tick.">
-      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Tests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExCELlence.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ExCELlence.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/shapes/AComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/shapes/AComponent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/Tests.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,23 +66,25 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="19" />
-          <entry key="java" value="3136" />
+          <entry key="java" value="3222" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3136" />
+          <entry key="JAVA" value="3222" />
           <entry key="PLAIN_TEXT" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="30" />
+          <entry key="java" value="31" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="30" />
+          <entry key="JAVA" value="31" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -101,20 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/IComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -122,8 +107,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Ellipse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="120">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#128#129#0" expanded="true" />
+                <element signature="e#156#157#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,21 +120,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Rectangle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
+            <state relative-caret-position="60">
               <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
               <folding>
                 <element signature="e#124#125#0" expanded="true" />
-                <element signature="e#152#153#0" expanded="true" />
+                <element signature="e#142#143#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -153,8 +133,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+            <state relative-caret-position="465">
+              <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1472#1473#0" expanded="true" />
+                <element signature="e#1493#1494#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -165,8 +168,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            <state relative-caret-position="458">
+              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -177,17 +180,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="30" column="90" lean-forward="true" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
+            <state relative-caret-position="248">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java">
+        <entry file="file://$PROJECT_DIR$/test/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+            <state relative-caret-position="360">
+              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -195,13 +198,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Tests.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="317" selection-start-line="317" selection-end-line="319" selection-end-column="5" />
+            <state relative-caret-position="204">
+              <caret line="12" column="24" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#756#757#0" expanded="true" />
+                <element signature="e#778#779#0" expanded="true" />
+                <element signature="e#798#799#0" expanded="true" />
+                <element signature="e#821#822#0" expanded="true" />
+                <element signature="e#841#842#0" expanded="true" />
+                <element signature="e#862#863#0" expanded="true" />
+                <element signature="e#882#883#0" expanded="true" />
+                <element signature="e#903#904#0" expanded="true" />
+                <element signature="e#925#926#0" expanded="true" />
+                <element signature="e#945#946#0" expanded="true" />
+                <element signature="e#969#970#0" expanded="true" />
+                <element signature="e#991#992#0" expanded="true" />
+                <element signature="e#1014#1015#0" expanded="true" />
+                <element signature="e#1035#1036#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -247,7 +263,6 @@
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IComponent.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/SmartShape2.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/SmartShape.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Oval.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/IComponent.java" />
@@ -256,10 +271,12 @@
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Ellipse.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Main.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Tests.java" />
+        <option value="$PROJECT_DIR$/test/Tests.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" />
       </list>
     </option>
   </component>
@@ -297,7 +314,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -323,11 +339,17 @@
               <item name="hw05" type="462c0819:PsiDirectoryNode" />
               <item name="shapes" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -338,7 +360,7 @@
     <property name="SearchEverywhereHistoryKey" value=";&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540790729317" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540831564776" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -348,6 +370,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="cs3500.excellence.model.hw05.shapes" />
     </key>
@@ -364,17 +389,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.Tests">
     <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ExCELlence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cs3500.excellence.model.hw05.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cs3500.excellence.model.hw05" />
-      <option name="MAIN_CLASS_NAME" value="cs3500.excellence.model.hw05.Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -383,12 +408,12 @@
       <module name="ExCELlence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cs3500.excellence.model.hw05.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cs3500.excellence.model.hw05" />
-      <option name="MAIN_CLASS_NAME" value="cs3500.excellence.model.hw05.Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
       <option name="METHOD_NAME" value="badInput5" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -399,12 +424,12 @@
       <module name="ExCELlence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cs3500.excellence.model.hw05.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cs3500.excellence.model.hw05" />
-      <option name="MAIN_CLASS_NAME" value="cs3500.excellence.model.hw05.Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
       <option name="METHOD_NAME" value="badInput6" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -415,12 +440,12 @@
       <module name="ExCELlence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cs3500.excellence.model.hw05.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cs3500.excellence.model.hw05" />
-      <option name="MAIN_CLASS_NAME" value="cs3500.excellence.model.hw05.Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
       <option name="METHOD_NAME" value="badInput7" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -431,12 +456,12 @@
       <module name="ExCELlence" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="cs3500.excellence.model.hw05.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="cs3500.excellence.model.hw05" />
-      <option name="MAIN_CLASS_NAME" value="cs3500.excellence.model.hw05.Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
       <option name="METHOD_NAME" value="badInput8" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -452,8 +477,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Tests.badInput8" />
         <item itemvalue="JUnit.Tests" />
+        <item itemvalue="JUnit.Tests.badInput8" />
         <item itemvalue="JUnit.Tests.badInput7" />
         <item itemvalue="JUnit.Tests.badInput6" />
         <item itemvalue="JUnit.Tests.badInput5" />
@@ -488,9 +513,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Tests_badInput8 - 2018.10.29 at 01h 19m 04s.xml">
-      <configuration name="Tests.badInput8" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="Tests_badInput8 - 2018.10.29 at 01h 19m 09s.xml">
       <configuration name="Tests.badInput8" configurationId="JUnit" />
     </history-entry>
@@ -518,15 +540,18 @@
     <history-entry file="Tests_badInput8 - 2018.10.29 at 01h 25m 18s.xml">
       <configuration name="Tests.badInput8" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="Tests - 2018.10.29 at 11h 39m 48s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44835000" />
+    <option name="totallyTimeSpent" value="46270000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0994006" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15262516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -535,7 +560,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32834226" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26646706" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.26737967" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3233533" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -616,7 +641,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/IComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
+        <state relative-caret-position="435">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -626,57 +651,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Ellipse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#128#129#0" expanded="true" />
+            <element signature="e#156#157#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="30" column="90" lean-forward="true" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Rectangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding>
-            <element signature="e#124#125#0" expanded="true" />
-            <element signature="e#152#153#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        <state relative-caret-position="210">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java">
+    <entry file="file://$PROJECT_DIR$/test/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+        <state relative-caret-position="360">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -685,21 +679,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+        <state relative-caret-position="204">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="24" />
+          <folding>
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#778#779#0" expanded="true" />
+            <element signature="e#798#799#0" expanded="true" />
+            <element signature="e#821#822#0" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#925#926#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#969#970#0" expanded="true" />
+            <element signature="e#991#992#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1035#1036#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/AComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Tests.java">
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="317" selection-start-line="317" selection-end-line="319" selection-end-column="5" />
+        <state relative-caret-position="435">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/shapes/Rectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+          <folding>
+            <element signature="e#124#125#0" expanded="true" />
+            <element signature="e#142#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1472#1473#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
         </state>
       </provider>
     </entry>

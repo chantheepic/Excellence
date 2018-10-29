@@ -16,12 +16,12 @@ public class Model implements IModel {
     this.compIDs = new ArrayList<>();
   }
 
-  // Do we allow the shape to change?
+  // Do we allow the component to change?
   //no^
   @Override
-  public void addShape(String id, IComponent shape) {
+  public void addComponent(String id, IComponent component) {
     if(!registeredShapes.containsKey(id)){
-      registeredShapes.put(id, shape);
+      registeredShapes.put(id, component);
       compIDs.add(id);
     } else{
       throw new IllegalArgumentException("Object already exists");
@@ -47,6 +47,11 @@ public class Model implements IModel {
     } else{
       throw new IllegalArgumentException("Object does not exist");
     }
+  }
+
+  @Override
+  public List<String> getAllIds() {
+    return compIDs;
   }
 
   public String getOverview(){
