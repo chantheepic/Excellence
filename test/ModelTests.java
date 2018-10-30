@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class Tests {
+public class ModelTests {
 
   IModel basicModel;
 
@@ -26,14 +26,16 @@ public class Tests {
   public void mutateComponents() {
 
     basicModel.addComponent("R", new Rectangle());
-    basicModel.addMotion("R", new State(200,200,50,100,255,0,0), new State(200,200,50,100,255,0,0), 1, 10);
+    basicModel.addMotion("R", new State(200, 200, 50, 100, 255, 0, 0),
+        new State(200, 200, 50, 100, 255, 0, 0), 1, 10);
     //basicModel.addMotion("R", new State(200,200,50,100,255,0,0), new State(200,200,50,100,255,0,0), 10, 20);
 
     List<IComponent> components = basicModel.getComponentsAtTick(1);
     assertEquals(1, components.size()); //Contains one component
-    assertEquals( new State(200,200,50,100,255,0,0), components.get(0).getStateAtTick(1));
+    assertEquals(new State(200, 200, 50, 100, 255, 0, 0), components.get(0).getStateAtTick(1));
 
-    components.get(0).addMotion(new BasicMotion(new State(0,0,0,0,0,0,0), new State(0,0,0,0,0,0,0), 10, 20));
+    components.get(0).addMotion(
+        new BasicMotion(new State(0, 0, 0, 0, 0, 0, 0), new State(0, 0, 0, 0, 0, 0, 0), 10, 20));
 
     components = basicModel.getComponentsAtTick(15);
     assertEquals(0, components.size()); //The addMotion only mutated the local version
@@ -46,7 +48,7 @@ public class Tests {
 
 
   @Test
-  public void wellFormedTests(){
+  public void wellFormedTests() {
     State s = new State(1, 2, 3, 4, 5, 6, 7);
     State t = new State(11, 12, 13, 14, 15, 16, 17);
     Model m = new Model();
@@ -63,9 +65,9 @@ public class Tests {
     m.addMotion("C", s, t, 2, 10);
     assertEquals(m.getOverview(),
         "shape C ellipse\n"
-        + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
-        + "\n"
-        + "\n");
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
+            + "\n"
+            + "\n");
 
     // Test if second object can be added to the model
     IComponent r = new Rectangle();
@@ -73,11 +75,11 @@ public class Tests {
     m.addMotion("R", t, s, 2, 10);
     assertEquals(m.getOverview(),
         "shape C ellipse\n"
-            + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
             + "\n"
             + "\n"
             + "shape R rectangle\n"
-            + "motion R  2 13  14  11  12  15  16  17     10  3   4   1   2   5   6   7\n"
+            + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
             + "\n"
             + "\n");
 
@@ -90,12 +92,12 @@ public class Tests {
     m.addMotion("R", u, u, 10, 20);
     assertEquals(m.getOverview(),
         "shape C ellipse\n"
-            + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
             + "\n"
             + "\n"
             + "shape R rectangle\n"
-            + "motion R  2 13  14  11  12  15  16  17     10  3   4   1   2   5   6   7\n"
-            + "motion R 10  9  12   3   6  15  18  21     20  9  12   3   6  15  18  21\n"
+            + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
+            + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
             + "\n"
             + "\n");
 
@@ -103,13 +105,13 @@ public class Tests {
     m.addMotion("R", u, s, 20, 25);
     assertEquals(m.getOverview(),
         "shape C ellipse\n"
-            + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
             + "\n"
             + "\n"
             + "shape R rectangle\n"
-            + "motion R  2 13  14  11  12  15  16  17     10  3   4   1   2   5   6   7\n"
-            + "motion R 10  9  12   3   6  15  18  21     20  9  12   3   6  15  18  21\n"
-            + "motion R 20  9  12   3   6  15  18  21     25  3   4   1   2   5   6   7\n"
+            + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
+            + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
+            + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
             + "\n"
             + "\n");
 
@@ -119,20 +121,20 @@ public class Tests {
     m.addComponent("A", a);
     m.addComponent("B", b);
     assertEquals(m.getOverview(),
-        "shape C ellipse\n"
-            + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
-            + "\n"
-            + "\n"
-            + "shape R rectangle\n"
-            + "motion R  2 13  14  11  12  15  16  17     10  3   4   1   2   5   6   7\n"
-            + "motion R 10  9  12   3   6  15  18  21     20  9  12   3   6  15  18  21\n"
-            + "motion R 20  9  12   3   6  15  18  21     25  3   4   1   2   5   6   7\n"
-            + "\n"
-            + "\n"
-            + "shape A ellipse\n"
+        "shape A ellipse\n"
             + "\n"
             + "\n"
             + "shape B rectangle\n"
+            + "\n"
+            + "\n"
+            + "shape C ellipse\n"
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
+            + "\n"
+            + "\n"
+            + "shape R rectangle\n"
+            + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
+            + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
+            + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
             + "\n"
             + "\n");
 
@@ -142,24 +144,24 @@ public class Tests {
     m.addMotion("C", w, x, 30, 40);
     m.addMotion("R", w, x, 30, 40);
     assertEquals(m.getOverview(),
-        "shape C ellipse\n"
-            + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
-            + "motion C 10 12  16   4   8  20  24  28     30 15  20   5  10  25  30  35\n"
-            + "motion C 30 15  20   5  10  25  30  35     40 18  24   6  12  30  36  42\n"
-            + "\n"
-            + "\n"
-            + "shape R rectangle\n"
-            + "motion R  2 13  14  11  12  15  16  17     10  3   4   1   2   5   6   7\n"
-            + "motion R 10  9  12   3   6  15  18  21     20  9  12   3   6  15  18  21\n"
-            + "motion R 20  9  12   3   6  15  18  21     25  3   4   1   2   5   6   7\n"
-            + "motion R 25 12  16   4   8  20  24  28     30 15  20   5  10  25  30  35\n"
-            + "motion R 30 15  20   5  10  25  30  35     40 18  24   6  12  30  36  42\n"
-            + "\n"
-            + "\n"
-            + "shape A ellipse\n"
+        "shape A ellipse\n"
             + "\n"
             + "\n"
             + "shape B rectangle\n"
+            + "\n"
+            + "\n"
+            + "shape C ellipse\n"
+            + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
+            + "motion C 10  4   8  12  16  20  24  28     30  5  10  15  20  25  30  35\n"
+            + "motion C 30  5  10  15  20  25  30  35     40  6  12  18  24  30  36  42\n"
+            + "\n"
+            + "\n"
+            + "shape R rectangle\n"
+            + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
+            + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
+            + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
+            + "motion R 25  4   8  12  16  20  24  28     30  5  10  15  20  25  30  35\n"
+            + "motion R 30  5  10  15  20  25  30  35     40  6  12  18  24  30  36  42\n"
             + "\n"
             + "\n");
 
@@ -181,7 +183,7 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object already exists");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+          + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n");
     }
@@ -203,7 +205,7 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object does not exist");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+          + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n"
           + "shape R rectangle\n"
@@ -211,7 +213,7 @@ public class Tests {
           + "\n");
     }
     try {
-   //   m.getStateAtTick("F", 5);
+      //   m.getStateAtTick("F", 5);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object does not exist");
       assertEquals(m.getOverview(), "shape C ellipse\n"
@@ -232,7 +234,7 @@ public class Tests {
     Model m = new Model();
     IComponent c = new Ellipse();
     m.addComponent("C", c);
-    m.addMotion("C", s, t, 2, 10);
+    m.addMotion("C", s, t, 0, 10);
     IComponent r = new Rectangle();
     m.addComponent("R", r);
     try {
@@ -240,7 +242,7 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Tick not valid");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+          + "motion C  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n"
           + "shape R rectangle\n"
@@ -248,11 +250,11 @@ public class Tests {
           + "\n");
     }
     try {
-      r.getStateAtTick(0);
+      r.getStateAtTick(-1);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Tick not valid");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+          + "motion C  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n"
           + "shape R rectangle\n"
@@ -293,7 +295,7 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C  2  3   4   1   2   5   6   7     10 13  14  11  12  15  16  17\n"
+          + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n");
     }
@@ -313,7 +315,7 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C 10  3   4   1   2   5   6   7     14 13  14  11  12  15  16  17\n"
+          + "motion C 10  1   2   3   4   5   6   7     14 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n");
     }
@@ -334,26 +336,29 @@ public class Tests {
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
       assertEquals(m.getOverview(), "shape C ellipse\n"
-          + "motion C 10  3   4   1   2   5   6   7     14 13  14  11  12  15  16  17\n"
-          + "motion C 14  3   4   1   2   5   6   7     20 13  14  11  12  15  16  17\n"
+          + "motion C 10  1   2   3   4   5   6   7     14 11  12  13  14  15  16  17\n"
+          + "motion C 14  1   2   3   4   5   6   7     20 11  12  13  14  15  16  17\n"
           + "\n"
           + "\n");
     }
   }
 
-  // Test that getStateAtTick gives the same answer between model and component
+  // Endpoints match but commands are given in non-chronological order
   @Test
-  public void badInput8() {
+  public void anachronicInput() {
     State s = new State(1, 2, 3, 4, 5, 6, 7);
     State t = new State(11, 12, 13, 14, 15, 16, 17);
     Model m = new Model();
     IComponent c = new Ellipse();
     m.addComponent("C", c);
-    m.addMotion("C", s, t, 10, 14);
-    m.addMotion("C", s, t, 14, 20);
-
-    for(int i = 10; i < 21; i++){
-   //   assertEquals(m.getStateAtTick("C",i), c.getStateAtTick(i));
+    try {
+      m.addMotion("C", s, t, 14, 20);
+      m.addMotion("C", s, t, 1, 14);
+    } catch (IllegalArgumentException e) {
+      assertEquals(e.getMessage(), "Not adjacent motions");
     }
   }
+
+  // TODO Test that getStateAtTick gives the same answer between model and component
+  // ^ is this needed?
 }

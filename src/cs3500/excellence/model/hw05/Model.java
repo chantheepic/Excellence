@@ -16,12 +16,19 @@ public class Model implements IModel {
 
   private final SortedMap<String, IComponent> registeredShapes;
 
+<<<<<<< HEAD
 
   public Model() {
     this.registeredShapes = new TreeMap<>();
   }
 
 
+=======
+  public Model(){
+    this.registeredShapes = new TreeMap<>();
+  }
+
+>>>>>>> b56e96a1b4a4046238e3e1e462b894d83dce744c
   @Override
   public void addComponent(String id, IComponent component) throws IllegalArgumentException {
     if (component == null) {
