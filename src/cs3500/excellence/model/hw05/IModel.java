@@ -7,35 +7,67 @@ import cs3500.excellence.model.hw05.components.IComponent;
 
 public interface IModel {
 
-
   /**
-   * Adds a shape to the model, each shape has a unique id.
+   * Adds a component to the model. The given id is used later on to refer to this component.
    *
-   *
-   * Must be added in chronological order. For future projects, a factory could be used
+   * @param id        - represents a unique identifier for the component.
+   * @param component - Represents the component being added.
+   * @throws IllegalArgumentException when trying to add a component with ID that already exists. or
+   *                                  when component is null.
    */
-  void addComponent(String id, IComponent component);
-
-
-  /**
-   * Adds a motion to the specified component
-   */
-  void addMotion(String id, State initialState, State endState, int initialTick, int endTick);
+  void addComponent(String id, IComponent component) throws IllegalArgumentException;
 
   /**
-   * Make sure List is a copy
+   * Adds a motion to the specified component. Must be added in chronological order. For future
+   * projects, a factory could be used.
    *
-   * Gets Set of Components at certain tick.
+   * @param id           - unique id for which component to add to.
+   * @param initialState - Represents the starting state when tick = initialTick.
+   * @param endState     - Represents the ending state when tick = endTick.
+   * @param initialTick  - When motion begins
+   * @param endTick      - When motion ends.
+   * @throws IllegalArgumentException - When endTick < initialTick, either states are null, or id
+   *                                  does not exist
+   */
+  void addMotion(String id, State initialState, State endState,
+                 int initialTick, int endTick) throws IllegalArgumentException;
+
+  /**
+   * Returns a copied list of components that are visible at a given tick.
+   *
+   * @param tick - the given tick.
    */
   List<IComponent> getComponentsAtTick(int tick);
 
 
   /**
-   * Make sure List is a copy
-   * @return
+   * Returns the last tick for any of the motions across all Components.
+   *
+   * @return ending tick.
+   */
+  int getFinalTick();
+
+
+  /**
+   * Gets a list of all Component IDs.
+   * @return -
    */
   Set<String> getAllIds();
 
+  /**
+   * Gets the component based on a given ID. Cannot mutate component and have side effects
+   * reflected in model.
+   * @param id - unique identifier to search for
+   * @return Component if it exists
+   * @throws IllegalArgumentException if id doesn't exist
+   */
+  IComponent getComponentByID(String id) throws IllegalArgumentException;
+
+  /**
+   * Outputs an overview of the animation. Components ordered in alphabetical order, and motions
+   * in chronological order. Shows starting and ending states of each motion.
+   * @return - The textual description of the animation.
+   */
   String getOverview();
 
 
