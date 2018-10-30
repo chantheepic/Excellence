@@ -11,13 +11,10 @@ import java.util.TreeMap;
 public class Model implements IModel {
   SortedMap<String, IComponent> registeredShapes;
 
-
   public Model(){
     this.registeredShapes = new TreeMap<>();
   }
 
-  // Do we allow the component to change?
-  //no^
   @Override
   public void addComponent(String id, IComponent component) {
     if (component == null) {

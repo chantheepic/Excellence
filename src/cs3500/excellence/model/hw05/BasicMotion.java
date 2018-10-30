@@ -8,8 +8,6 @@ public class BasicMotion implements IMotion {
   int initialTick;
   int endTick;
 
-
-
   public BasicMotion(State initial, State end, int initialTick, int endTick) {
     if(initialTick > endTick){
       throw new IllegalArgumentException("end tick must be greater than begin tick");
