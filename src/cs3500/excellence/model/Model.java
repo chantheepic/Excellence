@@ -1,4 +1,4 @@
-package cs3500.excellence.model.hw05;
+package cs3500.excellence.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,28 +7,23 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import cs3500.excellence.model.hw05.components.IComponent;
+import cs3500.excellence.model.components.IComponent;
 
 /**
- * Represents a model for supporting BasicMotions
+ * Represents a model for supporting BasicMotions.
  */
 public class Model implements IModel {
 
   private final SortedMap<String, IComponent> registeredShapes;
 
-<<<<<<< HEAD
-
+  /**
+   * Constructs an empty model.
+   */
   public Model() {
     this.registeredShapes = new TreeMap<>();
   }
 
 
-=======
-  public Model(){
-    this.registeredShapes = new TreeMap<>();
-  }
-
->>>>>>> b56e96a1b4a4046238e3e1e462b894d83dce744c
   @Override
   public void addComponent(String id, IComponent component) throws IllegalArgumentException {
     if (component == null) {
@@ -83,14 +78,14 @@ public class Model implements IModel {
   }
 
   @Override
-  public IComponent getComponentByID(String id) {
+  public IComponent getComponentByID(String id) throws IllegalArgumentException {
     if (registeredShapes.containsKey(id)) {
       return registeredShapes.get(id).copy();
     }
-      throw new IllegalArgumentException("Component does not exist");
+    throw new IllegalArgumentException("Component does not exist");
   }
 
-
+  @Override
   public String getOverview() {
     StringBuilder output = new StringBuilder();
     for (String componentId : registeredShapes.keySet()) {

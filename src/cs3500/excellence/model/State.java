@@ -1,8 +1,8 @@
-package cs3500.excellence.model.hw05;
+package cs3500.excellence.model;
 
 
 /**
- * Represents a state of a component. IComponent has two states (initial and end)
+ * Represents a state of a component. IComponent has 7 different parameters.
  */
 public final class State {
 
@@ -16,9 +16,23 @@ public final class State {
   private final int green;
   private final int blue;
 
+  /**
+   * Constructs a State with the following parameters.
+   *
+   * @param x - X position
+   * @param y - Y position
+   * @param w - width
+   * @param h - height
+   * @param r - red
+   * @param g - green
+   * @param b - blue
+   */
   public State(int x, int y, int w, int h, int r, int g, int b) {
     if (r > 255 || g > 255 || b > 255) {
       throw new IllegalArgumentException("Color values cannot exceed 255");
+    }
+    if (r < 0 || g < 0 || b < 0) {
+      throw new IllegalArgumentException("Color values cannot be negative");
     }
     this.width = w;
     this.height = h;
@@ -30,19 +44,19 @@ public final class State {
   }
 
   // getters
-  public int w() {
+  public int width() {
     return width;
   }
 
-  public int h() {
+  public int height() {
     return height;
   }
 
-  public int x() {
+  public int xPos() {
     return posX;
   }
 
-  public int y() {
+  public int yPos() {
     return posY;
   }
 
@@ -59,12 +73,13 @@ public final class State {
   }
 
   public String toString() {
-    return String.format("%3d %3d %3d %3d %3d %3d %3d", posX, posY, width, height, red, green, blue);
+    return String.format("%3d %3d %3d %3d %3d %3d %3d",
+            posX, posY, width, height, red, green, blue);
   }
 
   @Override
   public boolean equals(Object o) {
-    if(o instanceof State) {
+    if (o instanceof State) {
       State that = (State) o;
       return that.posX == this.posX &&
               that.posY == this.posY &&
@@ -72,9 +87,14 @@ public final class State {
               that.height == this.height &&
               that.red == this.red &&
               that.green == this.green &&
-              that.green == this.green;
+              that.blue == this.blue;
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return posX + posY + width + height + red + green + blue;
   }
 
 

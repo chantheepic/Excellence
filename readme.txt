@@ -28,8 +28,8 @@ overview.
 1. The user MUST input in chronological order. This can be changed using the builder pattern to
    construct IComponents, but currently we do not want the IComponent to be in an illegal state.
 
-2. The model returns a List<IComponents> instead of a generic collection. Although there is no
-   specified order, we assumed that the order should be alphabetical. This makes testing slightly
+2. The model returns a List<IComponents> instead of a generic collection (a set). Although there is
+   no specified order, we assumed that the order should be alphabetical. This makes testing slightly
    easier because we do not need to configure an equals method YET.
 
 3. We use a class called State to hold the parameter information. We understand that this makes
@@ -39,3 +39,7 @@ overview.
 4. To add more component types we need to extend AComponent, we did this to make it easier to add
    different types. We could have had an Enum representing the different available types, but that
    would require more work to extend.
+
+*Future Revisions*
+    - Factory for creating components
+    - Builder for adding motions to components

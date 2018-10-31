@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="632c6904-e08e-40af-9f31-994b0161a292" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/IMotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/view/IView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/ComponentTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/MotionTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/StateTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExCELlence.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ExCELlence.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/IModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/IModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/BasicMotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/IModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/AComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/AComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/IComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/Rectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/BasicMoveModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BasicMoveModelTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ComponentTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ModelTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/MotionTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/StateTests.java" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Excellence$All_in_ExCELlence.ic" NAME="All in ExCELlence Coverage Results" MODIFIED="1540932460983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="249" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1298864249">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="62" />
+          <entry key="readme" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="62" />
+          <entry key="PLAIN_TEXT" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="4285" />
+          <entry key="readme" value="162" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="4285" />
+          <entry key="PLAIN_TEXT" value="162" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.spring.boot.mvc.usages" />
+      <usages-collector id="statistics.spring.boot.run.usages" />
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/BasicMoveModelTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/cs3500/excellence/model/MotionTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/IModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/BasicMotion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/view/IView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/State.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="68" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/Rectangle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/IMotion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="615">
+              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/AComponent.java" />
+        <option value="$PROJECT_DIR$/test/ComponentTests.java" />
+        <option value="$PROJECT_DIR$/test/cs3500/excellence/model/hw05/ComponentTests.java" />
+        <option value="$PROJECT_DIR$/test/cs3500/excellence/model/hw05/StateTests.java" />
+        <option value="$PROJECT_DIR$/test/ModelTests.java" />
+        <option value="$PROJECT_DIR$/readme" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/IComponent.java" />
+        <option value="$PROJECT_DIR$/test/BasicMoveModelTest.java" />
+        <option value="$PROJECT_DIR$/test/cs3500/excellence/model/hw05/MotionTests.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Rectangle.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Ellipse.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="279" />
+    <option name="y" value="23" />
+    <option name="width" value="1401" />
+    <option name="height" value="1027" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="excellence" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Excellence" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Excellence" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541001708531" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="cs3500.excellence.model.hw05" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cs3500/excellence/util" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.BasicMoveModelTest.badInput2">
+    <configuration name="All in ExCELlence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BasicMoveModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BasicMoveModelTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BasicMoveModelTest.badInput2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BasicMoveModelTest" />
+      <option name="METHOD_NAME" value="badInput2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BasicMoveModelTest.emptyModel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BasicMoveModelTest" />
+      <option name="METHOD_NAME" value="emptyModel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BasicMoveModelTest.finalTicks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BasicMoveModelTest" />
+      <option name="METHOD_NAME" value="finalTicks" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.All in ExCELlence" />
+      <item itemvalue="JUnit.BasicMoveModelTest" />
+      <item itemvalue="JUnit.BasicMoveModelTest.finalTicks" />
+      <item itemvalue="JUnit.BasicMoveModelTest.emptyModel" />
+      <item itemvalue="JUnit.BasicMoveModelTest.badInput2" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.BasicMoveModelTest.badInput2" />
+        <item itemvalue="JUnit.BasicMoveModelTest.emptyModel" />
+        <item itemvalue="JUnit.All in ExCELlence" />
+        <item itemvalue="JUnit.BasicMoveModelTest.finalTicks" />
+        <item itemvalue="JUnit.BasicMoveModelTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="632c6904-e08e-40af-9f31-994b0161a292" name="Default Changelist" comment="" />
+      <created>1540514172477</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1540514172477</updated>
+      <workItem from="1540514173666" duration="8783000" />
+      <workItem from="1540530050639" duration="8391000" />
+      <workItem from="1540620542822" duration="3300000" />
+      <workItem from="1540748221078" duration="1476000" />
+      <workItem from="1540749921216" duration="12048000" />
+      <workItem from="1540774004614" duration="10837000" />
+      <workItem from="1540912377313" duration="6000" />
+      <workItem from="1540916777320" duration="3322000" />
+      <workItem from="1540928760764" duration="5783000" />
+      <workItem from="1541001484552" duration="225000" />
+    </task>
+    <task id="LOCAL-00001" summary="Please ignore everything except SmartShape and Main. I've only verified that those two work. The implementation is quite a bit different from what we discussed but the Interface and methods we discussed are there. In this implementation, the object created knows what its state is (position, size, color) when given a tick. It does so by taking in a command, pre-computing its states, and then storing the states in an array where each array index represents a tick.">
+      <created>1540537660308</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1540537660308</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="BasicMoveModelTest - 2018.10.30 at 16h 29m 12s.xml">
+      <configuration name="BasicMoveModelTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ExCELlence - 2018.10.30 at 16h 29m 19s.xml">
+      <configuration name="All in ExCELlence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ExCELlence - 2018.10.30 at 16h 34m 43s.xml">
+      <configuration name="All in ExCELlence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BasicMoveModelTest_finalTicks - 2018.10.30 at 16h 35m 51s.xml">
+      <configuration name="BasicMoveModelTest.finalTicks" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BasicMoveModelTest_finalTicks - 2018.10.30 at 16h 37m 21s.xml">
+      <configuration name="BasicMoveModelTest.finalTicks" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ExCELlence - 2018.10.30 at 16h 46m 11s.xml">
+      <configuration name="All in ExCELlence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ExCELlence - 2018.10.30 at 16h 47m 37s.xml">
+      <configuration name="All in ExCELlence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_ExCELlence - 2018.10.30 at 16h 47m 43s.xml">
+      <configuration name="All in ExCELlence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BasicMoveModelTest_emptyModel - 2018.10.30 at 16h 58m 41s.xml">
+      <configuration name="BasicMoveModelTest.emptyModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BasicMoveModelTest_badInput2 - 2018.10.30 at 17h 15m 32s.xml">
+      <configuration name="BasicMoveModelTest.badInput2" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="9221000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="279" y="23" width="1401" height="1027" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.37159675" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32834226" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25882354" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32299465" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32901296" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3262032" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info anchor="right" x="0" y="0" width="370" height="827" id="Documentation" order="9" side_tool="true" weight="0.32905984" />
+      <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32967034" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Please ignore everything except SmartShape and Main. I've only verified that those two work. The implementation is quite a bit different from what we discussed but the Interface and methods we discussed are there. In this implementation, the object created knows what its state is (position, size, color) when given a tick. It does so by taking in a command, pre-computing its states, and then storing the states in an array where each array index represents a tick." />
+    <option name="LAST_COMMIT_MESSAGE" value="Please ignore everything except SmartShape and Main. I've only verified that those two work. The implementation is quite a bit different from what we discussed but the Interface and methods we discussed are there. In this implementation, the object created knows what its state is (position, size, color) when given a tick. It does so by taking in a command, pre-computing its states, and then storing the states in an array where each array index represents a tick." />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/test/cs3500/excellence/model/ComponentTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="85" column="22" lean-forward="true" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
+          <folding>
+            <element signature="e#2582#2583#0" expanded="true" />
+            <element signature="e#2595#2596#0" expanded="true" />
+            <element signature="e#2683#2684#0" expanded="true" />
+            <element signature="e#2710#2711#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/cs3500/excellence/model/StateTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="49" lean-forward="true" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#776#777#0" expanded="true" />
+            <element signature="e#822#823#0" expanded="true" />
+            <element signature="e#906#907#0" expanded="true" />
+            <element signature="e#952#953#0" expanded="true" />
+            <element signature="e#1038#1039#0" expanded="true" />
+            <element signature="e#1084#1085#0" expanded="true" />
+            <element signature="e#1170#1171#0" expanded="true" />
+            <element signature="e#1215#1216#0" expanded="true" />
+            <element signature="e#1300#1301#0" expanded="true" />
+            <element signature="e#1346#1347#0" expanded="true" />
+            <element signature="e#1431#1432#0" expanded="true" />
+            <element signature="e#1476#1477#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ModelTests.java" />
+    <entry file="file://$PROJECT_DIR$/readme" />
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/AComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/IComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="29" column="69" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/BasicMoveModelTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/cs3500/excellence/model/MotionTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/IModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/Rectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/IMotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="68" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/model/BasicMotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/view/IView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

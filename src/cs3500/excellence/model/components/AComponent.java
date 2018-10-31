@@ -1,12 +1,14 @@
-package cs3500.excellence.model.hw05.components;
-
+package cs3500.excellence.model.components;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.excellence.model.hw05.IMotion;
-import cs3500.excellence.model.hw05.State;
+import cs3500.excellence.model.IMotion;
+import cs3500.excellence.model.State;
 
+/**
+ * Abstract class for Components.
+ */
 public abstract class AComponent implements IComponent {
 
   protected List<IMotion> motions = new ArrayList<>();
