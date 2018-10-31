@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="632c6904-e08e-40af-9f31-994b0161a292" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/IMotion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cs3500/excellence/view/IView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/ComponentTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/MotionTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/cs3500/excellence/model/StateTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExCELlence.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ExCELlence.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/BasicMotion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/IModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/IModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ExCELlence/cs3500/excellence/model/hw05/State.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/BasicMotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/BasicMotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/IModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/IMotion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/AComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/AComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/IComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/model/components/Rectangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/BasicMoveModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BasicMoveModelTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ComponentTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ModelTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/MotionTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/StateTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/excellence/view/IView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/excellence/view/IView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,13 +33,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="4285" />
+          <entry key="java" value="4288" />
           <entry key="readme" value="162" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4285" />
+          <entry key="JAVA" value="4288" />
           <entry key="PLAIN_TEXT" value="162" />
         </counts>
       </usages-collector>
@@ -142,8 +116,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/view/IView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            <state relative-caret-position="75">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -221,6 +195,7 @@
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/hw05/components/Ellipse.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/model/components/Ellipse.java" />
         <option value="$PROJECT_DIR$/src/cs3500/excellence/util/AnimationBuilder.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/excellence/view/IView.java" />
       </list>
     </option>
   </component>
@@ -293,7 +268,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541001708531" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541001775544" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -398,7 +373,7 @@
       <workItem from="1540912377313" duration="6000" />
       <workItem from="1540916777320" duration="3322000" />
       <workItem from="1540928760764" duration="5783000" />
-      <workItem from="1541001484552" duration="225000" />
+      <workItem from="1541001484552" duration="291000" />
     </task>
     <task id="LOCAL-00001" summary="Please ignore everything except SmartShape and Main. I've only verified that those two work. The implementation is quite a bit different from what we discussed but the Interface and methods we discussed are there. In this implementation, the object created knows what its state is (position, size, color) when given a tick. It does so by taking in a command, pre-computing its states, and then storing the states in an array where each array index represents a tick.">
       <created>1540537660308</created>
@@ -442,7 +417,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9221000" />
+    <option name="totallyTimeSpent" value="9287000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="279" y="23" width="1401" height="1027" extended-state="0" />
@@ -632,8 +607,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/excellence/view/IView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
