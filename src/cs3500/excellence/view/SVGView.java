@@ -1,4 +1,4 @@
 package cs3500.excellence.view;
 
-public class SVGView {
+public class SVGView implements IView {
 }

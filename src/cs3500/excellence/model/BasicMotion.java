@@ -74,8 +74,8 @@ public class BasicMotion implements IMotion {
   @Override
   public String getOverview() {
     StringBuilder output = new StringBuilder();
-    String initOut = String.format("%3d%3s", initialTick, initial);
-    String endOut = String.format("%3d%3s", endTick, end);
+    String initOut = String.format("%d %s", initialTick, initial);
+    String endOut = String.format("%d %s", endTick, end);
     output.append(initOut + "    " + endOut);
     return output.toString();
   }

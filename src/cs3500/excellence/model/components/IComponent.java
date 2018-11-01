@@ -59,4 +59,10 @@ public interface IComponent {
    */
   IComponent copy();
 
+  /**
+   * Does this component contain any motions?
+   * @return
+   */
+  boolean hasMotions();
+
 }

@@ -27,7 +27,7 @@ public class BasicMoveModelTest {
    */
   @Before
   public void setUp() {
-    basicModel = new Model();
+    basicModel = Model.builder().build();
     s = new State(1, 2, 3, 4, 5, 6, 7);
     t = new State(11, 12, 13, 14, 15, 16, 17);
     ellipse = new Ellipse();

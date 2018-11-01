@@ -40,7 +40,7 @@ public abstract class AComponent implements IComponent {
   public String getOverview(String id) {
     StringBuilder output = new StringBuilder();
     for (IMotion m : motions) {
-      output.append("motion " + id).append(m.getOverview()).append("\n");
+      output.append("motion " + id + " ").append(m.getOverview()).append("\n");
     }
     return output.toString();
   }
@@ -63,6 +63,11 @@ public abstract class AComponent implements IComponent {
       return motions.get(motions.size() - 1).endTick();
     }
 
+  }
+
+  @Override
+  public boolean hasMotions() {
+    return !motions.isEmpty();
   }
 
 }

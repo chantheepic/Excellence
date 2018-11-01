@@ -43,3 +43,9 @@ overview.
 *Future Revisions*
     - Factory for creating components
     - Builder for adding motions to components
+
+*CHANGES*
+
+    - Need to hold order that shapes were added, dictionary that holds order??
+        -> or need to use a list instead of a map.
+        ->UPDATE: linked hashmap is what we need.

@@ -1,26 +1,34 @@
 package cs3500.excellence.model;
 
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
+import cs3500.excellence.model.components.Ellipse;
 import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.model.components.Rectangle;
+import cs3500.excellence.util.AnimationBuilder;
 
 /**
  * Represents a model for supporting BasicMotions.
  */
 public class Model implements IModel {
 
-  private final SortedMap<String, IComponent> registeredShapes;
+  private final LinkedHashMap<String, IComponent> registeredShapes;
 
+
+  public Model() {
+    registeredShapes = new LinkedHashMap<>();
+  }
   /**
    * Constructs an empty model.
    */
-  public Model() {
-    this.registeredShapes = new TreeMap<>();
+  private Model(LinkedHashMap<String, IComponent> shapes) {
+    this.registeredShapes = shapes;
+    //TODO MIGHT NEED TO CLONE
   }
 
 
@@ -95,4 +103,65 @@ public class Model implements IModel {
     }
     return output.toString();
   }
+
+  public static Builder builder(){
+    return new Builder();
+  }
+
+  public static final class Builder implements AnimationBuilder<IModel> {
+
+    private final LinkedHashMap<String, IComponent> registeredShapes = new LinkedHashMap<>();
+
+    @Override
+    public IModel build() {
+      return new Model(registeredShapes);
+    }
+
+    //TODO
+    @Override
+    public AnimationBuilder<IModel> setBounds(int x, int y, int width, int height) {
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<IModel> declareShape(String name, String type) {
+
+      IComponent shape;
+
+      switch (type){
+        case "rectangle":
+          shape = new Rectangle();
+          break;
+        case "ellipse":
+          shape = new Ellipse();
+          break;
+        default:
+          throw new IllegalArgumentException("Invalid type");
+          //TODO interface doesn't declare this
+      }
+      registeredShapes.put(name, shape);
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<IModel> addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+      if(!registeredShapes.containsKey(name)) {
+        throw new IllegalArgumentException("Name does not exist");
+      }
+      IComponent comp = registeredShapes.get(name);
+      if(comp.hasMotions() && comp.getFinalTick() != t1){
+        throw new IllegalArgumentException("Motions do not lineup");
+      }
+      //Throws errors if invalid.
+      comp.addMotion(new BasicMotion(new State(x1,y1,w1,h1,r1,g1,b1), new State(x2,y2,w2,h2,r2,g2,b2),t1,t2));
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<IModel> addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+      return this;
+    }
+  }
+
+
 }

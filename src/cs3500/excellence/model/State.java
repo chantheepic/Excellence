@@ -73,7 +73,7 @@ public final class State {
   }
 
   public String toString() {
-    return String.format("%3d %3d %3d %3d %3d %3d %3d",
+    return String.format("%d %d %d %d %d %d %d",
             posX, posY, width, height, red, green, blue);
   }
 

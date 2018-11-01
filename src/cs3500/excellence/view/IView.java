@@ -1,5 +1,5 @@
 package cs3500.excellence.view;
 
-public class IView {
+public interface IView {
 
 }
