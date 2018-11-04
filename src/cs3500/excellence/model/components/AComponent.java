@@ -69,5 +69,4 @@ public abstract class AComponent implements IComponent {
   public boolean hasMotions() {
     return !motions.isEmpty();
   }
-
 }

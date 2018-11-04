@@ -1,5 +1,6 @@
 package cs3500.excellence.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
