@@ -28,12 +28,14 @@ public class Excellence {
       model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
       System.out.println(model.getOverview());
 
-      List<State> states = new ArrayList();
-      List<IComponent> components = model.getComponentsAtTick(1);
-      view = new VisualAnimationFrame(components, 1, model.getFinalTick());
-      view.drawFrame();
-      view.setVisible(true);
-      view.animate();
+      List<IComponent> components;
+      view = new VisualAnimationFrame();
+
+      for (int tick = 0; tick < model.getFinalTick(); tick++){
+        view.update(tick, model.getComponentsAtTick(tick));
+        view.drawFrame();
+        view.setVisible(true);
+      }
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
