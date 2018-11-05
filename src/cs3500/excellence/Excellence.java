@@ -41,6 +41,7 @@ public class Excellence {
 //    }
 //  }
 
+  // Animate on life support
   public static void main(String[] args) {
     VisualAnimationFrame view;
     IModel basicModel = Model.builder().build();
@@ -56,7 +57,7 @@ public class Excellence {
 
     List<State> states = new ArrayList();
       List<IComponent> components = basicModel.getComponentsAtTick(5);
-      view = new VisualAnimationFrame(components, 2);
+      view = new VisualAnimationFrame(components, 2, basicModel.getFinalTick());
       view.drawFrame();
       view.setVisible(true);
       view.animate();

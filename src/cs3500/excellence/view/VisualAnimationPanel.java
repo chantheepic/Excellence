@@ -27,7 +27,6 @@ public class VisualAnimationPanel extends JPanel {
     @Override
     public void paintComponent (Graphics g) {
       super.paintComponent(g);
-      System.out.println(states.get(0));
       drawShape(g);
     }
 }

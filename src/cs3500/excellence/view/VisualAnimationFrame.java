@@ -8,14 +8,16 @@ import javax.swing.*;
 
 public class VisualAnimationFrame extends JFrame implements IView {
   private VisualAnimationPanel panel;
-  private int tick;
+  private int initialTick;
+  private int finalTick;
   List<IComponent> components;
 
-  public VisualAnimationFrame(List<IComponent> components, int initialTick) {
+  public VisualAnimationFrame(List<IComponent> components, int initialTick, int finalTick) {
     super();
     this.panel = new VisualAnimationPanel();
     this.components = components;
-    this.tick = initialTick;
+    this.initialTick = initialTick;
+    this.finalTick = finalTick;
     add(panel);
     setTitle("Basic shapes");
     setSize(500, 500);
@@ -27,23 +29,21 @@ public class VisualAnimationFrame extends JFrame implements IView {
   public void drawFrame(){
     List<State> states = new ArrayList();
     for(IComponent c : components){
-      states.add(c.getStateAtTick(tick));
+      states.add(c.getStateAtTick(initialTick));
     }
     panel.updatePanelStates(states);
   }
 
   public void animate(){
-    while(true){
+    for(int i = initialTick; i < finalTick; i++){
       try{
-        Thread.sleep(41);
-        //System.out.println(tick);
-        tick++;
+        Thread.sleep(33); //~30fps
+        initialTick++;
         drawFrame();
         this.repaint();
       } catch (InterruptedException e){
         System.out.println(e.getMessage());
       }
-
     }
   }
 
