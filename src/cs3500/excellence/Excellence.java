@@ -1,13 +1,8 @@
 package cs3500.excellence;
 
 
-import cs3500.excellence.model.BasicMotion;
-import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Ellipse;
 import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.Rectangle;
-import cs3500.excellence.view.IView;
-import cs3500.excellence.view.VisualAnimationFrame;
+import cs3500.excellence.view.VisualAnimationView;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,13 +10,12 @@ import java.io.FileReader;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Excellence {
 
   public static void main(String[] args) {
-    VisualAnimationFrame view;
+    VisualAnimationView view;
     IModel model;
 
     try {
@@ -29,7 +23,7 @@ public class Excellence {
       System.out.println(model.getOverview());
 
       List<IComponent> components;
-      view = new VisualAnimationFrame();
+      view = new VisualAnimationView();
 
       for (int tick = 0; tick < model.getFinalTick(); tick++){
         view.update(tick, model.getComponentsAtTick(tick));
@@ -44,7 +38,7 @@ public class Excellence {
 
 //   //Animate on life support
 //  public static void main(String[] args) {
-//    VisualAnimationFrame view;
+//    VisualAnimationView view;
 //    IModel basicModel = Model.builder().build();
 //
 //    State s = new State(1, 200, 30, 50, 100, 6, 7);
@@ -58,7 +52,7 @@ public class Excellence {
 //
 //    List<State> states = new ArrayList();
 //      List<IComponent> components = basicModel.getComponentsAtTick(2);
-//      view = new VisualAnimationFrame(components, 2, basicModel.getFinalTick());
+//      view = new VisualAnimationView(components, 2, basicModel.getFinalTick());
 //      view.drawFrame();
 //      view.setVisible(true);
 //      view.animate();

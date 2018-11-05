@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class VisualAnimationFrame extends JFrame implements IView {
+public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
   private int tick;
   List<IComponent> components;
 
-  public VisualAnimationFrame() {
+  public VisualAnimationView() {
     super();
     this.panel = new VisualAnimationPanel();
     add(panel);
@@ -22,11 +22,12 @@ public class VisualAnimationFrame extends JFrame implements IView {
   }
 
   // Implementation Specifics
+  @Override
   public void update(int tick, List<IComponent> components){
     this.tick = tick;
     this.components = components;
     try{
-      Thread.sleep(33); //~30fps
+      Thread.sleep(17); //~60fps
       drawFrame();
       this.repaint();
     } catch (InterruptedException e){
@@ -34,6 +35,7 @@ public class VisualAnimationFrame extends JFrame implements IView {
     }
   }
 
+  @Override
   public void drawFrame(){
     List<State> states = new ArrayList();
     for(IComponent c : components){
@@ -42,13 +44,4 @@ public class VisualAnimationFrame extends JFrame implements IView {
     panel.updatePanelStates(states);
   }
 
-  // MAIN
-//  public static void main(String[] args) {
-//    State s = new State(1,1,100,100,100,1,1);
-//    List<State> ls = new ArrayList();
-//    ls.add(s);
-//    VisualAnimationFrame ex = new VisualAnimationFrame(ls);
-//    ex.drawFrame();
-//    ex.setVisible(true);
-//  }
 }
