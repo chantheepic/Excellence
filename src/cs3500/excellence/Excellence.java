@@ -2,6 +2,7 @@ package cs3500.excellence;
 
 
 import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,20 +17,27 @@ public class Excellence {
 
   public static void main(String[] args) {
     VisualAnimationView view;
+    TextualView view2;
     IModel model;
 
     try {
       model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
-      System.out.println(model.getOverview());
+      //System.out.println(model.getOverview());
 
       List<IComponent> components;
       view = new VisualAnimationView();
+      view2 = new TextualView();
 
       for (int tick = 0; tick < model.getFinalTick(); tick++){
         view.update(tick, model.getComponentsAtTick(tick));
         view.drawFrame();
         view.setVisible(true);
       }
+
+//      for (int tick = 0; tick < model.getFinalTick(); tick++){
+//        view2.update(tick, model.getComponentsAtTick(tick));
+//        view2.drawFrame();
+//      }
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();

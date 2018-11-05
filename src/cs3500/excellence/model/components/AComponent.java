@@ -12,6 +12,7 @@ import cs3500.excellence.model.State;
 public abstract class AComponent implements IComponent {
 
   protected List<IMotion> motions = new ArrayList<>();
+  protected List<IStatic> keyFrames = new ArrayList<>();
 
   @Override
   public void addMotion(IMotion motion) {
@@ -25,6 +26,15 @@ public abstract class AComponent implements IComponent {
     }
     motions.add(motion);
   }
+
+  @Override
+  public void addKeyframe(IStatic key) {
+    if (key == null) {
+      throw new IllegalArgumentException("Motion cannot be null");
+    }
+    keyFrames.add(key);
+  }
+
 
   @Override
   public State getStateAtTick(int tick) {

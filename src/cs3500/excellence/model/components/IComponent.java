@@ -19,7 +19,7 @@ public interface IComponent {
    *                                   ... tick = 10 ] and [tick = 10 ... tick = 25 ]
    */
   void addMotion(IMotion motion) throws IllegalArgumentException;
-
+  void addKeyframe(IStatic key)
 
   /**
    * Gets the calculated state at a specific tick.
