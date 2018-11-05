@@ -5,11 +5,12 @@ import java.util.List;
 
 public interface IView {
 
-  /**
-   * Draws the given components at a given tick.
-   * @param tick
-   */
-  void drawTick(List<IComponent> components, int tick);
+//
+//  /**
+//   * Draws the given components at a given tick.
+//   * @param tick
+//   */
+//  void drawTick(List<IComponent> components, int tick);
 
   /**
    * Sets the list of components.

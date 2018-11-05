@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.Rectangle;
-import cs3500.excellence.model.components.Ellipse;
 
 import static org.junit.Assert.assertEquals;
 

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import cs3500.excellence.model.components.Ellipse;
+import cs3500.excellence.model.components.Component;
 import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.Rectangle;
+import cs3500.excellence.model.components.Shape;
 import cs3500.excellence.util.AnimationBuilder;
 
 /**
@@ -126,10 +126,10 @@ public class Model implements IModel {
 
       switch (type){
         case "rectangle":
-          shape = new Rectangle();
+          shape = new Component(name, Shape.RECT);
           break;
         case "ellipse":
-          shape = new Ellipse();
+          shape = new Component(name, Shape.ELLIPSE);
           break;
         default:
           throw new IllegalArgumentException("Invalid type");

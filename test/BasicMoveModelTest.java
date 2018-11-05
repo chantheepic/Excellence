@@ -7,9 +7,7 @@ import cs3500.excellence.model.BasicMotion;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Ellipse;
 import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.Rectangle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

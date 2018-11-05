@@ -68,13 +68,6 @@ public interface IModel {
    */
   IComponent getComponentByID(String id) throws IllegalArgumentException;
 
-  /**
-   * Outputs an overview of the animation. Components ordered in alphabetical order, and motions in
-   * chronological order. Shows starting and ending states of each motion.
-   *
-   * @return - The textual description of the animation.
-   */
-  String getOverview();
 
 
   List<IComponent> getAllComponents();
