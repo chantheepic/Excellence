@@ -9,22 +9,25 @@ import javax.swing.JPanel;
 
 public class VisualAnimationPanel extends JPanel {
   private List<State> states;
-  public VisualAnimationPanel(List<State> states){
+  public VisualAnimationPanel(){
+  }
+
+  public void updatePanelStates(List<State> states) {
     this.states = states;
   }
 
-
-  private void drawShape(Graphics g, State s) {
+  private void drawShape(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.setPaint(new Color(s.red(), s.green(), s.blue()));
-    g2d.fillRect(s.xPos(), s.yPos(), s.width(), s.height());
+    for(State s : states){
+      g2d.setPaint(new Color(s.red(), s.green(), s.blue()));
+      g2d.fillRect(s.xPos(), s.yPos(), s.width(), s.height());
+    }
   }
 
     @Override
     public void paintComponent (Graphics g) {
-      for (State s : states) {
-        super.paintComponent(g);
-        drawShape(g, s);
-      }
+      super.paintComponent(g);
+      System.out.println(states.get(0));
+      drawShape(g);
     }
 }

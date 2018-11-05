@@ -11,10 +11,12 @@ public class VisualAnimationFrame extends JFrame implements IView {
   private int tick;
   List<IComponent> components;
 
-  public VisualAnimationFrame(List<IComponent> components, int tick) {
+  public VisualAnimationFrame(List<IComponent> components, int initialTick) {
     super();
+    this.panel = new VisualAnimationPanel();
     this.components = components;
-    this.tick = tick;
+    this.tick = initialTick;
+    add(panel);
     setTitle("Basic shapes");
     setSize(500, 500);
     setLocationRelativeTo(null);
@@ -27,12 +29,22 @@ public class VisualAnimationFrame extends JFrame implements IView {
     for(IComponent c : components){
       states.add(c.getStateAtTick(tick));
     }
-    panel = new VisualAnimationPanel(states);
-    add(panel);
+    panel.updatePanelStates(states);
   }
 
   public void animate(){
+    while(true){
+      try{
+        Thread.sleep(41);
+        //System.out.println(tick);
+        tick++;
+        drawFrame();
+        this.repaint();
+      } catch (InterruptedException e){
+        System.out.println(e.getMessage());
+      }
 
+    }
   }
 
   // MAIN

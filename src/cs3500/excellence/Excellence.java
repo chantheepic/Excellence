@@ -45,16 +45,20 @@ public class Excellence {
     VisualAnimationFrame view;
     IModel basicModel = Model.builder().build();
 
-    State s = new State(1, 2, 30, 50, 100, 6, 7);
+    State s = new State(1, 200, 30, 50, 100, 6, 7);
     State t = new State(110, 12, 20, 20, 15, 100, 17);
     IComponent r = new Rectangle();
+    IComponent v = new Rectangle();
     basicModel.addComponent("R", r);
-    basicModel.addMotion("R", t, s, 2, 10);
+    basicModel.addComponent("V", v);
+    basicModel.addMotion("R", t, s, 2, 100);
+    basicModel.addMotion("V", s, t, 2, 100);
 
     List<State> states = new ArrayList();
       List<IComponent> components = basicModel.getComponentsAtTick(5);
-      view = new VisualAnimationFrame(components, 10);
+      view = new VisualAnimationFrame(components, 2);
       view.drawFrame();
       view.setVisible(true);
+      view.animate();
   }
 }
