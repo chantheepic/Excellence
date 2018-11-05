@@ -20,46 +20,45 @@ import java.util.List;
 
 public class Excellence {
 
-
-//  public static void main(String[] args) {
-//    VisualAnimationFrame view;
-//    IModel model;
-//
-//    try {
-//
-//      model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
-//      System.out.println(model.getOverview());
-//
-//      List<State> states = new ArrayList();
-//      List<IComponent> components = model.getComponentsAtTick(100);
-//      view = new VisualAnimationFrame(components, 100);
-//      view.drawFrame();
-//      view.setVisible(true);
-//
-//    } catch (FileNotFoundException e) {
-//      e.printStackTrace();
-//    }
-//  }
-
-  // Animate on life support
   public static void main(String[] args) {
     VisualAnimationFrame view;
-    IModel basicModel = Model.builder().build();
+    IModel model;
 
-    State s = new State(1, 200, 30, 50, 100, 6, 7);
-    State t = new State(110, 12, 20, 20, 15, 100, 17);
-    IComponent r = new Rectangle();
-    IComponent v = new Rectangle();
-    basicModel.addComponent("R", r);
-    basicModel.addComponent("V", v);
-    basicModel.addMotion("R", t, s, 2, 100);
-    basicModel.addMotion("V", s, t, 2, 100);
+    try {
+      model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
+      System.out.println(model.getOverview());
 
-    List<State> states = new ArrayList();
-      List<IComponent> components = basicModel.getComponentsAtTick(5);
-      view = new VisualAnimationFrame(components, 2, basicModel.getFinalTick());
+      List<State> states = new ArrayList();
+      List<IComponent> components = model.getComponentsAtTick(1);
+      view = new VisualAnimationFrame(components, 1, model.getFinalTick());
       view.drawFrame();
       view.setVisible(true);
       view.animate();
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
+
+//   //Animate on life support
+//  public static void main(String[] args) {
+//    VisualAnimationFrame view;
+//    IModel basicModel = Model.builder().build();
+//
+//    State s = new State(1, 200, 30, 50, 100, 6, 7);
+//    State t = new State(110, 12, 20, 20, 15, 100, 17);
+//    IComponent r = new Rectangle();
+//    IComponent v = new Rectangle();
+//    basicModel.addComponent("R", r);
+//    basicModel.addComponent("V", v);
+//    basicModel.addMotion("R", t, s, 2, 100);
+//    basicModel.addMotion("V", s, t, 2, 100);
+//
+//    List<State> states = new ArrayList();
+//      List<IComponent> components = basicModel.getComponentsAtTick(2);
+//      view = new VisualAnimationFrame(components, 2, basicModel.getFinalTick());
+//      view.drawFrame();
+//      view.setVisible(true);
+//      view.animate();
+//  }
 }
