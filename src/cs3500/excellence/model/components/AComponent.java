@@ -13,6 +13,8 @@ public abstract class AComponent implements IComponent {
 
   protected List<IMotion> motions = new ArrayList<>();
   protected List<IStatic> keyFrames = new ArrayList<>();
+  protected String name;
+
 
   @Override
   public void addMotion(IMotion motion) {
@@ -20,20 +22,21 @@ public abstract class AComponent implements IComponent {
       throw new IllegalArgumentException("Motion cannot be null");
     }
     if (motions.size() > 0) {
-      if (motion.initialTick() != motions.get(motions.size() - 1).endTick()) {
+      IMotion lastMotion = motions.get(motions.size() - 1);
+      if (motion.equals(lastMotion) && motion.initialTick() != lastMotion.endTick()) {
         throw new IllegalArgumentException("Not adjacent motions");
       }
     }
     motions.add(motion);
   }
 
-  @Override
-  public void addKeyframe(IStatic key) {
-    if (key == null) {
-      throw new IllegalArgumentException("Motion cannot be null");
-    }
-    keyFrames.add(key);
-  }
+//  @Override
+//  public void addKeyframe(IStatic key) {
+//    if (key == null) {
+//      throw new IllegalArgumentException("Motion cannot be null");
+//    }
+//    keyFrames.add(key);
+//  }
 
 
   @Override
@@ -79,4 +82,10 @@ public abstract class AComponent implements IComponent {
   public boolean hasMotions() {
     return !motions.isEmpty();
   }
+
+  @Override
+  public String getID() {
+    return name;
+  }
+
 }

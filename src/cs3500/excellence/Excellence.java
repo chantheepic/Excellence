@@ -22,27 +22,38 @@ public class Excellence {
 
     try {
       model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
-      //System.out.println(model.getOverview());
-
-      List<IComponent> components;
-      view = new VisualAnimationView();
-      view2 = new TextualView();
-
-      for (int tick = 0; tick < model.getFinalTick(); tick++){
-        view.update(tick, model.getComponentsAtTick(tick));
-        view.drawFrame();
-        view.setVisible(true);
-      }
-
-//      for (int tick = 0; tick < model.getFinalTick(); tick++){
-//        view2.update(tick, model.getComponentsAtTick(tick));
-//        view2.drawFrame();
-//      }
-
+      view2 = new TextualView(System.out);
+      view2.setOverview(model.getOverview());
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+
   }
+
+
+//    try {
+//      model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
+//      //System.out.println(model.getOverview());
+//
+//      List<IComponent> components;
+//      view = new VisualAnimationView();
+//      view2 = new TextualView();
+//
+//      for (int tick = 0; tick < model.getFinalTick(); tick++){
+//        view.update(tick, model.getComponentsAtTick(tick));
+//        view.drawFrame();
+//        view.setVisible(true);
+//      }
+//
+////      for (int tick = 0; tick < model.getFinalTick(); tick++){
+////        view2.update(tick, model.getComponentsAtTick(tick));
+////        view2.drawFrame();
+////      }
+//
+//    } catch (FileNotFoundException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
 //   //Animate on life support
 //  public static void main(String[] args) {

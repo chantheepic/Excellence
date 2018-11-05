@@ -5,6 +5,16 @@ import java.util.List;
 
 public interface IView {
 
-  void update(int tick, List<IComponent> components);
-  void drawFrame();
+  /**
+   * Draws the given components at a given tick.
+   * @param tick
+   */
+  void drawTick(List<IComponent> components, int tick);
+
+  /**
+   * Sets the list of components.
+   * @param components
+   */
+  void setComponents(List<IComponent> components);
+
 }

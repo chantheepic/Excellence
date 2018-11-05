@@ -77,4 +77,7 @@ public interface IModel {
   String getOverview();
 
 
+  List<IComponent> getAllComponents();
+
+
 }

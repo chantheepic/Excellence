@@ -22,7 +22,6 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   // Implementation Specifics
-  @Override
   public void update(int tick, List<IComponent> components){
     this.tick = tick;
     this.components = components;
@@ -36,6 +35,20 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   @Override
+  public void drawTick(List<IComponent> components, int tick) {
+
+  }
+
+  @Override
+  public void setComponents(List<IComponent> components) {
+
+  }
+
+  @Override
+  public void setOverview(String overview) {
+
+  }
+
   public void drawFrame(){
     List<State> states = new ArrayList();
     for(IComponent c : components){

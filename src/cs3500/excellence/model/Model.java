@@ -93,15 +93,11 @@ public class Model implements IModel {
     throw new IllegalArgumentException("Component does not exist");
   }
 
+
+
   @Override
-  public String getOverview() {
-    StringBuilder output = new StringBuilder();
-    for (String componentId : registeredShapes.keySet()) {
-      IComponent component = registeredShapes.get(componentId);
-      output.append("shape " + componentId + " " + component).append("\n");
-      output.append(component.getOverview(componentId)).append("\n\n");
-    }
-    return output.toString();
+  public List<IComponent> getAllComponents() {
+    return null;
   }
 
   public static Builder builder(){
