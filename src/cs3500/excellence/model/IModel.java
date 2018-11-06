@@ -15,12 +15,11 @@ public interface IModel {
    * Adds a component to the model. The given id is used later on to refer to this component. All
    * components added will stored in alphabetical order.
    *
-   * @param id        - represents a unique identifier for the component.
    * @param component - Represents the component being added.
    * @throws IllegalArgumentException when trying to add a component with ID that already exists. or
    *                                  when component is null.
    */
-  void addComponent(String id, IComponent component) throws IllegalArgumentException;
+  void addComponent(IComponent component) throws IllegalArgumentException;
 
   /**
    * Adds a motion to the specified component. Must be added in chronological order. Must also be
@@ -71,6 +70,8 @@ public interface IModel {
 
 
   List<IComponent> getAllComponents();
+
+  String getOverview();
 
 
 }

@@ -12,39 +12,26 @@ public class TextualView implements IView {
 
 
   List<IComponent> components;
-  private String overview;
   Appendable out;
 
 
   public TextualView(Appendable out) {
     this.out = Objects.requireNonNull(out, "Output cannot be null");
-    components = new ArrayList<>();
-  }
-
-  @Override
-  public void drawTick(List<IComponent> components, int tick) {
-    throw new UnsupportedOperationException("Only supported for visual views");
+    this.components = new ArrayList<>();
   }
 
   @Override
   public void setComponents(List<IComponent> components) {
-
+    this.components = Objects.requireNonNull(components, "Components cannot be null");
+    appendText(this.getOverview());
   }
 
   public String getOverview() {
     StringBuilder output = new StringBuilder();
-    for (String componentId : registeredShapes.keySet()) {
-      IComponent component = registeredShapes.get(componentId);
-      output.append("shape " + componentId + " " + component).append("\n");
-      output.append(component.getOverview(componentId)).append("\n\n");
+    for (IComponent comp : this.components) {
+      output.append(comp.getOverview()).append("\n\n");
     }
     return output.toString();
-  }
-
-  @Override
-  public void setOverview(String overview) {
-    this.overview = overview;
-    appendText(this.overview);
   }
 
   private void appendText(String s) {

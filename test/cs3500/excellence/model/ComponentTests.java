@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import cs3500.excellence.model.components.Component;
 import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.model.components.Shape;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,8 +17,8 @@ public class ComponentTests {
 
   @Before
   public void setUp() {
-    e = new Ellipse();
-    r = new Rectangle();
+    e = new Component("E", Shape.ELLIPSE);
+    r = new Component("R", Shape.RECT);
   }
 
   @Test
@@ -26,7 +28,7 @@ public class ComponentTests {
     IMotion forward = new BasicMotion(s, t, 0, 10);
     IMotion backward = new BasicMotion(t, s, 10, 20);
 
-    assertEquals("", e.getOverview("E"));
+    assertEquals("", e.getOverview());
 
     e.addMotion(forward);
     e.addMotion(backward);
@@ -34,7 +36,7 @@ public class ComponentTests {
     //Checks that overview works
     assertEquals("motion E  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
                     + "motion E 10 11  12  13  14  15  16  17     20  1   2   3   4   5   6   7\n",
-            e.getOverview("E"));
+            e.getOverview());
 
     //0->10 , 10->20 are critical points
     Assert.assertEquals("  1   2   3   4   5   6   7", e.getStateAtTick(0).toString());

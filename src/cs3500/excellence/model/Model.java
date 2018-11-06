@@ -33,10 +33,11 @@ public class Model implements IModel {
 
 
   @Override
-  public void addComponent(String id, IComponent component) throws IllegalArgumentException {
+  public void addComponent(IComponent component) throws IllegalArgumentException {
     if (component == null) {
       throw new IllegalArgumentException("Component cannot be null");
     }
+    String id = component.getID();
     if (registeredShapes.containsKey(id)) {
       throw new IllegalArgumentException("Object already exists");
     }
@@ -97,6 +98,11 @@ public class Model implements IModel {
 
   @Override
   public List<IComponent> getAllComponents() {
+    return new ArrayList<>(this.registeredShapes.values());
+  }
+
+  @Override
+  public String getOverview() {
     return null;
   }
 

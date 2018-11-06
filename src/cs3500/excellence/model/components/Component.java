@@ -68,10 +68,11 @@ public class Component implements IComponent {
   }
 
   @Override
-  public String getOverview(String id) {
+  public String getOverview() {
     StringBuilder output = new StringBuilder();
+    output.append("shape " + this.name + " " + this.type).append("\n");
     for (IMotion m : motions) {
-      output.append("motion " + id + " ").append(m.getOverview()).append("\n");
+      output.append("motion " + this.name + " ").append(m.getOverview()).append("\n");
     }
     return output.toString();
   }

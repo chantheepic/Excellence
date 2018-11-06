@@ -35,7 +35,7 @@ public interface IComponent {
    *
    * @return - the textual representation of the component's motions.
    */
-  String getOverview(String id);
+  String getOverview();
 
   /**
    * Whether or not the component has a motion defined at a specific tick.

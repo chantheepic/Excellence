@@ -13,20 +13,14 @@ public class SVGView implements IView {
   List<IComponent> components;
 
 
-  @Override
-  public void drawTick(List<IComponent> components, int tick) {
 
-  }
 
   @Override
   public void setComponents(List<IComponent> components) {
 
   }
 
-  @Override
-  public void setOverview(String overview) {
 
-  }
 
 
 

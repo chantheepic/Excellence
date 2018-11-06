@@ -34,20 +34,14 @@ public class VisualAnimationView extends JFrame implements IView {
     }
   }
 
-  @Override
-  public void drawTick(List<IComponent> components, int tick) {
 
-  }
 
   @Override
   public void setComponents(List<IComponent> components) {
 
   }
 
-  @Override
-  public void setOverview(String overview) {
 
-  }
 
   public void drawFrame(){
     List<State> states = new ArrayList();
