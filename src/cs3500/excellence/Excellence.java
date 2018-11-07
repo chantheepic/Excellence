@@ -12,6 +12,7 @@ import java.io.FileReader;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +31,11 @@ public class Excellence {
       //System.out.println(Arrays.toString(model.getBoundary()));
       //view = new VisualAnimationView();
       //view.setComponents(model.getAllComponents(), model.getBoundary());
-      view3 = new SVGView(System.out);
+
+      PrintWriter out = new PrintWriter("sample.txt");
+      view3 = new SVGView(out);
       view3.setComponents(model.getAllComponents(), model.getBoundary());
+      out.close();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
