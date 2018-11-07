@@ -10,6 +10,7 @@ import javax.swing.*;
 public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
   private int finalTick;
+  private int[] offset;
   List<IComponent> components;
 
   public VisualAnimationView() {
@@ -25,6 +26,7 @@ public class VisualAnimationView extends JFrame implements IView {
   @Override
   public void setComponents(List<IComponent> components, int[] boundary) {
     this.components = components;
+    this.offset = new int[]{boundary[0], boundary[1]};
     setSize(boundary[2], boundary[3]);
     findFinalTick();
     animate();
@@ -66,7 +68,7 @@ public class VisualAnimationView extends JFrame implements IView {
         shapes.add(c.getShape());
       }
     }
-    panel.updatePanelStates(states, shapes);
+    panel.updatePanelStates(states, shapes, offset);
   }
 
 }

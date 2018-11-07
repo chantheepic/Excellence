@@ -11,13 +11,15 @@ import javax.swing.JPanel;
 public class VisualAnimationPanel extends JPanel {
   private List<State> states;
   private List<Shape> shapes;
+  private int[] offset;
 
   public VisualAnimationPanel(){
   }
 
-  public void updatePanelStates(List<State> states, List<Shape> shapes) {
+  public void updatePanelStates(List<State> states, List<Shape> shapes, int[] offset) {
     this.states = states;
     this.shapes = shapes;
+    this.offset = offset;
   }
 
   private void drawShape(Graphics g) {
@@ -28,9 +30,9 @@ public class VisualAnimationPanel extends JPanel {
 
       switch(shapes.get(i)){
         case RECT:
-          gfx.fillRect(state.xPos(), state.yPos(), state.width(), state.height());
+          gfx.fillRect(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
         case ELLIPSE:
-          gfx.fillOval(state.xPos(), state.yPos(), state.width(), state.height());
+          gfx.fillOval(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
       }
     }
   }
