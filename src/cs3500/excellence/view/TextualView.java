@@ -9,10 +9,8 @@ import java.util.Objects;
 import cs3500.excellence.model.components.IComponent;
 
 public class TextualView implements IView {
-
-
-  List<IComponent> components;
-  Appendable out;
+  private List<IComponent> components;
+  private Appendable out;
 
 
   public TextualView(Appendable out) {
@@ -26,7 +24,7 @@ public class TextualView implements IView {
     appendText(this.getOverview());
   }
 
-  public String getOverview() {
+  private String getOverview() {
     StringBuilder output = new StringBuilder();
     for (IComponent comp : this.components) {
       output.append(comp.getOverview()).append("\n\n");

@@ -31,8 +31,12 @@ public class VisualAnimationPanel extends JPanel {
       switch(shapes.get(i)){
         case RECT:
           gfx.fillRect(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
+          break;
         case ELLIPSE:
           gfx.fillOval(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
+          break;
+
+          default: throw new IllegalArgumentException("not a supported shape");
       }
     }
   }

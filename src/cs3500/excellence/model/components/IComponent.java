@@ -2,6 +2,7 @@ package cs3500.excellence.model.components;
 
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
+import java.util.ArrayList;
 
 
 /**
@@ -9,6 +10,7 @@ import cs3500.excellence.model.State;
  */
 public interface IComponent {
 
+  ArrayList<IMotion> returnAllMotions();
 
   /**
    * Adds a motion to the component. Must be added in chronological order and must be adjacent end

@@ -35,6 +35,11 @@ public class Component implements IComponent {
   }
 
   @Override
+  public ArrayList<IMotion> returnAllMotions() {
+    return new ArrayList<IMotion>(this.motions);
+  }
+
+  @Override
   public void addMotion(IMotion motion) {
     if (motion == null) {
       throw new IllegalArgumentException("Motion cannot be null");
