@@ -21,6 +21,8 @@ public interface IComponent {
   void addMotion(IMotion motion) throws IllegalArgumentException;
   //void addKeyframe(IStatic key)
 
+  Shape getShape();
+
   /**
    * Gets the calculated state at a specific tick.
    *

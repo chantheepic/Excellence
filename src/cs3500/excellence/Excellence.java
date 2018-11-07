@@ -24,6 +24,8 @@ public class Excellence {
       model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
       view2 = new TextualView(System.out);
       view2.setComponents(model.getAllComponents());
+      view = new VisualAnimationView();
+      view.setComponents(model.getAllComponents());
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }

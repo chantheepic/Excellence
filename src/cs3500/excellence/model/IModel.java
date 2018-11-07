@@ -43,15 +43,6 @@ public interface IModel {
    */
   List<IComponent> getComponentsAtTick(int tick);
 
-
-  /**
-   * Returns the last tick for any of the motions across all Components.
-   *
-   * @return ending tick.
-   */
-  int getFinalTick();
-
-
   /**
    * Gets a list of all Component IDs.
    */

@@ -19,7 +19,6 @@ public class Model implements IModel {
 
   private final LinkedHashMap<String, IComponent> registeredShapes;
 
-
   public Model() {
     registeredShapes = new LinkedHashMap<>();
   }
@@ -64,18 +63,6 @@ public class Model implements IModel {
     for (IComponent comp : registeredShapes.values()) {
       if (comp.hasMotionAtTick(tick)) {
         output.add(comp.copy());
-      }
-    }
-    return output;
-  }
-
-  @Override
-  public int getFinalTick() {
-    int output = 0;
-    for (IComponent component : registeredShapes.values()) {
-      int finalTick = component.getFinalTick();
-      if (finalTick > output) {
-        output = finalTick;
       }
     }
     return output;

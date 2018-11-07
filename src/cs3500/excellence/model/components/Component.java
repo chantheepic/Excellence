@@ -55,7 +55,10 @@ public class Component implements IComponent {
 //    }
 //    keyFrames.add(key);
 //  }
-
+  @Override
+  public Shape getShape(){
+    return type;
+  }
 
   @Override
   public State getStateAtTick(int tick) {

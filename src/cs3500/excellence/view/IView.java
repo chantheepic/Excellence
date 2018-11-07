@@ -17,5 +17,4 @@ public interface IView {
    * @param components
    */
   void setComponents(List<IComponent> components);
-
 }
