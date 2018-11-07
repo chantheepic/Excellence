@@ -10,26 +10,22 @@ import javax.swing.*;
 public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
   private int finalTick;
-  private int canvasX;
-  private int canvasY;
   List<IComponent> components;
 
   public VisualAnimationView() {
     super();
     this.panel = new VisualAnimationPanel();
-    this.canvasX = 500;
-    this.canvasY = 500;
     add(panel);
-    setTitle("Basic shapes");
-    setSize(canvasX, canvasY);
+    setTitle("EXCELLENCE");
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
 
   @Override
-  public void setComponents(List<IComponent> components) {
+  public void setComponents(List<IComponent> components, int[] boundary) {
     this.components = components;
+    setSize(boundary[2], boundary[3]);
     findFinalTick();
     animate();
   }
@@ -43,9 +39,6 @@ public class VisualAnimationView extends JFrame implements IView {
       }
     }
     finalTick = output;
-  }
-
-  public void autoFitCanvas() {
   }
 
 

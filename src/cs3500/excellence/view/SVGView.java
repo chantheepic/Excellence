@@ -12,13 +12,8 @@ public class SVGView implements IView {
 
   List<IComponent> components;
 
-
-
-
   @Override
-  public void setComponents(List<IComponent> components) {
+  public void setComponents(List<IComponent> components, int[] boundary) {
 
   }
-
-
 }

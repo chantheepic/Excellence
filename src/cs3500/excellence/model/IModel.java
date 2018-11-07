@@ -62,7 +62,7 @@ public interface IModel {
 
   List<IComponent> getAllComponents();
 
+  int[] getBoundary();
+
   String getOverview();
-
-
 }

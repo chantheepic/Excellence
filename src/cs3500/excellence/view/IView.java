@@ -16,5 +16,5 @@ public interface IView {
    * Sets the list of components.
    * @param components
    */
-  void setComponents(List<IComponent> components);
+  void setComponents(List<IComponent> components, int[] boundary);
 }
