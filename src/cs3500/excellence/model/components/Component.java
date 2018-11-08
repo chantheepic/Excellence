@@ -43,13 +43,27 @@ public class Component implements IComponent, IROComponent {
     motions.add(motion);
   }
 
-//  @Override
-//  public void addKeyframe(IStatic key) {
-//    if (key == null) {
-//      throw new IllegalArgumentException("Motion cannot be null");
-//    }
-//    keyFrames.add(key);
-//  }
+  @Override
+  public void removeMotion(int index) {
+    motions.remove(index);
+  }
+
+  @Override
+  public void removeMotionAtTick(int tick) {
+    for(int i = 0; i < motions.size(); i++){
+      if(motions.get(i).containsTick(tick)){
+        motions.remove(i);
+        break;
+      }
+    }
+  }
+
+  @Override
+  public void removeAllMotion() {
+    motions.clear();
+  }
+
+
   @Override
   public Shape getShape(){
     return type;

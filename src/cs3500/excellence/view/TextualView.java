@@ -12,6 +12,7 @@ import cs3500.excellence.model.components.IROComponent;
 
 public class TextualView implements IView {
   private List<IROComponent> components;
+  private int speed;
   private Appendable out;
 
 
@@ -21,8 +22,9 @@ public class TextualView implements IView {
   }
 
   @Override
-  public void setComponents(List<IROComponent> components, int[] boundary) {
+  public void setComponents(List<IROComponent> components, int[] boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
+    this.speed = speed;
     appendText(this.getOverview());
   }
 

@@ -57,6 +57,18 @@ public class Model implements IModel, IROModel {
 
   }
 
+  @Override
+  public void removeComponent(String name) throws IllegalArgumentException{
+    if (name == null) {
+      throw new IllegalArgumentException("Name cannot be null");
+    }
+    if (!registeredShapes.containsKey(name)) {
+      throw new IllegalArgumentException("Object does not exists");
+    }
+
+    registeredShapes.remove(name);
+  }
+
   private Shape createShape(String type) {
     switch (type) {
       case "rectangle":

@@ -16,7 +16,7 @@ public class Controller {
 
 
   public void go(){
-    view.setComponents(model.getAllComponents(), model.getBoundary());
+    //view.setComponents(model.getAllComponents(), model.getBoundary());
   }
 
 }

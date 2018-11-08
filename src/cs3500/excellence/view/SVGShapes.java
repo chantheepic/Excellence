@@ -11,17 +11,17 @@ import cs3500.excellence.model.components.Shape;
 public class SVGShapes {
 
 
-  public String buildShapeAnimation(IROComponent comp) {
+  public String buildShapeAnimation(IROComponent comp, int speed) {
     StringBuilder output = new StringBuilder();
     if (comp.getShape() == Shape.RECT) {
       SVGRect r = new SVGRect();
       output.append(r.declareShape(comp));
-      output.append(r.animateShape(comp));
+      output.append(r.animateShape(comp, speed));
       output.append("</rect> \n");
     } else {
       SVGEllpse e = new SVGEllpse();
       output.append(e.declareShape(comp));
-      output.append(e.animateShape(comp));
+      output.append(e.animateShape(comp, speed));
       output.append("</ellipse> \n");
     }
     return output.toString();
@@ -40,15 +40,15 @@ public class SVGShapes {
       return output.toString();
     }
 
-    private String animateShape(IROComponent comp) {
+    private String animateShape(IROComponent comp, int speed) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       StringBuilder output = new StringBuilder();
       for (IMotion motion : motions) {
         State s = motion.getStateAtTick(motion.initialTick());
         State e = motion.getStateAtTick(motion.endTick());
 
-        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / 30;
-        long initialTime = motion.initialTick() * 1000 / 30;
+        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
+        long initialTime = motion.initialTick() * 1000 / speed;
         String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
         String[] attributes = new String[]{"x", "y", "width", "height"};
 
@@ -97,15 +97,15 @@ public class SVGShapes {
       return output.toString();
     }
 
-    private String animateShape(IROComponent comp) {
+    private String animateShape(IROComponent comp, int speed) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       StringBuilder output = new StringBuilder();
       for (IMotion motion : motions) {
         State s = motion.getStateAtTick(motion.initialTick());
         State e = motion.getStateAtTick(motion.endTick());
 
-        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / 30;
-        long initialTime = motion.initialTick() * 1000 / 30;
+        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
+        long initialTime = motion.initialTick() * 1000 / speed;
         String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
         String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
 

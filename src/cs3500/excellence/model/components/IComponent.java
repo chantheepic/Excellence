@@ -21,8 +21,8 @@ public interface IComponent extends IROComponent {
    *                                   ... tick = 10 ] and [tick = 10 ... tick = 25 ]
    */
   void addMotion(IMotion motion) throws IllegalArgumentException;
-  //void addKeyframe(IStatic key)
 
-
-
+  void removeMotion(int index);
+  void removeMotionAtTick(int tick);
+  void removeAllMotion();
 }

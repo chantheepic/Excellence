@@ -1,17 +1,19 @@
 package cs3500.excellence.view;
 
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.IComponent;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
 public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
+  private int speed;
   private int finalTick;
   private int[] offset;
+  private int[] windowSize;
   List<IROComponent> components;
 
   public VisualAnimationView() {
@@ -23,14 +25,19 @@ public class VisualAnimationView extends JFrame implements IView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-
   @Override
-  public void setComponents(List<IROComponent> components, int[] boundary) {
+  public void setComponents(List<IROComponent> components, int[] boundary, int speed) {
     this.components = components;
+    this.speed = speed;
     this.offset = new int[]{boundary[0], boundary[1]};
-    setSize(boundary[2], boundary[3]);
+    this.windowSize = new int[]{boundary[2], boundary[3]};
     findFinalTick();
     animate();
+  }
+
+  @Override
+  public Dimension getPreferredSize() {
+    return new Dimension(windowSize[0], windowSize[1]);
   }
 
   public void findFinalTick() {
@@ -47,9 +54,10 @@ public class VisualAnimationView extends JFrame implements IView {
 
   // Implementation Specifics
   public void animate(){
+    setSize(getPreferredSize());
     for(int tick = 0; tick < finalTick; tick++){
       try{
-        Thread.sleep(17); //~60fps
+        Thread.sleep(1000/speed); //~60fps
         drawFrame(tick);
         setVisible(true);
         this.repaint();
