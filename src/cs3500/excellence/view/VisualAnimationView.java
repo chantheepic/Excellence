@@ -13,8 +13,7 @@ public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
   private int speed;
   private int finalTick;
-  private int[] offset;
-  private int[] windowSize;
+  private Boundary boundary;
   List<IROComponent> components;
 
   public VisualAnimationView() {
@@ -30,8 +29,7 @@ public class VisualAnimationView extends JFrame implements IView {
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = components;
     this.speed = speed;
-    this.offset = new int[]{boundary.getX(), boundary.getY()};
-    this.windowSize = new int[]{boundary.getWidth(), boundary.getHeight()};
+    this.boundary = boundary;
     findFinalTick();
     animate();
   }
@@ -43,7 +41,7 @@ public class VisualAnimationView extends JFrame implements IView {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(windowSize[0], windowSize[1]);
+    return new Dimension(boundary.getWidth() + boundary.getX(), boundary.getHeight() + boundary.getY());
   }
 
   public void findFinalTick() {
@@ -83,7 +81,7 @@ public class VisualAnimationView extends JFrame implements IView {
         shapes.add(c.getShape());
       }
     }
-    panel.updatePanelStates(states, shapes, offset);
+    panel.updatePanelStates(states, shapes, boundary);
   }
 
 }

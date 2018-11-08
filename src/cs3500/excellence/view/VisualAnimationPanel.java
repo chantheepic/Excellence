@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.Shape;
 import java.awt.Color;
@@ -11,15 +12,15 @@ import javax.swing.JPanel;
 public class VisualAnimationPanel extends JPanel {
   private List<State> states;
   private List<Shape> shapes;
-  private int[] offset;
+  private Boundary boundary;
 
   public VisualAnimationPanel(){
   }
 
-  public void updatePanelStates(List<State> states, List<Shape> shapes, int[] offset) {
+  public void updatePanelStates(List<State> states, List<Shape> shapes, Boundary offset) {
     this.states = states;
     this.shapes = shapes;
-    this.offset = offset;
+    this.boundary = boundary;
   }
 
   private void drawShape(Graphics g) {
@@ -30,10 +31,10 @@ public class VisualAnimationPanel extends JPanel {
 
       switch(shapes.get(i)){
         case RECTANGLE:
-          gfx.fillRect(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
+          gfx.fillRect(state.xPos(), state.yPos(), state.width(), state.height());
           break;
         case ELLIPSE:
-          gfx.fillOval(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
+          gfx.fillOval(state.xPos(), state.yPos(), state.width(), state.height());
           break;
 
           default: throw new IllegalArgumentException("not a supported shape");
