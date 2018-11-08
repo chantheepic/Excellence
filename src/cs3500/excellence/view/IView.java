@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.components.IROComponent;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IView {
    * Sets the list of components, the canvas size of the view, and view tick speed.
    * @param components
    */
-  void setComponents(List<IROComponent> components, int[] boundary, int speed);
+  void setComponents(List<IROComponent> components, Boundary boundary, int speed);
 
   /**
    * Sets the output of the view.

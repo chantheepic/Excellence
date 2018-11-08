@@ -6,12 +6,10 @@ import org.junit.Test;
 import java.io.StringReader;
 
 import cs3500.excellence.Interaction;
-import cs3500.excellence.model.BasicMotion;
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.IModel;
-import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Shape;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +19,7 @@ public class TextualViewMutationTest {
 
   @Before
   public void setUp() throws Exception {
-    basicModel = new Model();
+    basicModel = new Model(new Boundary(0,0,0,0));
   }
 
   @Test

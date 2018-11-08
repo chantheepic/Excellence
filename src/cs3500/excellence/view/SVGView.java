@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.components.IROComponent;
 
 /**
@@ -13,7 +14,7 @@ import cs3500.excellence.model.components.IROComponent;
 public class SVGView implements IView {
   private List<IROComponent> components;
   private int speed;
-  private int[] boundary;
+  private Boundary boundary;
   private Appendable out;
 
   public SVGView(Appendable out) {
@@ -22,7 +23,7 @@ public class SVGView implements IView {
   }
 
   @Override
-  public void setComponents(List<IROComponent> components, int[] boundary, int speed) {
+  public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
     this.speed = speed;
     this.boundary = boundary;
@@ -51,9 +52,11 @@ public class SVGView implements IView {
   // set canvas size
   private String setCanvas() {
     StringBuilder output = new StringBuilder();
-    output.append(String.format("<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n", boundary[2], boundary[3]));
+    output.append(String.format
+            ("<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n",
+                    boundary.getWidth(), boundary.getHeight()));
     SVGShapeFactory s = new SVGShapeFactory();
-    for(IROComponent comp : components) {
+    for (IROComponent comp : components) {
       output.append(s.buildShapeAnimation(comp, speed));
     }
     output.append("</svg>");

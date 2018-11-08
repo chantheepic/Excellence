@@ -20,17 +20,17 @@ import cs3500.excellence.util.AnimationBuilder;
 public class Model implements IModel {
 
   private final LinkedHashMap<String, IComponent> registeredShapes;
-  private final int[] boundary;
+  private final Boundary boundary;
 
-  public Model() {
+  public Model(Boundary boundary) {
     registeredShapes = new LinkedHashMap<>();
-    boundary = new int[4];
+    this.boundary = boundary;
   }
 
   /**
    * Constructs an empty model.
    */
-  private Model(LinkedHashMap<String, IComponent> shapes, int[] boundary) {
+  private Model(LinkedHashMap<String, IComponent> shapes, Boundary boundary) {
     this.registeredShapes = shapes;
     this.boundary = boundary;
     //TODO MIGHT NEED TO CLONE
@@ -137,8 +137,8 @@ public class Model implements IModel {
   }
 
   @Override
-  public int[] getBoundary() {
-    return new int[]{boundary[0], boundary[1], boundary[2], boundary[3]};
+  public Boundary getBoundary() {
+    return boundary;
   }
 
   @Override
@@ -149,7 +149,7 @@ public class Model implements IModel {
   public static final class Builder implements AnimationBuilder<IModel> {
 
     private final LinkedHashMap<String, IComponent> registeredShapes = new LinkedHashMap<>();
-    private final int[] boundary = new int[4];
+    private  Boundary boundary = new Boundary(0,0,500,500);
 
     @Override
     public IModel build() {
@@ -159,10 +159,7 @@ public class Model implements IModel {
     //TODO
     @Override
     public AnimationBuilder<IModel> setBounds(int x, int y, int width, int height) {
-      boundary[0] = x;
-      boundary[1] = y;
-      boundary[2] = width;
-      boundary[3] = height;
+      this.boundary = new Boundary(x, y, width, height);
       return this;
     }
 

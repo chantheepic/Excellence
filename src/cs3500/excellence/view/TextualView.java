@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
@@ -22,7 +23,7 @@ public class TextualView implements IView {
   }
 
   @Override
-  public void setComponents(List<IROComponent> components, int[] boundary, int speed) {
+  public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
     this.speed = speed;
     appendText(this.getOverview());
@@ -30,7 +31,7 @@ public class TextualView implements IView {
 
   @Override
   public void setOutput(Appendable app) {
-    this.out = Objects.requireNonNull(app, "Output cannot be null");;
+    this.out = Objects.requireNonNull(app, "Output cannot be null");
   }
 
   private String getOverview() {

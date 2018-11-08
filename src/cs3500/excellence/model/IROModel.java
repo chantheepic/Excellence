@@ -37,7 +37,7 @@ public interface IROModel {
 
   List<IROComponent> getAllComponents();
 
-  int[] getBoundary();
+  Boundary getBoundary();
 
   String getOverview();
 

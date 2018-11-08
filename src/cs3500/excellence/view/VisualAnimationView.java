@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
@@ -26,11 +27,11 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   @Override
-  public void setComponents(List<IROComponent> components, int[] boundary, int speed) {
+  public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = components;
     this.speed = speed;
-    this.offset = new int[]{boundary[0], boundary[1]};
-    this.windowSize = new int[]{boundary[2], boundary[3]};
+    this.offset = new int[]{boundary.getX(), boundary.getY()};
+    this.windowSize = new int[]{boundary.getWidth(), boundary.getHeight()};
     findFinalTick();
     animate();
   }
