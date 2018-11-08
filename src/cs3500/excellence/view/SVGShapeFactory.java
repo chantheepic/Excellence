@@ -38,7 +38,7 @@ public class SVGShapeFactory {
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
-        "rect", firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
+        "rect", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width(), firstState.height(),
         firstState.red(), firstState.green(), firstState.green()));
 
     for (IMotion motion : motions) {
@@ -72,7 +72,7 @@ public class SVGShapeFactory {
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
-        "ellipse", firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
+        "ellipse", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width(), firstState.height(),
         firstState.red(), firstState.green(), firstState.green()));
 
     for (IMotion motion : motions) {
@@ -82,7 +82,7 @@ public class SVGShapeFactory {
       int timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
       int initialTime = motion.initialTick() * 1000 / speed;
 
-      String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
+      String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\" fill=\"freeze\"/> \n";
       String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
 
       output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
@@ -112,7 +112,6 @@ public class SVGShapeFactory {
       output.append(String.format(stringFormat
           , yPos, s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
   }
-
 
     String sColor = String.format("rgb(%s,%s,%s)", s.red(), s.green(), s.blue());
     String eColor = String.format("rgb(%s,%s,%s)", e.red(), e.green(), e.blue());
