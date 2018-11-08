@@ -56,28 +56,8 @@ public class SVGView implements IView{
     StringBuilder output = new StringBuilder();
     for (int i = 0; i < components.size(); i++) {
       IComponent comp = components.get(i);
-      ArrayList<IMotion> motions = comp.returnAllMotions();
-      IMotion firstMotion = motions.get(1);
-      State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
-      String shape;
-
-
-      if(comp.getShape() == Shape.RECT){
-        shape = "rect";
-        output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"#%s\"> \n",
-            shape, firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
-            Integer.toHexString(firstState.red()) + Integer.toHexString(firstState.green()) + Integer.toHexString(firstState.blue())));
-        output.append(animate(motions, comp.getShape()));
-        output.append("</rect> \n");
-      } else {
-        shape = "ellipse";
-        output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"#%s\"> \n",
-            shape, firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
-            Integer.toHexString(firstState.red()) + Integer.toHexString(firstState.green()) + Integer.toHexString(firstState.blue())));
-        output.append(animate(motions, comp.getShape()));
-        output.append("</ellipse> \n");
-      }
-      //TODO tidy up this mess
+      SVGShapes s = new SVGShapes();
+      output.append(s.buildShapeAnimation(comp));
     }
     return output.toString();
   }
@@ -131,14 +111,3 @@ public class SVGView implements IView{
   }
 
 }
-
-
-
-//<svg width="300px" height="100px">
-//<rect x="0" y="50" width="20" height="15" fill="blue">
-//<animate attributeName="x" from="0" to="100" dur="2s"/>
-//</rect>
-//<circle cx="0" cy="50" r="15" fill="blue">
-//<animate attributeName="cy" from="0" to="100" dur="2s"/>
-//</circle>
-//</svg>
