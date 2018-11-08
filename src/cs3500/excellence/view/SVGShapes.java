@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.IComponent;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 
@@ -36,14 +35,13 @@ public class SVGShapes {
       StringBuilder output = new StringBuilder();
 
       output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"#%s\"> \n",
-              comp.getShape(), firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
+              "rect", firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
               Integer.toHexString(firstState.red()) + Integer.toHexString(firstState.green()) + Integer.toHexString(firstState.blue())));
       return output.toString();
     }
 
     private String animateShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
-      Shape shape = comp.getShape();
       StringBuilder output = new StringBuilder();
       for (IMotion motion : motions) {
         State s = motion.getStateAtTick(motion.initialTick());
@@ -94,14 +92,13 @@ public class SVGShapes {
       StringBuilder output = new StringBuilder();
 
       output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"#%s\"> \n",
-              comp.getShape(), firstState.xPos(), firstState.yPos(), firstState.width() / 2, firstState.height() / 2,
+              "ellipse", firstState.xPos(), firstState.yPos(), firstState.width() / 2, firstState.height() / 2,
               Integer.toHexString(firstState.red()) + Integer.toHexString(firstState.green()) + Integer.toHexString(firstState.blue())));
       return output.toString();
     }
 
     private String animateShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
-      Shape shape = comp.getShape();
       StringBuilder output = new StringBuilder();
       for (IMotion motion : motions) {
         State s = motion.getStateAtTick(motion.initialTick());
