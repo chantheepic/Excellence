@@ -2,6 +2,7 @@ package cs3500.excellence.view;
 
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class VisualAnimationView extends JFrame implements IView {
   private VisualAnimationPanel panel;
   private int finalTick;
   private int[] offset;
-  List<IComponent> components;
+  List<IROComponent> components;
 
   public VisualAnimationView() {
     super();
@@ -24,7 +25,7 @@ public class VisualAnimationView extends JFrame implements IView {
 
 
   @Override
-  public void setComponents(List<IComponent> components, int[] boundary) {
+  public void setComponents(List<IROComponent> components, int[] boundary) {
     this.components = components;
     this.offset = new int[]{boundary[0], boundary[1]};
     setSize(boundary[2], boundary[3]);
@@ -34,7 +35,7 @@ public class VisualAnimationView extends JFrame implements IView {
 
   public void findFinalTick() {
     int output = 0;
-    for (IComponent component : components) {
+    for (IROComponent component : components) {
       int finalTick = component.getFinalTick();
       if (finalTick > output) {
         output = finalTick;
@@ -62,7 +63,7 @@ public class VisualAnimationView extends JFrame implements IView {
   public void drawFrame(int tick){
     List<State> states = new ArrayList();
     List<Shape> shapes = new ArrayList();
-    for(IComponent c : components){
+    for(IROComponent c : components){
       if(c.hasMotionAtTick(tick)){
         states.add(c.getStateAtTick(tick));
         shapes.add(c.getShape());

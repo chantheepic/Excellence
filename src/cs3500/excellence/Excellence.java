@@ -20,25 +20,30 @@ public class Excellence {
 
   public static void main(String[] args) {
     //VisualAnimationView view;
-    //TextualView view2;
+    TextualView view2;
     SVGView view3;
     IModel model;
 
-    try {
-      model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
-      //view2 = new TextualView(System.out);
-      //view2.setComponents(model.getAllComponents(), model.getBoundary());
+      try {
+        model = AnimationReader.parseFile(new FileReader(new File("resources/big-bang-big-crunch.txt")), Model.builder());
+        view2 = new TextualView(System.out);
+        view2.setComponents(model.getAllComponents(), model.getBoundary());
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+
       //System.out.println(Arrays.toString(model.getBoundary()));
       //view = new VisualAnimationView();
       //view.setComponents(model.getAllComponents(), model.getBoundary());
 
-      PrintWriter out = new PrintWriter("sample.txt");
-      view3 = new SVGView(out);
-      view3.setComponents(model.getAllComponents(), model.getBoundary());
-      out.close();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+
+//      PrintWriter out = new PrintWriter("sample.txt");
+//      view3 = new SVGView(out);
+//      view3.setComponents(model.getAllComponents(), model.getBoundary());
+//      out.close();
+//    } catch (FileNotFoundException e) {
+//      e.printStackTrace();
+//    }
 
   }
 

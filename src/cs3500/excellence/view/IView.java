@@ -1,6 +1,7 @@
 package cs3500.excellence.view;
 
-import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.model.components.IROComponent;
+
 import java.util.List;
 
 public interface IView {
@@ -16,5 +17,5 @@ public interface IView {
    * Sets the list of components.
    * @param components
    */
-  void setComponents(List<IComponent> components, int[] boundary);
+  void setComponents(List<IROComponent> components, int[] boundary);
 }

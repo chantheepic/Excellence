@@ -1,15 +1,10 @@
 package cs3500.excellence.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import cs3500.excellence.model.components.IComponent;
 
 /**
  * Represents a model for supporting animations.
  */
-public interface IModel {
+public interface IModel extends IROModel {
 
   /**
    * Adds a component to the model. The given id is used later on to refer to this component. All
@@ -19,7 +14,7 @@ public interface IModel {
    * @throws IllegalArgumentException when trying to add a component with ID that already exists. or
    *                                  when component is null.
    */
-  void addComponent(IComponent component) throws IllegalArgumentException;
+  void addComponent(String name, String type) throws IllegalArgumentException;
 
   /**
    * Adds a motion to the specified component. Must be added in chronological order. Must also be
@@ -36,33 +31,5 @@ public interface IModel {
   void addMotion(String id, State initialState, State endState,
                  int initialTick, int endTick) throws IllegalArgumentException;
 
-  /**
-   * Returns a copied list of components that are visible at a given tick.
-   *
-   * @param tick - the given tick.
-   */
-  List<IComponent> getComponentsAtTick(int tick);
 
-  /**
-   * Gets a list of all Component IDs.
-   */
-  Set<String> getAllIds();
-
-  /**
-   * Gets the component based on a given ID. Cannot mutate component and have side effects reflected
-   * in model.
-   *
-   * @param id - unique identifier to search for
-   * @return Component if it exists
-   * @throws IllegalArgumentException if id doesn't exist
-   */
-  IComponent getComponentByID(String id) throws IllegalArgumentException;
-
-
-
-  List<IComponent> getAllComponents();
-
-  int[] getBoundary();
-
-  String getOverview();
 }

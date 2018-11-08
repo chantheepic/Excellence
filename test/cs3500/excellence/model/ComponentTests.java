@@ -8,6 +8,7 @@ import cs3500.excellence.model.components.Component;
 import cs3500.excellence.model.components.IComponent;
 import cs3500.excellence.model.components.Shape;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class ComponentTests {
@@ -28,22 +29,36 @@ public class ComponentTests {
     IMotion forward = new BasicMotion(s, t, 0, 10);
     IMotion backward = new BasicMotion(t, s, 10, 20);
 
-    assertEquals("", e.getOverview());
+    assertEquals(0, e.returnAllMotions().size());
 
     e.addMotion(forward);
     e.addMotion(backward);
 
-    //Checks that overview works
-    assertEquals("motion E  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "motion E 10 11  12  13  14  15  16  17     20  1   2   3   4   5   6   7\n",
-            e.getOverview());
+    //Has 2 motions
+    assertEquals(2, e.returnAllMotions().size());
+
+    IMotion first = e.returnAllMotions().get(0);
+    IMotion second = e.returnAllMotions().get(1);
+
+    //Ticks are correct
+    assertEquals(0, first.initialTick());
+    assertEquals(10, first.endTick());
+
+    assertEquals(new State(1, 2, 3, 4, 5, 6, 7), first.initialState());
+    assertEquals(new State(11, 12, 13, 14, 15, 16, 17), first.endState());
+
+//    //Checks that overview works
+//    assertEquals("motion E  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
+//                    + "motion E 10 11  12  13  14  15  16  17     20  1   2   3   4   5   6   7\n",
+//            e.getOverview());
 
     //0->10 , 10->20 are critical points
-    Assert.assertEquals("  1   2   3   4   5   6   7", e.getStateAtTick(0).toString());
-    Assert.assertEquals("  6   7   8   9  10  11  12", e.getStateAtTick(5).toString());
-    Assert.assertEquals(" 11  12  13  14  15  16  17", e.getStateAtTick(10).toString());
-    Assert.assertEquals(" 10  11  12  13  14  15  16", e.getStateAtTick(11).toString());
-    Assert.assertEquals("  1   2   3   4   5   6   7", e.getStateAtTick(20).toString());
+    Assert.assertEquals(new State( 1 ,  2 ,  3 ,  4 ,  5 ,  6 ,  7), e.getStateAtTick(0));
+    Assert.assertEquals(new State( 6,   7 ,  8 ,  9 , 10 , 11 , 12),  e.getStateAtTick(5));
+    Assert.assertEquals(new State( 11,   12 ,  13 ,  14 , 15 , 16 , 17),  e.getStateAtTick(10));
+    Assert.assertEquals(new State( 10,   11 ,  12 ,  13 , 14 , 15 , 16),  e.getStateAtTick(11));
+    Assert.assertEquals(new State( 1,   2 ,  3 ,  4 , 5 , 6 , 7),  e.getStateAtTick(20));
+
 
     // Test Resilience of hasMotionAtTick
     assertEquals(false, e.hasMotionAtTick(-1));

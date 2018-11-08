@@ -21,11 +21,16 @@ public interface IMotion {
   int endTick();
 
   /**
-   * Gets an overview of this motion. Formatted according to the writeup.
-   *
-   * @return - textual representation of the motion
+   * Gets the inital state of the motion.
+   * @return
    */
-  String getOverview();
+  State initialState();
+
+  /**
+   * Gets the end state of the motion.
+   * @return
+   */
+  State endState();
 
   /**
    * Checks of a specific tick falls between this motion.
@@ -34,12 +39,5 @@ public interface IMotion {
    * @return true or false according to description
    */
   boolean containsTick(int tick);
-
-  /**
-   * Makes a copy of the IMotion with the same properties of Object.clone().
-   *
-   * @return - the copied IMotion
-   */
-  IMotion copy();
 
 }

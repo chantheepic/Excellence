@@ -1,13 +1,18 @@
 package cs3500.excellence.view;
 
 import cs3500.excellence.model.components.IComponent;
+import cs3500.excellence.model.components.IROComponent;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ *
+ */
 public class SVGView implements IView{
-  private List<IComponent> components;
+  private List<IROComponent> components;
   private int[] boundary;
   private Appendable out;
 
@@ -17,7 +22,7 @@ public class SVGView implements IView{
   }
 
   @Override
-  public void setComponents(List<IComponent> components, int[] boundary) {
+  public void setComponents(List<IROComponent> components, int[] boundary) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
     this.boundary = boundary;
     appendText(this.getOverview());
@@ -42,7 +47,7 @@ public class SVGView implements IView{
     StringBuilder output = new StringBuilder();
     output.append(String.format("<svg width=\"%spx\" height=\"%spx\"> \n", boundary[2], boundary[3]));
     for (int i = 0; i < components.size(); i++) {
-      IComponent comp = components.get(i);
+      IROComponent comp = components.get(i);
       SVGShapes s = new SVGShapes();
       output.append(s.buildShapeAnimation(comp));
     }

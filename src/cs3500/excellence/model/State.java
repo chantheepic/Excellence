@@ -72,10 +72,6 @@ public final class State {
     return blue;
   }
 
-  public String toString() {
-    return String.format("%d %d %d %d %d %d %d",
-            posX, posY, width, height, red, green, blue);
-  }
 
   @Override
   public boolean equals(Object o) {

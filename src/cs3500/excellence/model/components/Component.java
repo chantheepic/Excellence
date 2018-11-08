@@ -10,7 +10,7 @@ import cs3500.excellence.model.State;
 /**
  * Abstract class for Components.
  */
-public class Component implements IComponent {
+public class Component implements IComponent, IROComponent {
 
   private final List<IMotion> motions;
   private final String name;
@@ -23,16 +23,6 @@ public class Component implements IComponent {
     this.type = Objects.requireNonNull(type, "Type not valid");
   }
 
-  public Component(Component component) {
-    this.name = component.name;
-    this.type = component.type;
-
-    List<IMotion> copy = new ArrayList<>();
-    for (IMotion motion : component.motions) {
-      copy.add(motion.copy());
-    }
-    this.motions = copy;
-  }
 
   @Override
   public ArrayList<IMotion> returnAllMotions() {
@@ -76,16 +66,6 @@ public class Component implements IComponent {
   }
 
   @Override
-  public String getOverview() {
-    StringBuilder output = new StringBuilder();
-    output.append("shape " + this.name + " " + this.type).append("\n");
-    for (IMotion m : motions) {
-      output.append("motion " + this.name + " ").append(m.getOverview()).append("\n");
-    }
-    return output.toString();
-  }
-
-  @Override
   public boolean hasMotionAtTick(int tick) {
     for (IMotion mot : motions) {
       if (mot.containsTick(tick)) {
@@ -105,10 +85,6 @@ public class Component implements IComponent {
 
   }
 
-  @Override
-  public IComponent copy() {
-    return new Component(this);
-  }
 
   @Override
   public boolean hasMotions() {

@@ -3,9 +3,7 @@ package cs3500.excellence.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 
 public class MotionTests {
 
@@ -40,11 +38,11 @@ public class MotionTests {
     assertEquals(10, m.endTick());
   }
 
-  @Test
-  public void overview() {
-    assertEquals("  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17",
-            m.getOverview());
-  }
+//  @Test
+//  public void overview() {
+//    assertEquals("  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17",
+//            m.getOverview());
+//  }
 
   @Test
   public void getState() {
@@ -79,19 +77,7 @@ public class MotionTests {
     m = new BasicMotion(s, t, 20, 10);
   }
 
-  @Test
-  public void testCopy() {
-    IMotion copy = m.copy();
-    assertNotSame(m, copy);
-    assertTrue(copy instanceof BasicMotion);
-    assertTrue(m instanceof BasicMotion);
-    assertEquals(m.getOverview(), copy.getOverview());
-    assertEquals(m.endTick(), copy.endTick());
-    assertEquals(m.initialTick(), copy.initialTick());
-    assertEquals(m.containsTick(1), copy.containsTick(1));
-    assertEquals(m.containsTick(10), copy.containsTick(10));
-    assertEquals(m.containsTick(11), copy.containsTick(11));
-  }
+
 
   @Test(expected = IllegalArgumentException.class)
   public void tNullStates() {

@@ -5,10 +5,10 @@ package cs3500.excellence.model;
  */
 public class BasicMotion implements IMotion {
 
-  State initial;
-  State end;
-  int initialTick;
-  int endTick;
+  private final State initial;
+  private final State end;
+  private final int initialTick;
+  private final int endTick;
 
   /**
    * Constructs a BasicMotion.
@@ -28,20 +28,6 @@ public class BasicMotion implements IMotion {
     this.end = end;
     this.initialTick = initialTick;
     this.endTick = endTick;
-  }
-
-  /**
-   * Used as a copy constructor.
-   * @param bm - the BasicMotion to create of copy of
-   */
-  public BasicMotion(BasicMotion bm) {
-    if (bm == null) {
-      throw new IllegalArgumentException("Motion cannot be null");
-    }
-    this.initial = bm.initial;
-    this.end = bm.end;
-    this.initialTick = bm.initialTick;
-    this.endTick = bm.endTick;
   }
 
   @Override
@@ -72,22 +58,18 @@ public class BasicMotion implements IMotion {
   }
 
   @Override
-  public String getOverview() {
-    StringBuilder output = new StringBuilder();
-    String initOut = String.format("%d %s", initialTick, initial);
-    String endOut = String.format("%d %s", endTick, end);
-    output.append(initOut + "    " + endOut);
-    return output.toString();
+  public State initialState() {
+    return initial;
+  }
+
+  @Override
+  public State endState() {
+    return end;
   }
 
   @Override
   public boolean containsTick(int tick) {
     return tick <= endTick && tick >= initialTick;
-  }
-
-  @Override
-  public IMotion copy() {
-    return new BasicMotion(this);
   }
 
 }
