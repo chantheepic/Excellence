@@ -41,7 +41,7 @@ public class VisualAnimationView extends JFrame implements IView {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(boundary.getWidth() + boundary.getX(), boundary.getHeight() + boundary.getY());
+    return new Dimension(boundary.getWidth(), boundary.getHeight());
   }
 
   public void findFinalTick() {
@@ -61,7 +61,7 @@ public class VisualAnimationView extends JFrame implements IView {
     setSize(getPreferredSize());
     for(int tick = 0; tick < finalTick; tick++){
       try{
-        Thread.sleep(1000/speed); //~60fps
+        Thread.sleep(1000/speed);
         drawFrame(tick);
         setVisible(true);
         this.repaint();
