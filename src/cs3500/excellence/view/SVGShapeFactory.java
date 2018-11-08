@@ -17,25 +17,17 @@ public class SVGShapeFactory {
     StringBuilder output = new StringBuilder();
     switch (comp.getShape()) {
       case ELLIPSE:
-        SVGEllipse e = new SVGEllipse();
-        output.append(e.declareShape(comp));
-        output.append(e.animateShape(comp, speed));
+        output.append(ellipseBuild(comp, speed));
         output.append("</ellipse> \n");
         break;
-      case RECT:
-        SVGRect r = new SVGRect();
-        output.append(r.declareShape(comp));
-        output.append(r.animateShape(comp, speed));
+      case RECTANGLE:
+        output.append(rectBuild(comp, speed));
         output.append("</rect> \n");
         break;
       default:
         throw new IllegalArgumentException("Invalid shape type");
     }
     return output.toString();
-  }
-
-  private String commonBuild(IROComponent comp){
-
   }
 
   private String rectBuild(IROComponent comp, int speed){
@@ -52,31 +44,58 @@ public class SVGShapeFactory {
       State s = motion.getStateAtTick(motion.initialTick());
       State e = motion.getStateAtTick(motion.endTick());
 
-      long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
-      long initialTime = motion.initialTick() * 1000 / speed;
+      int timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
+      int initialTime = motion.initialTick() * 1000 / speed;
 
-      String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
+      String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\" fill=\"freeze\"/> \n";
       String[] attributes = new String[]{"x", "y", "width", "height"};
 
-
+      output.append(commonBuild(s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
 
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
             , attributes[2], s.width(), e.width(), initialTime, timeDelta));
       }
-
       if (s.height() != e.height()) {
         output.append(String.format(stringFormat
             , attributes[3], s.height(), e.height(), initialTime, timeDelta));
       }
-
     }
-
     return output.toString();
   }
 
-  private String ellipseBuild(IROComponent comp){
-    return "";
+  private String ellipseBuild(IROComponent comp, int speed){
+    StringBuilder output = new StringBuilder();
+    ArrayList<IMotion> motions = comp.returnAllMotions();
+    IMotion firstMotion = motions.get(1);
+    State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
+
+    output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
+        "ellipse", firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
+        firstState.red(), firstState.green(), firstState.green()));
+
+    for (IMotion motion : motions) {
+      State s = motion.getStateAtTick(motion.initialTick());
+      State e = motion.getStateAtTick(motion.endTick());
+
+      int timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / speed;
+      int initialTime = motion.initialTick() * 1000 / speed;
+
+      String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
+      String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
+
+      output.append(commonBuild(s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+
+      if (s.width() != e.width()) {
+        output.append(String.format(stringFormat
+            , attributes[2], s.width(), e.width(), initialTime, timeDelta));
+      }
+      if (s.height() != e.height()) {
+        output.append(String.format(stringFormat
+            , attributes[3], s.height(), e.height(), initialTime, timeDelta));
+      }
+    }
+    return output.toString();
   }
 
 
@@ -101,6 +120,7 @@ public class SVGShapeFactory {
       output.append(String.format(stringFormat
           , "fill", sColor, eColor, initialTime, timeDelta));
     }
+    return output.toString();
   }
 }
 
