@@ -51,7 +51,7 @@ public class SVGShapeFactory {
       String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\" fill=\"freeze\"/> \n";
       String[] attributes = new String[]{"x", "y", "width", "height"};
 
-      output.append(commonBuild(s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
 
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
@@ -85,7 +85,7 @@ public class SVGShapeFactory {
       String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
       String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
 
-      output.append(commonBuild(s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
 
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
@@ -100,18 +100,18 @@ public class SVGShapeFactory {
   }
 
 
-  private String commonBuild(State s, State e, int initialTime, int timeDelta, String stringFormat, String xPos, String yPos){
+  private String commonBuild(Boundary boundary, State s, State e, int initialTime, int timeDelta, String stringFormat, String xPos, String yPos){
     StringBuilder output = new StringBuilder();
 
     if (s.xPos() != e.xPos()) {
       output.append(String.format(stringFormat
-          , xPos, s.xPos(), e.xPos(), initialTime, timeDelta));
+          , xPos, s.xPos() - boundary.getX(), e.xPos() - boundary.getX(), initialTime, timeDelta));
     }
 
     if (s.yPos() != e.yPos()) {
       output.append(String.format(stringFormat
-          , yPos, s.yPos(), e.yPos(), initialTime, timeDelta));
-    }
+          , yPos, s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
+  }
 
 
     String sColor = String.format("rgb(%s,%s,%s)", s.red(), s.green(), s.blue());
@@ -124,4 +124,3 @@ public class SVGShapeFactory {
     return output.toString();
   }
 }
-
