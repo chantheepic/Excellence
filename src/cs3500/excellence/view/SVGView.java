@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Represents the SVG View.
  *
  */
 public class SVGView implements IView{

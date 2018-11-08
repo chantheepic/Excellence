@@ -8,7 +8,9 @@ import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 
 /**
- * Abstract class for Components.
+ * Represents an animate-able object in the animation.
+ * Each component knows its name(String), type(Shape), and moves(List<IMotion>)
+ * Contains fields List of motions, a String name, a Shape type
  */
 public class Component implements IComponent, IROComponent {
 
@@ -22,7 +24,6 @@ public class Component implements IComponent, IROComponent {
     this.name = Objects.requireNonNull(name, "Name not valid");
     this.type = Objects.requireNonNull(type, "Type not valid");
   }
-
 
   @Override
   public ArrayList<IMotion> returnAllMotions() {

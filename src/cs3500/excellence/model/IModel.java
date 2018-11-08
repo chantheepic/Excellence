@@ -2,6 +2,7 @@ package cs3500.excellence.model;
 
 
 /**
+ * Extended model interface with setters.
  * Represents a model for supporting animations.
  */
 public interface IModel extends IROModel {
@@ -38,10 +39,18 @@ public interface IModel extends IROModel {
    * @param name
    */
   void removeComponent(String name);
-  void removeAllComponent();
 
   /**
-   * Removes a motion from a component. If the name does
+   * Removes all components from the model.
+   */
+  void removeAllComponent();
+
+  /** //TODO shouldn't this throw an error?
+   * Removes a motion from a component. If a component with matching name exists in the model,
+   * remove the motion that contains the specified tick from the component.
+   * If the name does not exist in the model, do nothing.
+   * If the tick does not exist in the matching component, throw an error.
+   *
    * @param name - the name of the component.
    * @param tick - the tick of the motion.
    */

@@ -1,7 +1,10 @@
 package cs3500.excellence.model;
 
+/**
+ * Represents the motions that model can utilize.
+ * Each motion knows its beginning and end state and time
+ */
 public interface IMotion {
-
   /**
    * Gets the State of an IMotion at a specified tick.
    *

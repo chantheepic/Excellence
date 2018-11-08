@@ -5,8 +5,18 @@ import java.util.ArrayList;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 
+/**
+ * Read Only interface for Component
+ * Represents an animate-able object in the animation.
+ * Each component knows its name(String), type(Shape), and moves(List<IMotion>)
+ * Different components may have different shapes.
+ */
 public interface IROComponent {
 
+  /**
+   * Returns all motions made by the component.
+   * @return An array that contains all motions made by the component.
+   */
   ArrayList<IMotion> returnAllMotions();
 
 
@@ -38,11 +48,13 @@ public interface IROComponent {
 
   /**
    * Does this component contain any motions?
-   * @return
+   * @return true if component contains motions
    */
   boolean hasMotions();
 
-
+  /**
+   * Gets the name of the component.
+   * @return name of the component
+   */
   String getID();
-
 }

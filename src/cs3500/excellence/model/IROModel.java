@@ -5,6 +5,10 @@ import java.util.Set;
 
 import cs3500.excellence.model.components.IROComponent;
 
+/**
+ * Read Only model interface with getters.
+ * Represents a model for supporting animations.
+ */
 public interface IROModel {
 
 

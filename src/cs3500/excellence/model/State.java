@@ -2,7 +2,7 @@ package cs3500.excellence.model;
 
 
 /**
- * Represents a state of a component. IComponent has 7 different parameters.
+ * Represents a state of a component. Each State has 7 different parameters.
  */
 public final class State {
 
