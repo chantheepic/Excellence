@@ -27,6 +27,8 @@ public class Excellence {
     this.speed = speed;
     this.out = out;
 
+
+    view.setOutput(out);
     view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
 
 
@@ -70,6 +72,16 @@ public class Excellence {
     private PrintWriter out = new PrintWriter(System.out);
 
     private Excellence build() {
+      if (model == null) {
+        //TODO output error box
+        throw new IllegalArgumentException("Need to define input");
+      }
+      if (view == null) {
+        //TODO output error box
+        throw new IllegalArgumentException("Need to specift view");
+      }
+
+
       return new Excellence(model, view, speed, out);
     }
 
@@ -83,18 +95,21 @@ public class Excellence {
     }
 
     private void parseOut(String out) throws FileNotFoundException {
-      this.view.setOutput(new PrintWriter(out));
+      this.out = new PrintWriter(out);
     }
 
     private void parseView(String view) {
-      if (view.equals("text")) {
-        this.view = new TextualView(out);
-      }
-      if (view.equals("visual")) {
-        this.view = new VisualAnimationView();
-      }
-      if (view.equals("svg")) {
-        this.view = new SVGView(out);
+
+      switch (view) {
+        case "text":
+          this.view = new TextualView(out);
+          break;
+        case "visual":
+          this.view = new VisualAnimationView();
+          break;
+        case "svg":
+          this.view = new SVGView(out);
+          break;
       }
       //TODO needs to make popup error
     }
