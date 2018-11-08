@@ -83,6 +83,18 @@ public class Model implements IModel, IROModel {
   }
 
   @Override
+  public void removeComponent(String name) {
+    registeredShapes.remove(name);
+  }
+
+  @Override
+  public void removeMotion(String name, int initialTick, int endTick) {
+    if (registeredShapes.containsValue(name)) {
+      registeredShapes.get(name).
+    }
+  }
+
+  @Override
   public List<IROComponent> getComponentsAtTick(int tick) {
     List<IROComponent> output = new ArrayList<>();
     for (IROComponent comp : registeredShapes.values()) {

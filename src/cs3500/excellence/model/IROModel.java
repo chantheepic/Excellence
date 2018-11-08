@@ -31,7 +31,6 @@ public interface IROModel {
   IROComponent getComponentByID(String id) throws IllegalArgumentException;
 
 
-
   List<IROComponent> getAllComponents();
 
   int[] getBoundary();
