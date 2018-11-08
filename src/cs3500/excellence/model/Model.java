@@ -2,6 +2,7 @@ package cs3500.excellence.model;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +18,7 @@ import cs3500.excellence.util.AnimationBuilder;
  * Represents a model for supporting BasicMotions.
  * The model knows all components and the boundary size
  */
-public class Model implements IModel, IROModel {
+public class Model implements IModel {
 
   private final LinkedHashMap<String, IComponent> registeredShapes;
   private final int[] boundary;

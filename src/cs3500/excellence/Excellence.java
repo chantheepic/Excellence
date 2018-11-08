@@ -16,62 +16,42 @@ import cs3500.excellence.view.VisualAnimationView;
 
 public class Excellence {
 
-  private IModel model;
-  private IView view;
-  private int speed;
-  private PrintWriter out;
-
-  public Excellence(IModel model, IView view, int speed, PrintWriter out) {
-    this.model = model;
-    this.view = view;
-    this.speed = speed;
-    this.out = out;
-
-
-    view.setOutput(out);
-    view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
-
-
-    out.close();
-
-  }
-
   public static void main(String[] args) throws FileNotFoundException {
-    Builder builder = new Builder();
+    Factory factory = new Factory();
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
         case "-in":
           if (i + 1 < args.length) {
-            builder.parseIn(args[i + 1]);
-          }
+            factory.parseIn(args[i + 1]);
+      }
           break;
         case "-view":
           if (i + 1 < args.length) {
-            builder.parseView(args[i + 1]);
+            factory.parseView(args[i + 1]);
           }
           break;
         case "-out":
           if (i + 1 < args.length) {
-            builder.parseOut(args[i + 1]);
+            factory.parseOut(args[i + 1]);
           }
           break;
         case "-speed":
           if (i + 1 < args.length) {
-            builder.parseSpeed(args[i + 1]);
+            factory.parseSpeed(args[i + 1]);
           }
           break;
       }
     }
-    builder.build();
+    factory.execute();
   }
 
-  private static final class Builder {
+  private static final class Factory {
     private IModel model;
     private IView view;
     private int speed = 1;
     private PrintWriter out = new PrintWriter(System.out);
 
-    private Excellence build() {
+    private void execute() {
       if (model == null) {
         //TODO output error box
         throw new IllegalArgumentException("Need to define input");
@@ -81,8 +61,12 @@ public class Excellence {
         throw new IllegalArgumentException("Need to specift view");
       }
 
+      view.setOutput(out);
+      view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
 
-      return new Excellence(model, view, speed, out);
+
+      out.close();
+
     }
 
     private void parseIn(String in) {
