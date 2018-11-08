@@ -83,14 +83,6 @@ public class TextualViewMutationTest {
             prints("shape E ELLIPSE"),
             prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
-    basicModel.removeComponent("Z");
-    assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
-            prints("shape E ELLIPSE"),
-            prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
-
-
 
     basicModel.removeComponent("E");
     assertTestRun(basicModel,
@@ -103,7 +95,26 @@ public class TextualViewMutationTest {
 
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void shapeNotExists() {
+    basicModel.removeComponent("Z");
+  }
 
+
+  @Test(expected = NullPointerException.class)
+  public void nullOutput() {
+    new TextualView(null);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void setComponentsNull() {
+    new TextualView(System.out).setComponents(null, null, 1);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void setOutputNull() {
+    new TextualView(System.out).setOutput(null);
+  }
 
   private static Interaction prints(String... lines) {
     return (input, output) -> {

@@ -30,7 +30,7 @@ public class TextualView implements IView {
 
   @Override
   public void setOutput(Appendable app) {
-    this.out = app;
+    this.out = Objects.requireNonNull(app, "Output cannot be null");;
   }
 
   private String getOverview() {
