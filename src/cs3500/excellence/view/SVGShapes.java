@@ -2,17 +2,11 @@ package cs3500.excellence.view;
 
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Component;
 import cs3500.excellence.model.components.IComponent;
 import cs3500.excellence.model.components.Shape;
 import java.util.ArrayList;
 
 public class SVGShapes {
-
-  public static void main(String[] args) {
-    //new SVGShapes().buildShapeAnimation();
-  }
-
   public String buildShapeAnimation(IComponent comp){
     StringBuilder output = new StringBuilder();
     if(comp.getShape() == Shape.RECT){
@@ -43,7 +37,47 @@ public class SVGShapes {
     }
 
     private String animateShape(IComponent comp){
-      return "b";
+      ArrayList<IMotion> motions = comp.returnAllMotions();
+      Shape shape= comp.getShape();
+      StringBuilder output = new StringBuilder();
+      for (IMotion motion : motions) {
+        State s = motion.getStateAtTick(motion.initialTick());
+        State e = motion.getStateAtTick(motion.endTick());
+
+        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / 30;
+        long initialTime = motion.initialTick() *  1000 / 30;
+        String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
+        String[] attributes = new String[]{"x", "y", "width", "height"};
+
+        if(s.xPos() != e.xPos()){
+          output.append(String.format(stringFormat
+              ,attributes[0], s.xPos(), e.xPos(), initialTime, timeDelta));
+        }
+
+        if(s.yPos() != e.yPos()){
+          output.append(String.format(stringFormat
+              ,attributes[1], s.yPos(), e.yPos(), initialTime, timeDelta));
+        }
+
+        if(s.width() != e.width()){
+          output.append(String.format(stringFormat
+              ,attributes[2], s.width(), e.width(), initialTime, timeDelta));
+        }
+
+        if(s.height() != e.height()){
+          output.append(String.format(stringFormat
+              ,attributes[3], s.height(), e.height(), initialTime, timeDelta));
+        }
+
+        String sColor = "#" + Integer.toHexString(s.red()) + Integer.toHexString(s.green()) + Integer.toHexString(s.blue());
+        String eColor = "#" + Integer.toHexString(s.red()) + Integer.toHexString(s.green()) + Integer.toHexString(s.blue());
+
+        if(!sColor.equals(eColor)){
+          output.append(String.format(stringFormat
+              ,"fill", sColor, eColor, initialTime, timeDelta));
+        }
+      }
+      return output.toString();
     }
   }
 
@@ -55,13 +89,53 @@ public class SVGShapes {
       StringBuilder output = new StringBuilder();
 
       output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"#%s\"> \n",
-          comp.getShape(), firstState.xPos(), firstState.yPos(), firstState.width(), firstState.height(),
+          comp.getShape(), firstState.xPos(), firstState.yPos(), firstState.width()/2, firstState.height()/2,
           Integer.toHexString(firstState.red()) + Integer.toHexString(firstState.green()) + Integer.toHexString(firstState.blue())));
       return output.toString();
     }
 
     private String animateShape(IComponent comp){
-      return "d";
+      ArrayList<IMotion> motions = comp.returnAllMotions();
+      Shape shape= comp.getShape();
+      StringBuilder output = new StringBuilder();
+      for (IMotion motion : motions) {
+        State s = motion.getStateAtTick(motion.initialTick());
+        State e = motion.getStateAtTick(motion.endTick());
+
+        long timeDelta = (motion.endTick() - motion.initialTick()) * 1000 / 30;
+        long initialTime = motion.initialTick() *  1000 / 30;
+        String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\"/> \n";
+        String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
+
+        if(s.xPos() != e.xPos()){
+          output.append(String.format(stringFormat
+              ,attributes[0], s.xPos(), e.xPos(), initialTime, timeDelta));
+        }
+
+        if(s.yPos() != e.yPos()){
+          output.append(String.format(stringFormat
+              ,attributes[1], s.yPos(), e.yPos(), initialTime, timeDelta));
+        }
+
+        if(s.width() != e.width()){
+          output.append(String.format(stringFormat
+              ,attributes[2], s.width()/2, e.width()/2, initialTime, timeDelta));
+        }
+
+        if(s.height() != e.height()){
+          output.append(String.format(stringFormat
+              ,attributes[3], s.height()/2, e.height()/2, initialTime, timeDelta));
+        }
+
+        String sColor = "#" + Integer.toHexString(s.red()) + Integer.toHexString(s.green()) + Integer.toHexString(s.blue());
+        String eColor = "#" + Integer.toHexString(s.red()) + Integer.toHexString(s.green()) + Integer.toHexString(s.blue());
+
+        if(!sColor.equals(eColor)){
+          output.append(String.format(stringFormat
+              ,"fill", sColor, eColor, initialTime, timeDelta));
+        }
+      }
+      return output.toString();
     }
   }
 
