@@ -17,7 +17,7 @@ public class VisualAnimationPanel extends JPanel {
   public VisualAnimationPanel(){
   }
 
-  public void updatePanelStates(List<State> states, List<Shape> shapes, Boundary offset) {
+  public void updatePanelStates(List<State> states, List<Shape> shapes, Boundary boundary) {
     this.states = states;
     this.shapes = shapes;
     this.boundary = boundary;
@@ -31,10 +31,10 @@ public class VisualAnimationPanel extends JPanel {
 
       switch(shapes.get(i)){
         case RECTANGLE:
-          gfx.fillRect(state.xPos(), state.yPos(), state.width(), state.height());
+          gfx.fillRect(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(), state.width(), state.height());
           break;
         case ELLIPSE:
-          gfx.fillOval(state.xPos(), state.yPos(), state.width(), state.height());
+          gfx.fillOval(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(), state.width(), state.height());
           break;
 
           default: throw new IllegalArgumentException("not a supported shape");

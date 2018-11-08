@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.model.Boundary;
 import java.util.ArrayList;
 
 import cs3500.excellence.model.IMotion;
@@ -13,15 +14,15 @@ import cs3500.excellence.model.components.IROComponent;
 public class SVGShapeFactory {
 
 
-  public String buildShapeAnimation(IROComponent comp, int speed) {
+  public String buildShapeAnimation(IROComponent comp, Boundary boundary, int speed) {
     StringBuilder output = new StringBuilder();
     switch (comp.getShape()) {
       case ELLIPSE:
-        output.append(ellipseBuild(comp, speed));
+        output.append(ellipseBuild(comp, boundary, speed));
         output.append("</ellipse> \n");
         break;
       case RECTANGLE:
-        output.append(rectBuild(comp, speed));
+        output.append(rectBuild(comp, boundary, speed));
         output.append("</rect> \n");
         break;
       default:
@@ -30,7 +31,7 @@ public class SVGShapeFactory {
     return output.toString();
   }
 
-  private String rectBuild(IROComponent comp, int speed){
+  private String rectBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
     ArrayList<IMotion> motions = comp.returnAllMotions();
     IMotion firstMotion = motions.get(1);
@@ -64,7 +65,7 @@ public class SVGShapeFactory {
     return output.toString();
   }
 
-  private String ellipseBuild(IROComponent comp, int speed){
+  private String ellipseBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
     ArrayList<IMotion> motions = comp.returnAllMotions();
     IMotion firstMotion = motions.get(1);

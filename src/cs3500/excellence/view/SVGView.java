@@ -54,10 +54,10 @@ public class SVGView implements IView {
     StringBuilder output = new StringBuilder();
     output.append(String.format
             ("<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n",
-                    boundary.getWidth() + boundary.getX(), boundary.getHeight()) + boundary.getY());
+                    boundary.getWidth(), boundary.getHeight()));
     SVGShapeFactory s = new SVGShapeFactory();
     for (IROComponent comp : components) {
-      output.append(s.buildShapeAnimation(comp, speed));
+      output.append(s.buildShapeAnimation(comp, boundary, speed));
     }
     output.append("</svg>");
     return output.toString();
