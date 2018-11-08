@@ -69,6 +69,11 @@ public class Model implements IModel, IROModel {
     registeredShapes.remove(name);
   }
 
+  @Override
+  public void removeAllComponent(){
+    registeredShapes.clear();
+  }
+
   private Shape createShape(String type) {
     switch (type) {
       case "rectangle":
@@ -95,14 +100,9 @@ public class Model implements IModel, IROModel {
   }
 
   @Override
-  public void removeComponent(String name) {
-    registeredShapes.remove(name);
-  }
-
-  @Override
-  public void removeMotion(String name, int initialTick, int endTick) {
+  public void removeMotion(String name, int tick) {
     if (registeredShapes.containsValue(name)) {
-      registeredShapes.get(name).
+      registeredShapes.get(name).removeMotionAtTick(tick);
     }
   }
 
