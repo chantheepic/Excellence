@@ -28,6 +28,11 @@ public class TextualView implements IView {
     appendText(this.getOverview());
   }
 
+  @Override
+  public void setOutput(Appendable app) {
+    this.out = app;
+  }
+
   private String getOverview() {
     StringBuilder output = new StringBuilder();
     for (IROComponent comp : this.components) {

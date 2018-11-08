@@ -66,9 +66,8 @@ public class Excellence {
   private static final class Builder {
     private IModel model;
     private IView view;
-    private String output = "untitled.txt";
     private int speed = 1;
-    private PrintWriter out;
+    private PrintWriter out = new PrintWriter(System.out);
 
     private Excellence build() {
       return new Excellence(model, view, speed, out);
@@ -84,7 +83,7 @@ public class Excellence {
     }
 
     private void parseOut(String out) throws FileNotFoundException {
-      this.out = new PrintWriter(out);
+      this.view.setOutput(new PrintWriter(out));
     }
 
     private void parseView(String view) {

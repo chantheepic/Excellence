@@ -14,4 +14,10 @@ public interface IView {
    * @param components
    */
   void setComponents(List<IROComponent> components, int[] boundary, int speed);
+
+  /**
+   * Sets the output of the view.
+   * @param app
+   */
+  void setOutput(Appendable app);
 }

@@ -36,6 +36,11 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   @Override
+  public void setOutput(Appendable app) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
   public Dimension getPreferredSize() {
     return new Dimension(windowSize[0], windowSize[1]);
   }
