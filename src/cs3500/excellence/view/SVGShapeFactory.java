@@ -89,11 +89,11 @@ public class SVGShapeFactory {
 
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
-            , attributes[2], s.width(), e.width(), initialTime, timeDelta));
+            , attributes[2], s.width()/2, e.width()/2, initialTime, timeDelta));
       }
       if (s.height() != e.height()) {
         output.append(String.format(stringFormat
-            , attributes[3], s.height(), e.height(), initialTime, timeDelta));
+            , attributes[3], s.height()/2, e.height()/2, initialTime, timeDelta));
       }
     }
     return output.toString();
