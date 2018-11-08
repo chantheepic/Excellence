@@ -16,21 +16,24 @@ public class SVGShapes {
 
   public String buildShapeAnimation(IROComponent comp, int speed) {
     StringBuilder output = new StringBuilder();
-    if (comp.getShape() == Shape.RECT) {
-      SVGRect r = new SVGRect();
-      output.append(r.declareShape(comp));
-      output.append(r.animateShape(comp, speed));
-      output.append("</rect> \n");
-    } else {
-      SVGEllpse e = new SVGEllpse();
-      output.append(e.declareShape(comp));
-      output.append(e.animateShape(comp, speed));
-      output.append("</ellipse> \n");
+    switch (comp.getShape()){
+      case ELLIPSE:
+        SVGEllpse e = new SVGEllpse();
+        output.append(e.declareShape(comp));
+        output.append(e.animateShape(comp, speed));
+        output.append("</ellipse> \n");
+        break;
+      case RECT:
+        SVGRect r = new SVGRect();
+        output.append(r.declareShape(comp));
+        output.append(r.animateShape(comp, speed));
+        output.append("</rect> \n");
+        break;
     }
     return output.toString();
   }
 
-  private static class SVGRect {
+  private class SVGRect {
     private String declareShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       IMotion firstMotion = motions.get(1);
@@ -87,7 +90,7 @@ public class SVGShapes {
     }
   }
 
-  private static class SVGEllpse {
+  private class SVGEllpse {
     private String declareShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       IMotion firstMotion = motions.get(1);
