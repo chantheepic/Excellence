@@ -52,9 +52,8 @@ public class SVGView implements IView {
   private String setCanvas() {
     StringBuilder output = new StringBuilder();
     output.append(String.format("<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n", boundary[2], boundary[3]));
-    for (int i = 0; i < components.size(); i++) {
-      IROComponent comp = components.get(i);
-      SVGShapes s = new SVGShapes();
+    SVGShapeFactory s = new SVGShapeFactory();
+    for(IROComponent comp : components) {
       output.append(s.buildShapeAnimation(comp, speed));
     }
     output.append("</svg>");

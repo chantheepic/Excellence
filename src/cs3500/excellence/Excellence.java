@@ -13,7 +13,17 @@ import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
 
-
+/**
+ * This is the class that creates a model, and a view from the main method arguments.
+ * The required parameters are -in and -view. The optional parameters are -out, and -speed.
+ *
+ * -in [the input file]
+ * -out [where to output animation] (default is System.out)
+ * -speed [how many ticks per second]
+ * -view [text | visual | svg]
+ *
+ *
+ */
 public class Excellence {
 
   public static void main(String[] args) throws FileNotFoundException {
@@ -45,6 +55,10 @@ public class Excellence {
     factory.execute();
   }
 
+  /**
+   * This static class creates the model and the view based on the arguments.
+   * This is where the default values are set.
+   */
   private static final class Factory {
     private IModel model;
     private IView view;
@@ -58,7 +72,7 @@ public class Excellence {
       }
       if (view == null) {
         //TODO output error box
-        throw new IllegalArgumentException("Need to specift view");
+        throw new IllegalArgumentException("Need to specify the view");
       }
 
       view.setOutput(out);

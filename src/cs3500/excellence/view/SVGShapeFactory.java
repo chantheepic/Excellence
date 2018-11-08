@@ -5,20 +5,19 @@ import java.util.ArrayList;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
-import cs3500.excellence.model.components.Shape;
 
 /**
- * Represents
+ * Represents a factory that creates the shape in svg form.
  */
 
-public class SVGShapes {
+public class SVGShapeFactory {
 
 
   public String buildShapeAnimation(IROComponent comp, int speed) {
     StringBuilder output = new StringBuilder();
-    switch (comp.getShape()){
+    switch (comp.getShape()) {
       case ELLIPSE:
-        SVGEllpse e = new SVGEllpse();
+        SVGEllipse e = new SVGEllipse();
         output.append(e.declareShape(comp));
         output.append(e.animateShape(comp, speed));
         output.append("</ellipse> \n");
@@ -29,11 +28,14 @@ public class SVGShapes {
         output.append(r.animateShape(comp, speed));
         output.append("</rect> \n");
         break;
+      default:
+        throw new IllegalArgumentException("Invalid shape type");
     }
     return output.toString();
   }
 
-  private class SVGRect {
+
+  private static class SVGRect {
     private String declareShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       IMotion firstMotion = motions.get(1);
@@ -90,7 +92,7 @@ public class SVGShapes {
     }
   }
 
-  private class SVGEllpse {
+  private static class SVGEllipse {
     private String declareShape(IROComponent comp) {
       ArrayList<IMotion> motions = comp.returnAllMotions();
       IMotion firstMotion = motions.get(1);
