@@ -1,15 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import cs3500.excellence.model.BasicMotion;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.Component;
 import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 
 import static org.junit.Assert.assertEquals;
@@ -128,7 +124,7 @@ public class BasicMoveModelTest {
 
     //Test if multiple objects can be added to model
     IComponent a = new Component("A", Shape.ELLIPSE);
-    IComponent b = new Component("B", Shape.RECT);
+    IComponent b = new Component("B", Shape.RECTANGLE);
     basicModel.addComponent("A", "ellipse");
     basicModel.addComponent("B", "rectangle");
     assertEquals(basicModel.getOverview(),

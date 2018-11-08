@@ -19,7 +19,7 @@ public class ComponentTests {
   @Before
   public void setUp() {
     e = new Component("E", Shape.ELLIPSE);
-    r = new Component("R", Shape.RECT);
+    r = new Component("R", Shape.RECTANGLE);
   }
 
   @Test

@@ -1,13 +1,16 @@
-<svg width="360px" height="360px" xmlns="http://www.w3.org/2000/svg"> 
-<rect x="200" y="200" width="50" height="100" fill="#ff00"> 
-  <animate attributeName="x" from="200" to="300" begin="10000ms" dur="40000ms"/> 
-  <animate attributeName="y" from="200" to="300" begin="10000ms" dur="40000ms"/> 
-  <animate attributeName="width" from="50" to="25" begin="51000ms" dur="19000ms"/> 
-  <animate attributeName="x" from="300" to="200" begin="70000ms" dur="30000ms"/> 
-  <animate attributeName="y" from="300" to="200" begin="70000ms" dur="30000ms"/> 
-</rect> 
-<ellipse cx="440" cy="70" rx="60" ry="30" fill="#00ff"> 
-  <animate attributeName="cy" from="70" to="250" begin="20000ms" dur="30000ms"/> 
-  <animate attributeName="cy" from="250" to="370" begin="50000ms" dur="20000ms"/> 
-</ellipse> 
-</svg>
+shape R RECTANGLE
+motion R 1 200 200 50 100 255 0 0    10 200 200 50 100 255 0 0
+motion R 10 200 200 50 100 255 0 0    50 300 300 50 100 255 0 0
+motion R 50 300 300 50 100 255 0 0    51 300 300 50 100 255 0 0
+motion R 51 300 300 50 100 255 0 0    70 300 300 25 100 255 0 0
+motion R 70 300 300 25 100 255 0 0    100 200 200 25 100 255 0 0
+
+
+shape C ELLIPSE
+motion C 6 440 70 120 60 0 0 255    20 440 70 120 60 0 0 255
+motion C 20 440 70 120 60 0 0 255    50 440 250 120 60 0 0 255
+motion C 50 440 250 120 60 0 0 255    70 440 370 120 60 0 170 85
+motion C 70 440 370 120 60 0 170 85    80 440 370 120 60 0 255 0
+motion C 80 440 370 120 60 0 255 0    100 440 370 120 60 0 255 0
+
+

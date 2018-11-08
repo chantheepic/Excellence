@@ -29,7 +29,7 @@ public class VisualAnimationPanel extends JPanel {
       gfx.setPaint(new Color(state.red(), state.green(), state.blue()));
 
       switch(shapes.get(i)){
-        case RECT:
+        case RECTANGLE:
           gfx.fillRect(state.xPos() - offset[0], state.yPos() - offset[1], state.width(), state.height());
           break;
         case ELLIPSE:

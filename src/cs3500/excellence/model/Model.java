@@ -2,7 +2,6 @@ package cs3500.excellence.model;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -79,7 +78,7 @@ public class Model implements IModel {
   private Shape createShape(String type) {
     switch (type) {
       case "rectangle":
-        return Shape.RECT;
+        return Shape.RECTANGLE;
       case "ellipse":
         return Shape.ELLIPSE;
       default:
@@ -103,7 +102,7 @@ public class Model implements IModel {
 
   @Override
   public void removeMotion(String name, int tick) {
-    if (registeredShapes.containsValue(name)) {
+    if (registeredShapes.containsKey(name)) {
       registeredShapes.get(name).removeMotionAtTick(tick);
     }
   }
@@ -174,7 +173,7 @@ public class Model implements IModel {
 
       switch (type) {
         case "rectangle":
-          shape = new Component(name, Shape.RECT);
+          shape = new Component(name, Shape.RECTANGLE);
           break;
         case "ellipse":
           shape = new Component(name, Shape.ELLIPSE);

@@ -22,7 +22,7 @@ public class SVGShapeFactory {
         output.append(e.animateShape(comp, speed));
         output.append("</ellipse> \n");
         break;
-      case RECT:
+      case RECTANGLE:
         SVGRect r = new SVGRect();
         output.append(r.declareShape(comp));
         output.append(r.animateShape(comp, speed));

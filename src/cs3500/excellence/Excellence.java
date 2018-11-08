@@ -14,15 +14,11 @@ import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
 
 /**
- * This is the class that creates a model, and a view from the main method arguments.
- * The required parameters are -in and -view. The optional parameters are -out, and -speed.
+ * This is the class that creates a model, and a view from the main method arguments. The required
+ * parameters are -in and -view. The optional parameters are -out, and -speed.
  *
- * -in [the input file]
- * -out [where to output animation] (default is System.out)
- * -speed [how many ticks per second]
- * -view [text | visual | svg]
- *
- *
+ * -in [the input file] -out [where to output animation] (default is System.out) -speed [how many
+ * ticks per second] -view [text | visual | svg]
  */
 public class Excellence {
 
@@ -33,7 +29,7 @@ public class Excellence {
         case "-in":
           if (i + 1 < args.length) {
             factory.parseIn(args[i + 1]);
-      }
+          }
           break;
         case "-view":
           if (i + 1 < args.length) {
@@ -56,8 +52,8 @@ public class Excellence {
   }
 
   /**
-   * This static class creates the model and the view based on the arguments.
-   * This is where the default values are set.
+   * This static class creates the model and the view based on the arguments. This is where the
+   * default values are set.
    */
   private static final class Factory {
     private IModel model;
@@ -75,7 +71,7 @@ public class Excellence {
         throw new IllegalArgumentException("Need to specify the view");
       }
 
-      view.setOutput(out);
+
       view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
 
 
@@ -94,6 +90,10 @@ public class Excellence {
 
     private void parseOut(String out) throws FileNotFoundException {
       this.out = new PrintWriter(out);
+      if (view != null) {
+        view.setOutput(this.out);
+      }
+
     }
 
     private void parseView(String view) {
