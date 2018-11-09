@@ -33,8 +33,8 @@ public class BasicMotion implements IMotion {
   @Override
   public State getStateAtTick(int tick) {
     if(endTick == initialTick) {
-            return initial;
-          }
+      return initial;
+    }
     int tickDelta = endTick - initialTick;
     int relTick = tick - initialTick;
     int timeDelta = relTick / tickDelta;
