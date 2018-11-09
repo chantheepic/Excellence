@@ -2,8 +2,10 @@ package cs3500.excellence.model;
 
 
 /**
- * Extended model interface with setters.
- * Represents a model for supporting animations.
+ * Extended model interface with setters. Represents a model for supporting animations.
+ *
+ * A Model is an animation. It has shapes that each might have motions. Each motion has a starting
+ * point and ending pont.
  */
 public interface IModel extends IROModel {
 
@@ -28,33 +30,32 @@ public interface IModel extends IROModel {
    * @param endState     - Represents the ending state when tick = endTick.
    * @param initialTick  - When motion begins
    * @param endTick      - When motion ends.
-   * @throws IllegalArgumentException - When endTick < initialTick, either states are null, or
-   *                                  does not exist, or the motion does not lineup.
+   * @throws IllegalArgumentException - When endTick < initialTick, either states are null, or does
+   *                                  not exist, or the motion does not lineup.
    */
   void addMotion(String name, State initialState, State endState,
                  int initialTick, int endTick) throws IllegalArgumentException;
 
   /**
    * Removes a component from the model. If the name does not exist, error is thrown.
-   * @param name
    */
-  void removeComponent(String name);
+  void removeComponent(String name) throws IllegalArgumentException;
 
   /**
    * Removes all components from the model.
    */
   void removeAllComponent();
 
-  /** //TODO shouldn't this throw an error?
+  /**
    * Removes a motion from a component. If a component with matching name exists in the model,
-   * remove the motion that contains the specified tick from the component.
-   * If the name does not exist in the model, do nothing.
-   * If the tick does not exist in the matching component, throw an error.
+   * remove the motion that contains the specified tick from the component. If the name does not
+   * exist in the model, do nothing. If the tick does not exist in the matching component, throw an
+   * error.
    *
    * @param name - the name of the component.
    * @param tick - the tick of the motion.
    */
-  void removeMotion(String name, int tick);
+  void removeMotion(String name, int tick) throws IllegalArgumentException;
 
 
 }

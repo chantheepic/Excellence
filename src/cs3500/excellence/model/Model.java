@@ -141,15 +141,10 @@ public class Model implements IModel {
     return boundary;
   }
 
-  @Override
-  public String getOverview() {
-    return null;
-  }
-
   public static final class Builder implements AnimationBuilder<IModel> {
 
     private final LinkedHashMap<String, IComponent> registeredShapes = new LinkedHashMap<>();
-    private  Boundary boundary = new Boundary(0,0,500,500);
+    private Boundary boundary = new Boundary(0,0,500,500);
 
     @Override
     public IModel build() {

@@ -34,12 +34,16 @@ public interface IROModel {
    */
   IROComponent getComponentByID(String id) throws IllegalArgumentException;
 
-
+  /**
+   * Gets all of the components in the model. The components are read only.
+   * @return - list of components in the model
+   */
   List<IROComponent> getAllComponents();
 
+  /**
+   * Gets the boundary information from the model.
+   * @return - the boundray information.
+   */
   Boundary getBoundary();
-
-  String getOverview();
-
 
 }

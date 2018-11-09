@@ -63,32 +63,28 @@ public class BasicMoveModelTest {
 
     // Test simple add shape
     basicModel.addComponent("E", "ellipse");
-    assertEquals(basicModel.getOverview(),
-            "shape E ellipse\n"
-                    + "\n"
-                    + "\n");
+    //has no motions
+    assertEquals(0, basicModel.getComponentByID("E").returnAllMotions().size());
+    assertEquals(Shape.ELLIPSE, basicModel.getComponentByID("E").getShape());
+
     assertEquals(1, basicModel.getAllIds().size());
+
+    basicModel.addComponent("C", "rectangle");
     assertTrue(basicModel.getAllIds().contains("C"));
+
+
     // Test simple single command
     basicModel.addMotion("C", s, t, 2, 10);
-    assertEquals(basicModel.getOverview(),
-            "shape E ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "\n"
-                    + "\n");
+
+    assertEquals(1,basicModel.getComponentByID("C").returnAllMotions().size());
+    assertEquals(s,basicModel.getComponentByID("C").returnAllMotions().get(0).initialState());
+    assertEquals(t,basicModel.getComponentByID("C").returnAllMotions().get(0).endState());
+
 
     // Test if second object can be added to the model
     basicModel.addComponent("R", "rectangle");
     basicModel.addMotion("R", t, s, 2, 10);
-    assertEquals(basicModel.getOverview(),
-            "shape C ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "\n"
-                    + "\n"
-                    + "shape R rectangle\n"
-                    + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
-                    + "\n"
-                    + "\n");
+    assertEquals(3, basicModel.getAllComponents().size());
 
     State u = new State(3, 6, 9, 12, 15, 18, 21);
     State v = new State(4, 8, 12, 16, 20, 24, 28);
@@ -97,82 +93,17 @@ public class BasicMoveModelTest {
 
     // Test if object can do nothing
     basicModel.addMotion("R", u, u, 10, 20);
-    assertEquals(basicModel.getOverview(),
-            "shape C ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "\n"
-                    + "\n"
-                    + "shape R rectangle\n"
-                    + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
-                    + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
-                    + "\n"
-                    + "\n");
+    assertEquals(2,basicModel.getComponentByID("R").returnAllMotions().size());
+    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(1).initialState());
+    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(1).endState());
 
     // Test if second move command can be added
     basicModel.addMotion("R", u, s, 20, 25);
-    assertEquals(basicModel.getOverview(),
-            "shape C ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "\n"
-                    + "\n"
-                    + "shape R rectangle\n"
-                    + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
-                    + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
-                    + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
-                    + "\n"
-                    + "\n");
+    assertEquals(3,basicModel.getComponentByID("R").returnAllMotions().size());
+    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(2).initialState());
+    assertEquals(s,basicModel.getComponentByID("R").returnAllMotions().get(2).endState());
 
-    //Test if multiple objects can be added to model
-    IComponent a = new Component("A", Shape.ELLIPSE);
-    IComponent b = new Component("B", Shape.RECTANGLE);
-    basicModel.addComponent("A", "ellipse");
-    basicModel.addComponent("B", "rectangle");
-    assertEquals(basicModel.getOverview(),
-            "shape A ellipse\n"
-                    + "\n"
-                    + "\n"
-                    + "shape B rectangle\n"
-                    + "\n"
-                    + "\n"
-                    + "shape C ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "\n"
-                    + "\n"
-                    + "shape R rectangle\n"
-                    + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
-                    + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
-                    + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
-                    + "\n"
-                    + "\n");
 
-    // Test if multiple move commands can be added to model
-    basicModel.addMotion("C", v, w, 10, 30);
-    basicModel.addMotion("R", v, w, 25, 30);
-    basicModel.addMotion("C", w, x, 30, 40);
-    basicModel.addMotion("R", w, x, 30, 40);
-    assertEquals(basicModel.getOverview(),
-            "shape A ellipse\n"
-                    + "\n"
-                    + "\n"
-                    + "shape B rectangle\n"
-                    + "\n"
-                    + "\n"
-                    + "shape C ellipse\n"
-                    + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-                    + "motion C 10  4   8  12  16  20  24  28     30  5  10  15  20  25  30  35\n"
-                    + "motion C 30  5  10  15  20  25  30  35     40  6  12  18  24  30  36  42\n"
-                    + "\n"
-                    + "\n"
-                    + "shape R rectangle\n"
-                    + "motion R  2 11  12  13  14  15  16  17     10  1   2   3   4   5   6   7\n"
-                    + "motion R 10  3   6   9  12  15  18  21     20  3   6   9  12  15  18  21\n"
-                    + "motion R 20  3   6   9  12  15  18  21     25  1   2   3   4   5   6   7\n"
-                    + "motion R 25  4   8  12  16  20  24  28     30  5  10  15  20  25  30  35\n"
-                    + "motion R 30  5  10  15  20  25  30  35     40  6  12  18  24  30  36  42\n"
-                    + "\n"
-                    + "\n");
-
-    // Well formed getStateAt tests
   }
 
   // Test for when object already exists in hashmap
@@ -184,10 +115,7 @@ public class BasicMoveModelTest {
       basicModel.addComponent("R", "rectangle");
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object already exists");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n");
+      assertEquals(1, basicModel.getComponentByID("C").returnAllMotions().size());
     }
   }
 
@@ -201,13 +129,7 @@ public class BasicMoveModelTest {
       basicModel.addMotion("S", t, s, 2, 10);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object does not exist");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n"
-              + "shape R rectangle\n"
-              + "\n"
-              + "\n");
+      assertEquals(2, basicModel.getAllComponents().size());
     }
   }
 
@@ -221,25 +143,11 @@ public class BasicMoveModelTest {
       basicModel.getComponentByID("C").getStateAtTick(11);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Tick not valid");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n"
-              + "shape R rectangle\n"
-              + "\n"
-              + "\n");
     }
     try {
       basicModel.getComponentByID("R").getStateAtTick(-1);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Tick not valid");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n"
-              + "shape R rectangle\n"
-              + "\n"
-              + "\n");
     }
   }
 
@@ -251,9 +159,6 @@ public class BasicMoveModelTest {
       basicModel.addMotion("E", s, t, 10, 2);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "end tick must be greater than begin tick");
-      assertEquals(basicModel.getOverview(), "shape E ellipse\n"
-              + "\n"
-              + "\n");
     }
   }
 
@@ -266,10 +171,7 @@ public class BasicMoveModelTest {
       basicModel.addMotion("C", s, t, 8, 12);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C  2  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n");
+      assertEquals(1, basicModel.getComponentByID("C").returnAllMotions().size());
     }
   }
 
@@ -282,10 +184,7 @@ public class BasicMoveModelTest {
       basicModel.addMotion("C", s, t, 8, 12);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
-      assertEquals(basicModel.getOverview(), "shape C ellipse\n"
-              + "motion C 10  1   2   3   4   5   6   7     14 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n");
+      assertEquals(1, basicModel.getComponentByID("C").returnAllMotions().size());
     }
   }
 
@@ -299,11 +198,7 @@ public class BasicMoveModelTest {
       basicModel.addMotion("E", s, t, 12, 16);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Not adjacent motions");
-      assertEquals(basicModel.getOverview(), "shape E ellipse\n"
-              + "motion E 10  1   2   3   4   5   6   7     14 11  12  13  14  15  16  17\n"
-              + "motion E 14  1   2   3   4   5   6   7     20 11  12  13  14  15  16  17\n"
-              + "\n"
-              + "\n");
+      assertEquals(2, basicModel.getComponentByID("E").returnAllMotions().size());
     }
   }
 

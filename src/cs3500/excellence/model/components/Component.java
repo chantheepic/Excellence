@@ -9,8 +9,8 @@ import cs3500.excellence.model.State;
 
 /**
  * Represents an animate-able object in the animation.
- * Each component knows its name(String), type(Shape), and moves(List<IMotion>)
- * Contains fields List of motions, a String name, a Shape type
+ * Each component knows its name(String), type(Shape), and moves(List<IMotion>).
+ * Contains fields List of motions, a String name, a Shape type.
  */
 public class Component implements IComponent, IROComponent {
 
@@ -19,6 +19,11 @@ public class Component implements IComponent, IROComponent {
   private final Shape type;
 
 
+  /**
+   * Creates a component given a name and a type.
+   * @param name - the name of the component.
+   * @param type - the type of the component.
+   */
   public Component(String name, Shape type) {
     this.motions = new ArrayList<>();
     this.name = Objects.requireNonNull(name, "Name not valid");
@@ -27,7 +32,7 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public ArrayList<IMotion> returnAllMotions() {
-    return new ArrayList<IMotion>(this.motions);
+    return new ArrayList<>(this.motions);
   }
 
   @Override
@@ -37,7 +42,7 @@ public class Component implements IComponent, IROComponent {
     }
     if (motions.size() > 0) {
       IMotion lastMotion = motions.get(motions.size() - 1);
-      if (motion.equals(lastMotion) && motion.initialTick() != lastMotion.endTick()) {
+      if (motion.equals(lastMotion) || motion.initialTick() != lastMotion.endTick()) {
         throw new IllegalArgumentException("Not adjacent motions");
       }
     }

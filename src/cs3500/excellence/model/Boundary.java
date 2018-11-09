@@ -1,5 +1,9 @@
 package cs3500.excellence.model;
 
+/**
+ * Stores the 4 values from the canvas.
+ * The (x,y) value represents the starting point of the canvas relative to the plane.
+ */
 public class Boundary {
 
   private final int x;
@@ -8,6 +12,13 @@ public class Boundary {
   private final int height;
 
 
+  /**
+   * Creates a boundary class to store the information.
+   * @param x - the x value of the canvas
+   * @param y - the y value of the canvas
+   * @param width - the width of the canvas
+   * @param height - the height of the canvas
+   */
   public Boundary(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
