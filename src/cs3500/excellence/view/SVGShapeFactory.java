@@ -53,6 +53,16 @@ public class SVGShapeFactory {
 
       output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
 
+      if (s.xPos() != e.xPos()) {
+        output.append(String.format(stringFormat
+            , attributes[0], s.xPos() - boundary.getX(), e.xPos() - boundary.getX(), initialTime, timeDelta));
+      }
+
+      if (s.yPos() != e.yPos()) {
+        output.append(String.format(stringFormat
+            , attributes[1], s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
+      }
+
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
             , attributes[2], s.width(), e.width(), initialTime, timeDelta));
@@ -72,7 +82,7 @@ public class SVGShapeFactory {
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
-        "ellipse", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width()/2, firstState.height()/2,
+        "ellipse", firstState.xPos() - boundary.getX() + firstState.width()/2, firstState.yPos() - boundary.getY() + firstState.height()/2, firstState.width()/2, firstState.height()/2,
         firstState.red(), firstState.green(), firstState.green()));
 
     for (IMotion motion : motions) {
@@ -86,6 +96,16 @@ public class SVGShapeFactory {
       String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
 
       output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+
+      if (s.xPos() != e.xPos()) {
+        output.append(String.format(stringFormat
+            , attributes[0], s.xPos() - boundary.getX() + s.width()/2, e.xPos() - boundary.getX() + e.width()/2, initialTime, timeDelta));
+      }
+
+      if (s.yPos() != e.yPos()) {
+        output.append(String.format(stringFormat
+            , attributes[1], s.yPos() - boundary.getY() + s.height()/2, e.yPos() - boundary.getY() + e.height()/2, initialTime, timeDelta));
+      }
 
       if (s.width() != e.width()) {
         output.append(String.format(stringFormat
@@ -102,16 +122,6 @@ public class SVGShapeFactory {
 
   private String commonBuild(Boundary boundary, State s, State e, int initialTime, int timeDelta, String stringFormat, String xPos, String yPos){
     StringBuilder output = new StringBuilder();
-
-    if (s.xPos() != e.xPos()) {
-      output.append(String.format(stringFormat
-          , xPos, s.xPos() - boundary.getX(), e.xPos() - boundary.getX(), initialTime, timeDelta));
-    }
-
-    if (s.yPos() != e.yPos()) {
-      output.append(String.format(stringFormat
-          , yPos, s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
-  }
 
     String sColor = String.format("rgb(%s,%s,%s)", s.red(), s.green(), s.blue());
     String eColor = String.format("rgb(%s,%s,%s)", e.red(), e.green(), e.blue());
