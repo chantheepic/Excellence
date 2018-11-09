@@ -62,15 +62,6 @@ public class SVGShapeFactory {
         output.append(String.format(stringFormat
             , attributes[1], s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
       }
-
-      if (s.width() != e.width()) {
-        output.append(String.format(stringFormat
-            , attributes[2], s.width(), e.width(), initialTime, timeDelta));
-      }
-      if (s.height() != e.height()) {
-        output.append(String.format(stringFormat
-            , attributes[3], s.height(), e.height(), initialTime, timeDelta));
-      }
     }
     return output.toString();
   }
@@ -95,7 +86,7 @@ public class SVGShapeFactory {
       String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\" fill=\"freeze\"/> \n";
       String[] attributes = new String[]{"cx", "cy", "rx", "ry"};
 
-      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[2], attributes[3]));
 
       if (s.xPos() != e.xPos()) {
         output.append(String.format(stringFormat
@@ -107,20 +98,12 @@ public class SVGShapeFactory {
             , attributes[1], s.yPos() - boundary.getY() + s.height()/2, e.yPos() - boundary.getY() + e.height()/2, initialTime, timeDelta));
       }
 
-      if (s.width() != e.width()) {
-        output.append(String.format(stringFormat
-            , attributes[2], s.width(), e.width(), initialTime, timeDelta));
-      }
-      if (s.height() != e.height()) {
-        output.append(String.format(stringFormat
-            , attributes[3], s.height(), e.height(), initialTime, timeDelta));
-      }
     }
     return output.toString();
   }
 
 
-  private String commonBuild(Boundary boundary, State s, State e, int initialTime, int timeDelta, String stringFormat, String xPos, String yPos){
+  private String commonBuild(Boundary boundary, State s, State e, int initialTime, int timeDelta, String stringFormat, String width, String height){
     StringBuilder output = new StringBuilder();
 
     String sColor = String.format("rgb(%s,%s,%s)", s.red(), s.green(), s.blue());
@@ -129,6 +112,15 @@ public class SVGShapeFactory {
     if (!sColor.equals(eColor)) {
       output.append(String.format(stringFormat
           , "fill", sColor, eColor, initialTime, timeDelta));
+    }
+
+    if (s.width() != e.width()) {
+      output.append(String.format(stringFormat
+          , width, s.width(), e.width(), initialTime, timeDelta));
+    }
+    if (s.height() != e.height()) {
+      output.append(String.format(stringFormat
+          , height, s.height(), e.height(), initialTime, timeDelta));
     }
     return output.toString();
   }
