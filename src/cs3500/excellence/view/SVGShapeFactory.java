@@ -51,7 +51,7 @@ public class SVGShapeFactory {
       String stringFormat = "  <animate attributeName=\"%s\" from=\"%s\" to=\"%s\" begin=\"%sms\" dur=\"%sms\" fill=\"freeze\"/> \n";
       String[] attributes = new String[]{"x", "y", "width", "height"};
 
-      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[0], attributes[1]));
+      output.append(commonBuild(boundary, s, e, initialTime, timeDelta, stringFormat, attributes[2], attributes[3]));
 
       if (s.xPos() != e.xPos()) {
         output.append(String.format(stringFormat
