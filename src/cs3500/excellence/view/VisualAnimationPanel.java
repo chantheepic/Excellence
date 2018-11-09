@@ -35,7 +35,6 @@ public class VisualAnimationPanel extends JPanel {
           break;
         case ELLIPSE:
           gfx.fillOval(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(), state.width(), state.height());
-          //System.out.println(boundary.getWidth() + " " + boundary.getHeight() + " " + getX() + " " + getY());
           System.out.println(state.width() + " " + state.height() + " " + state.xPos() + " " + state.yPos());
           break;
 

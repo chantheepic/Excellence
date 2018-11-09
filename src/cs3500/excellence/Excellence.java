@@ -1,5 +1,7 @@
 package cs3500.excellence;
 
+import cs3500.excellence.view.VisualAnimationPanel;
+import cs3500.excellence.view.VisualAnimationView.errPanel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +14,8 @@ import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * This is the class that creates a model, and a view from the main method arguments. The required
@@ -23,6 +27,7 @@ import cs3500.excellence.view.VisualAnimationView;
 public class Excellence {
 
   public static void main(String[] args) throws FileNotFoundException {
+    new errPanel().error("Need to define input");
     Factory factory = new Factory();
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
@@ -63,12 +68,10 @@ public class Excellence {
 
     private void execute() {
       if (model == null) {
-        //TODO output error box
-        throw new IllegalArgumentException("Need to define input");
+        new errPanel().error("Need to define input");
       }
       if (view == null) {
-        //TODO output error box
-        throw new IllegalArgumentException("Need to specify the view");
+        new errPanel().error("Need to specify the view");
       }
 
 
@@ -84,7 +87,7 @@ public class Excellence {
         this.model = AnimationReader
                 .parseFile(new FileReader(new File(in)), Model.builder());
       } catch (FileNotFoundException e) {
-        e.printStackTrace();
+        new errPanel().error(e.getMessage());
       }
     }
 
@@ -108,17 +111,17 @@ public class Excellence {
         case "svg":
           this.view = new SVGView(out);
           break;
+
+          default:new errPanel().error("view not supported");
       }
-      //TODO needs to make popup error
     }
 
     private void parseSpeed(String view) {
       try {
         speed = Integer.parseInt(view);
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException(e.getMessage()); //TODO needs to make popup error
+        new errPanel().error(e.getMessage());
       }
     }
   }
-
 }

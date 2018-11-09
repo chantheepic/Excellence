@@ -84,4 +84,12 @@ public class VisualAnimationView extends JFrame implements IView {
     panel.updatePanelStates(states, shapes, boundary);
   }
 
+  public static final class errPanel{
+    public void error(String msg){
+      JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);
+      JDialog dialog = optionPane.createDialog("Parse Failed");
+      dialog.setAlwaysOnTop(true);
+      dialog.setVisible(true);
+    }
+  }
 }
