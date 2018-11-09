@@ -1,5 +1,6 @@
 package cs3500.excellence.model.components;
 
+import cs3500.excellence.model.BasicMotion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,15 +52,17 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public void removeMotion(int index) {
-    motions.remove(index);
-  }
-
-  @Override
-  public void removeMotionAtTick(int tick) {
-    for(int i = 0; i < motions.size(); i++){
-      if(motions.get(i).containsTick(tick)){
-        motions.remove(i);
-        break;
+    if(index < motions.size()){
+      if(index == motions.size()){
+        motions.remove(index);
+      } else {
+        State s = motions.get(index).endState();
+        State e = motions.get(index+1).endState();
+        int i = motions.get(index).initialTick();
+        int f = motions.get(index).endTick();
+        motions.remove(index);
+        motions.remove(index+1);
+        motions.add(index, new BasicMotion(s,e,i,f));
       }
     }
   }
@@ -82,7 +85,7 @@ public class Component implements IComponent, IROComponent {
         return motion.getStateAtTick(tick);
       }
     }
-    throw new IllegalArgumentException("Tick not valid");
+    throw new IllegalArgumentException("Tick does not exist");
   }
 
   @Override
@@ -105,7 +108,6 @@ public class Component implements IComponent, IROComponent {
 
   }
 
-
   @Override
   public boolean hasMotions() {
     return !motions.isEmpty();
@@ -115,5 +117,4 @@ public class Component implements IComponent, IROComponent {
   public String getID() {
     return name;
   }
-
 }

@@ -11,14 +11,6 @@ import cs3500.excellence.model.components.IROComponent;
  */
 public interface IROModel {
 
-
-  /**
-   * Returns a copied list of components that are visible at a given tick.
-   *
-   * @param tick - the given tick.
-   */
-  List<IROComponent> getComponentsAtTick(int tick);
-
   /**
    * Gets a list of all Component IDs.
    */

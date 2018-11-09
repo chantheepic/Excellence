@@ -52,8 +52,6 @@ public class BasicMoveModelTest {
 
   @Test
   public void emptyModel() {
-//    assertEquals(0, basicModel.getFinalTick());
-    assertEquals(0, basicModel.getComponentsAtTick(1).size());
     assertEquals(0, basicModel.getAllIds().size());
   }
 

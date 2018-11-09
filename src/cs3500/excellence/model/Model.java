@@ -33,7 +33,6 @@ public class Model implements IModel {
   private Model(LinkedHashMap<String, IComponent> shapes, Boundary boundary) {
     this.registeredShapes = shapes;
     this.boundary = boundary;
-    //TODO MIGHT NEED TO CLONE
   }
 
   public static Builder builder() {
@@ -55,7 +54,6 @@ public class Model implements IModel {
     //Tries to create a shape based on the input.
     //Can throw and error
     registeredShapes.put(name, new Component(name, createShape(type)));
-
   }
 
   @Override
@@ -101,21 +99,10 @@ public class Model implements IModel {
   }
 
   @Override
-  public void removeMotion(String name, int tick) {
+  public void removeMotion(String name, int index) {
     if (registeredShapes.containsKey(name)) {
-      registeredShapes.get(name).removeMotionAtTick(tick);
+      registeredShapes.get(name).removeMotion(index);
     }
-  }
-
-  @Override
-  public List<IROComponent> getComponentsAtTick(int tick) {
-    List<IROComponent> output = new ArrayList<>();
-    for (IROComponent comp : registeredShapes.values()) {
-      if (comp.hasMotionAtTick(tick)) {
-        output.add(comp);
-      }
-    }
-    return output;
   }
 
   @Override

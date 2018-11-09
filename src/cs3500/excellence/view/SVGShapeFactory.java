@@ -34,7 +34,7 @@ public class SVGShapeFactory {
   private String rectBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
     ArrayList<IMotion> motions = comp.returnAllMotions();
-    IMotion firstMotion = motions.get(1);
+    IMotion firstMotion = motions.get(0);
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
@@ -69,7 +69,7 @@ public class SVGShapeFactory {
   private String ellipseBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
     ArrayList<IMotion> motions = comp.returnAllMotions();
-    IMotion firstMotion = motions.get(1);
+    IMotion firstMotion = motions.get(0);
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",

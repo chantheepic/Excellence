@@ -29,13 +29,6 @@ public interface IComponent extends IROComponent {
   void removeMotion(int index);
 
   /**
-   * Removes the entire motion that contains the given tick.
-   *
-   * @param tick - the given tick of move to remove.
-   */
-  void removeMotionAtTick(int tick);
-
-  /**
    * Removes all motions from the component.
    */
   void removeAllMotion();

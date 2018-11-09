@@ -62,11 +62,6 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     finalTick = output;
   }
 
-
-
-
-
-
   public void drawFrame(int tick){
     List<State> states = new ArrayList();
     List<Shape> shapes = new ArrayList();

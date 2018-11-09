@@ -56,6 +56,4 @@ public interface IModel extends IROModel {
    * @param tick - the tick of the motion.
    */
   void removeMotion(String name, int tick) throws IllegalArgumentException;
-
-
 }
