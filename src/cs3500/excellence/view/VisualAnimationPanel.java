@@ -32,11 +32,11 @@ public class VisualAnimationPanel extends JPanel {
       switch(shapes.get(i)){
         case RECTANGLE:
           gfx.fillRect(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(), state.width(), state.height());
-          System.out.println(state.height());
           break;
         case ELLIPSE:
           gfx.fillOval(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(), state.width(), state.height());
-          System.out.println(state.width());
+          //System.out.println(boundary.getWidth() + " " + boundary.getHeight() + " " + getX() + " " + getY());
+          System.out.println(state.width() + " " + state.height() + " " + state.xPos() + " " + state.yPos());
           break;
 
           default: throw new IllegalArgumentException("not a supported shape");
