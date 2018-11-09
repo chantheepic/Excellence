@@ -27,7 +27,6 @@ import javax.swing.JOptionPane;
 public class Excellence {
 
   public static void main(String[] args) throws FileNotFoundException {
-    new errPanel().error("Need to define input");
     Factory factory = new Factory();
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
