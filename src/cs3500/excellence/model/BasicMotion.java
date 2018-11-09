@@ -32,6 +32,9 @@ public class BasicMotion implements IMotion {
 
   @Override
   public State getStateAtTick(int tick) {
+    if(endTick == initialTick) {
+      return initial;
+    }
     double tickDelta = endTick - initialTick;
     double relTick = tick - initialTick;
     double timeDelta = relTick / tickDelta;
