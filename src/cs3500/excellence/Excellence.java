@@ -68,15 +68,14 @@ public class Excellence {
     private void execute() {
       if (model == null) {
         new errPanel().error("Need to define input");
+        System.exit(0);
       }
       if (view == null) {
         new errPanel().error("Need to specify the view");
+        System.exit(0);
       }
 
-
       view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
-
-
       out.close();
 
     }
@@ -87,6 +86,7 @@ public class Excellence {
                 .parseFile(new FileReader(new File(in)), Model.builder());
       } catch (FileNotFoundException e) {
         new errPanel().error(e.getMessage());
+        System.exit(0);
       }
     }
 
@@ -112,6 +112,7 @@ public class Excellence {
           break;
 
           default:new errPanel().error("view not supported");
+            System.exit(0);
       }
     }
 
@@ -120,6 +121,7 @@ public class Excellence {
         speed = Integer.parseInt(view);
       } catch (NumberFormatException e) {
         new errPanel().error(e.getMessage());
+        System.exit(0);
       }
     }
   }
