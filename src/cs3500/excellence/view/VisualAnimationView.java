@@ -5,16 +5,20 @@ import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class VisualAnimationView extends JFrame implements IView {
+public class VisualAnimationView extends JFrame implements IView, ActionListener {
   private VisualAnimationPanel panel;
   private int speed;
   private int finalTick;
   private Boundary boundary;
   List<IROComponent> components;
+  private int currentTick;
+  private Timer tickTimer;
 
   public VisualAnimationView() {
     super();
@@ -23,6 +27,7 @@ public class VisualAnimationView extends JFrame implements IView {
     setTitle("EXCELLENCE");
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    currentTick = 0;
   }
 
   @Override
@@ -31,7 +36,9 @@ public class VisualAnimationView extends JFrame implements IView {
     this.speed = speed;
     this.boundary = boundary;
     findFinalTick();
-    animate();
+    setSize(getPreferredSize());
+    tickTimer = new Timer(1000/speed, this);
+    tickTimer.start();
   }
 
   @Override
@@ -56,20 +63,8 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
 
-  // Implementation Specifics
-  public void animate(){
-    setSize(getPreferredSize());
-    for(int tick = 0; tick < finalTick; tick++){
-      try{
-        Thread.sleep(1000/speed);
-        drawFrame(tick);
-        setVisible(true);
-        this.repaint();
-      } catch (InterruptedException e){
-        throw new IllegalThreadStateException("timer failure");
-      }
-    }
-  }
+
+
 
 
   public void drawFrame(int tick){
@@ -82,6 +77,16 @@ public class VisualAnimationView extends JFrame implements IView {
       }
     }
     panel.updatePanelStates(states, shapes, boundary);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    drawFrame(currentTick++);
+    setVisible(true);
+    this.repaint();
+    if(currentTick>= finalTick) {
+      tickTimer.stop();
+    }
   }
 
   public static final class errPanel{
