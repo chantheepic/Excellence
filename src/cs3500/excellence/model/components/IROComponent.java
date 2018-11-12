@@ -50,7 +50,7 @@ public interface IROComponent {
    * Does this component contain any motions?
    * @return true if component contains motions
    */
-  boolean hasMotions();
+  boolean hasMotion();
 
   /**
    * Gets the name of the component.

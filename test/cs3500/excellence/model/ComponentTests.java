@@ -31,8 +31,8 @@ public class ComponentTests {
 
     assertEquals(0, e.returnAllMotions().size());
 
-    e.addMotion(forward);
-    e.addMotion(backward);
+    e.addKeyFrame(forward);
+    e.addKeyFrame(backward);
 
     //Has 2 motions
     assertEquals(2, e.returnAllMotions().size());
@@ -81,8 +81,8 @@ public class ComponentTests {
     State t = new State(11, 12, 13, 14, 15, 16, 17);
     IMotion m = new BasicMotion(s, t, 0, 10);
     IMotion n = new BasicMotion(t, s, 10, 20);
-    e.addMotion(m);
-    e.addMotion(n);
+    e.addKeyFrame(m);
+    e.addKeyFrame(n);
 
     try {
       e.getStateAtTick(-1);
@@ -99,12 +99,12 @@ public class ComponentTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void addNullEllipse() {
-    e.addMotion(null);
+    e.addKeyFrame(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void addNulRect() {
-    r.addMotion(null);
+    r.addKeyFrame(null);
   }
 
 

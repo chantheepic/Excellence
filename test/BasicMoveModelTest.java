@@ -225,11 +225,11 @@ public class BasicMoveModelTest {
 //    assertEquals(0, basicModel.getFinalTick());
 //
 //    basicModel.addComponent(ellipse);
-//    basicModel.addMotion("E", s, t, 1, 10);
+//    basicModel.addKeyFrame("E", s, t, 1, 10);
 //    assertEquals(10, basicModel.getFinalTick());
 //
 //    basicModel.addComponent(new Component("Z", Shape.ELLIPSE));
-//    basicModel.addMotion("Z", s, t, 1, 30);
+//    basicModel.addKeyFrame("Z", s, t, 1, 30);
 //    assertEquals(30, basicModel.getFinalTick());
 //  }
 

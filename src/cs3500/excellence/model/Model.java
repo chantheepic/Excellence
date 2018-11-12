@@ -92,7 +92,7 @@ public class Model implements IModel {
     }
     if (registeredShapes.containsKey(id)) {
       IComponent component = registeredShapes.get(id);
-      component.addMotion(new BasicMotion(initialState, endState, initialTick, endTick));
+      component.addKeyFrame(new BasicMotion(initialState, endState, initialTick, endTick));
     } else {
       throw new IllegalArgumentException("Object does not exist");
     }
@@ -171,11 +171,11 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Name does not exist");
       }
       IComponent comp = registeredShapes.get(name);
-      if (comp.hasMotions() && comp.getFinalTick() != t1) {
+      if (comp.hasMotion() && comp.getFinalTick() != t1) {
         throw new IllegalArgumentException("Motions do not lineup");
       }
       //Throws errors if invalid.
-      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
+      comp.addKeyFrame(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
       return this;
     }
 

@@ -1,6 +1,7 @@
 package cs3500.excellence.model.components;
 
 import cs3500.excellence.model.IMotion;
+import cs3500.excellence.model.State;
 
 
 /**
@@ -19,7 +20,7 @@ public interface IComponent extends IROComponent {
    * @throws IllegalArgumentException - if the motion is null, or does not line up. EX: [ tick = 1
    *                                  ... tick = 10 ] and [tick = 10 ... tick = 25 ]
    */
-  void addMotion(IMotion motion) throws IllegalArgumentException;
+  void addKeyFrame(IMotion motion) throws IllegalArgumentException;
 
   /**
    * Removes the index_th motion from the component.
