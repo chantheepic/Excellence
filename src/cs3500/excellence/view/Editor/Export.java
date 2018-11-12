@@ -1,0 +1,117 @@
+package cs3500.excellence.view.Editor;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+public class Export extends JFrame implements ActionListener, ItemListener, ListSelectionListener {
+  EditorView c;
+
+  JPanel container;
+  JPanel panelLeft;
+  JPanel panelRight;
+  JLabel title;
+  JRadioButton[] saveOptions;
+  JButton save;
+  JTextField saveName;
+
+  public Export(EditorView c) {
+    this.c = c;
+    container = new JPanel();
+    container.setLayout(new GridLayout(1,2));
+    panelLeft = new JPanel();
+    panelLeft.setLayout(new GridLayout(3,1));
+    panelRight = new JPanel();
+    panelRight.setLayout(new GridLayout(3,1));
+    title = new JLabel("Export");
+
+    // Buttons
+    // Left Panel
+    save = new JButton("Save");
+    save.setActionCommand("Save");
+    save.addActionListener(this);
+
+    saveName = new JTextField("Save FIle Name");
+    saveName.setForeground(new Color(116, 116, 116));
+    saveName.setActionCommand("SaveName");
+    saveName.addActionListener(this);
+
+    panelLeft.add(title);
+    panelLeft.add(saveName);
+    panelLeft.add(save);
+
+    // Right Panel
+    saveOptions = new JRadioButton[3];
+    ButtonGroup group = new ButtonGroup();
+    saveOptions[0] = new JRadioButton("Textual");
+    saveOptions[1] = new JRadioButton("Visual");
+    saveOptions[2] = new JRadioButton("SVG");
+    for(int i = 0; i < saveOptions.length; i++){
+      saveOptions[i].setActionCommand("SaveOption" + i);
+      saveOptions[i].addActionListener(this);
+      group.add(saveOptions[i]);
+      panelRight.add(saveOptions[i]);
+    }
+
+    // Add Panels
+    container.add(panelLeft);
+    container.add(panelRight);
+
+    // Set default frame behavior
+    panelLeft.setPreferredSize(new Dimension(200,100));
+  }
+
+  // Actions
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    switch(e.getActionCommand()) {
+      case "SaveOption1":
+        System.out.println("Textual saved");
+        break;
+      case "SaveOption2":
+        System.out.println("Visual saved");
+        break;
+      case "SaveOption3":
+        System.out.println("SVG saved");
+        break;
+      case "SaveName":
+        System.out.println("SaveName");
+        break;
+      case "Save":
+        System.out.println(saveName.getText() + " File Saved");
+        break;
+      default:
+    }
+
+  }
+
+  @Override
+  public void itemStateChanged(ItemEvent e) {
+
+  }
+
+  @Override
+  public void valueChanged(ListSelectionEvent e) {
+
+  }
+
+  public JPanel returnPanel(){
+    return container;
+  }
+
+  public void updateParam() {
+  }
+}

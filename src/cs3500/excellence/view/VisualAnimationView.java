@@ -84,6 +84,16 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     }
   }
 
+  public void sampleView() {
+    this.components = components;
+    this.speed = speed;
+    this.boundary = boundary;
+    findFinalTick();
+    setSize(getPreferredSize());
+    tickTimer = new Timer(1000/speed, this);
+    tickTimer.start();
+  }
+
   public static final class errPanel{
     public void error(String msg){
       JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);

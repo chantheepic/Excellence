@@ -1,6 +1,5 @@
 package cs3500.excellence;
 
-import cs3500.excellence.view.VisualAnimationPanel;
 import cs3500.excellence.view.VisualAnimationView.errPanel;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,8 +13,6 @@ import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 /**
  * This is the class that creates a model, and a view from the main method arguments. The required
