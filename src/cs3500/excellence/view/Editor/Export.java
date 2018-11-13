@@ -43,10 +43,8 @@ public class Export extends JPanel implements ActionListener, ItemListener, List
     save.setActionCommand("Save");
     save.addActionListener(this);
 
-    saveName = new JTextField("Save FIle Name");
+    saveName = new JTextField("Save File Name");
     saveName.setForeground(new Color(116, 116, 116));
-    saveName.setActionCommand("SaveName");
-    saveName.addActionListener(this);
 
     panelLeft.add(title);
     panelLeft.add(saveName);
@@ -85,9 +83,6 @@ public class Export extends JPanel implements ActionListener, ItemListener, List
         break;
       case "SaveOption3":
         System.out.println("SVG saved");
-        break;
-      case "SaveName":
-        System.out.println("SaveName");
         break;
       case "Save":
         System.out.println(saveName.getText() + " File Saved");

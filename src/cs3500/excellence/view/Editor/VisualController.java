@@ -22,19 +22,19 @@ public class VisualController {
   }
 
   public void run(){
-    editor.updateParameters(pathName, new Dimension(model.getBoundary().getWidth(), model.getBoundary().getHeight()), 13);
-    editor.setComponents(model.getAllComponents(), model.getBoundary(), 13);
+    editor.updateParameters(pathName, new Dimension(model.getBoundary().getWidth(), model.getBoundary().getHeight()), speed);
+    editor.setComponents(model.getAllComponents(), model.getBoundary(), speed);
   }
 
   public static void main(String[] args) throws InterruptedException {
     IModel model;
     try {
-      String pathName = "resources/big-bang-big-crunch.txt";
+      String pathName = "resources/toh-8.txt";
       model = AnimationReader.parseFile(new FileReader(new File(pathName)), Model.builder());
       System.out.println("model Imported");
 
       EditorView editor = new EditorView();
-      VisualController con = new VisualController(model,editor, pathName, 13);
+      VisualController con = new VisualController(model,editor, pathName, 2000);
       con.run();
     } catch (FileNotFoundException e) {
       e.printStackTrace();

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class Display extends JPanel {
   EditorView editor;
   JPanel container;
+  int scale;
 
   public Display(EditorView c){
     this.editor = c;
@@ -23,11 +24,12 @@ public class Display extends JPanel {
   private List<Shape> shapes = new ArrayList<>();
   private Boundary boundary = new Boundary(0,0,0,0);
 
-  public void updatePanelStates(List<State> states, List<Shape> shapes, Boundary boundary) {
+  public void updatePanelStates(List<State> states, List<Shape> shapes, Boundary boundary, int scale) {
     if(states == null || shapes == null || boundary == null){ return; }
     this.states = states;
     this.shapes = shapes;
     this.boundary = boundary;
+    this.scale = scale;
   }
 
   private void doDrawing(Graphics g) {
@@ -35,8 +37,6 @@ public class Display extends JPanel {
     for(int i = 0; i < states.size(); i++){
       State state = states.get(i);
       gfx.setPaint(new Color(state.red(), state.green(), state.blue()));
-
-      int scale = 3;
 
       switch(shapes.get(i)){
         case RECTANGLE:

@@ -4,7 +4,6 @@ import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -14,12 +13,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
@@ -108,13 +104,13 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
   }
 
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
-    this.components = components;
     this.speed = speed;
+    this.components = components;
     this.boundary = boundary;
     findFinalTick();
-    display.setPreferredSize(new Dimension(boundary.getWidth() + boundary.getX(), boundary.getHeight() + boundary.getY()));
-    interactive.setComponents(components);
-    tickTimer = new Timer(10, this);
+    display.setPreferredSize(new Dimension(this.boundary.getWidth() + this.boundary.getX(), this.boundary.getHeight() + this.boundary.getY()));
+    interactive.setComponents(this.components);
+    tickTimer = new Timer(1000/this.speed, this);
     tickTimer.start();
   }
 
@@ -169,7 +165,11 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
         shapes.add(c.getShape());
       }
     }
-    display.updatePanelStates(states, shapes, boundary);
+    int scale = boundary.getHeight() / 300;
+    if(boundary.getHeight() < boundary.getWidth()){
+      scale = boundary.getWidth() / 300;
+    }
+    display.updatePanelStates(states, shapes, boundary, scale);
   }
 
   public void updateParameters(String fileName, Dimension dimension, int speed){
@@ -183,5 +183,13 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
   @Override
   public void valueChanged(ListSelectionEvent e) {
 
+  }
+
+  public void changeSpeed(int speed) {
+    this.speed = speed;
+    tickTimer.stop();
+    tickTimer.removeActionListener(this);
+    this.tickTimer = new Timer(1000/this.speed, this);
+    tickTimer.start();
   }
 }
