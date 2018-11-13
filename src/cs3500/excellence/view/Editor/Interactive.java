@@ -117,11 +117,9 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     int index = Integer.parseInt(split[1]);
     switch(split[0]){
       case "comp":
-        System.out.println(components.get(index).getID());
         setKeyTimes(components.get(index).returnAllKeyTimes(), components.get(index).returnAllKeyStates());
         break;
       case "time":
-        System.out.println(keyTimes.get(index));
         setStateParameters(keyStates.get(index));
         break;
     }

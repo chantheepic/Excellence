@@ -2,7 +2,6 @@ package cs3500.excellence.view.Editor;
 
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
-import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.util.AnimationReader;
 import java.awt.Dimension;
 import java.io.File;

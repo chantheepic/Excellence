@@ -7,17 +7,25 @@ import cs3500.excellence.model.components.Shape;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class EditorView extends JFrame implements ActionListener {
+public class EditorView extends JFrame implements ActionListener, ItemListener, ListSelectionListener {
 
   private Export export;
   private Parameters param;
@@ -29,10 +37,13 @@ public class EditorView extends JFrame implements ActionListener {
 
   private int speed;
   private int finalTick;
+  private boolean loop = false;
   List<IROComponent> components;
   private int currentTick;
+  private JPanel currentTickLabel;
   private Timer tickTimer;
   private Boundary boundary;
+
 
 
   EditorView() throws InterruptedException {
@@ -46,8 +57,37 @@ public class EditorView extends JFrame implements ActionListener {
     leftPanel.setLayout(new GridLayout(3,1));
     leftPanel.add(param.returnPanel());
     leftPanel.add(export.returnPanel());
-    // Blank panel as spacer
-    leftPanel.add(new JPanel());
+
+    JCheckBox[] loop = new JCheckBox[1];
+    loop[0] = new JCheckBox("Loop");
+    loop[0].setSelected(false);
+    loop[0].setActionCommand("loop");
+    loop[0].addActionListener(this);
+
+    // Playback is built in because it needs access to the timer
+    JPanel playback = new JPanel();
+    playback.add(new Label("Playback"));
+    currentTickLabel = new JPanel();
+    playback.add(currentTickLabel);
+    playback.add(loop[0]);
+    playback.setLayout(new GridLayout(2,3));
+
+    JButton resume = new JButton("Resume");
+    resume.setActionCommand("resume");
+    resume.addActionListener(this);
+    playback.add(resume);
+
+    JButton pause = new JButton("Pause");
+    pause.setActionCommand("pause");
+    pause.addActionListener(this);
+    playback.add(pause);
+
+    JButton restart = new JButton("Restart");
+    restart.setActionCommand("restart");
+    restart.addActionListener(this);
+    playback.add(restart);
+
+    leftPanel.add(playback);
 
     topPanel = new JPanel();
     topPanel.setLayout(new GridLayout(1,2));
@@ -90,11 +130,33 @@ public class EditorView extends JFrame implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
-    drawFrame(currentTick++);
-    setVisible(true);
-    this.repaint();
-    if(currentTick>= finalTick) {
+    if(e.getActionCommand() == null){
+      drawFrame(currentTick++);
+      currentTickLabel.removeAll();
+      currentTickLabel.add(new Label(String.valueOf(currentTick)));
+      setVisible(true);
+      this.repaint();
+      if(currentTick>= finalTick) {
+        if(loop == true){
+          currentTick = 0;
+        } else {
+          tickTimer.stop();
+        }
+      }
+      return;
+    }
+    if(e.getActionCommand().equals("pause")){
       tickTimer.stop();
+    }
+    if(e.getActionCommand().equals("resume")){
+      tickTimer.start();
+    }
+    if(e.getActionCommand().equals("restart")){
+      currentTick = 0;
+      tickTimer.start();
+    }
+    if(e.getActionCommand().equals("loop")){
+      loop = !loop;
     }
   }
 
@@ -114,4 +176,12 @@ public class EditorView extends JFrame implements ActionListener {
     param.updateParam(fileName, dimension, speed);
   }
 
+  @Override
+  public void itemStateChanged(ItemEvent e) {
+  }
+
+  @Override
+  public void valueChanged(ListSelectionEvent e) {
+
+  }
 }
