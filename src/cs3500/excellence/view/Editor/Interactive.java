@@ -35,10 +35,6 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
   JScrollPane elementsPane;
   JScrollPane statesPane;
 
-  public static void main(String[] args) throws InterruptedException {
-    new Interactive(new EditorView());
-  }
-
   public Interactive (EditorView c){
     this.editor = c;
     elements  = new JPanel();

@@ -31,6 +31,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
   private JPanel topPanel;
   private JPanel container;
 
+  private String filename;
   private int speed;
   private int finalTick;
   private boolean loop = false;
@@ -103,13 +104,16 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     setVisible(true);
   }
 
-  public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
+  // Previously setComponents();
+  public void setInitial(List<IROComponent> components, Boundary boundary, String filename, int speed) {
     this.speed = speed;
+    this.filename = filename;
     this.components = components;
     this.boundary = boundary;
     findFinalTick();
     display.setPreferredSize(new Dimension(this.boundary.getWidth() + this.boundary.getX(), this.boundary.getHeight() + this.boundary.getY()));
     interactive.setComponents(this.components);
+    param.updateParam(this.filename, new Dimension(boundary.getWidth(), boundary.getHeight()), speed);
     tickTimer = new Timer(1000/this.speed, this);
     tickTimer.start();
   }
@@ -172,10 +176,6 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     display.updatePanelStates(states, shapes, boundary, scale);
   }
 
-  public void updateParameters(String fileName, Dimension dimension, int speed){
-    param.updateParam(fileName, dimension, speed);
-  }
-
   @Override
   public void itemStateChanged(ItemEvent e) {
   }
@@ -191,5 +191,6 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     tickTimer.removeActionListener(this);
     this.tickTimer = new Timer(1000/this.speed, this);
     tickTimer.start();
+    param.updateParam(filename, new Dimension(boundary.getWidth(), boundary.getHeight()), speed);
   }
 }

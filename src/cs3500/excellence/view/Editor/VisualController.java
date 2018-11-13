@@ -3,7 +3,6 @@ package cs3500.excellence.view.Editor;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
-import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,19 +10,18 @@ import java.io.FileReader;
 public class VisualController {
   IModel model;
   EditorView editor;
-  String pathName;
+  String pathname;
   int speed;
 
   public VisualController(IModel model, EditorView editor, String  pathname, int speed){
-    this.pathName = pathname;
+    this.pathname = pathname;
     this.speed = speed;
     this.model = model;
     this.editor = editor;
   }
 
   public void run(){
-    editor.updateParameters(pathName, new Dimension(model.getBoundary().getWidth(), model.getBoundary().getHeight()), speed);
-    editor.setComponents(model.getAllComponents(), model.getBoundary(), speed);
+    editor.setInitial(model.getAllComponents(), model.getBoundary(), pathname, speed);
   }
 
   public static void main(String[] args) throws InterruptedException {
