@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -17,9 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class Export extends JFrame implements ActionListener, ItemListener, ListSelectionListener {
-  EditorView c;
-
+public class Export extends JPanel implements ActionListener, ItemListener, ListSelectionListener {
+  EditorView editor;
   JPanel container;
   JPanel panelLeft;
   JPanel panelRight;
@@ -29,7 +28,7 @@ public class Export extends JFrame implements ActionListener, ItemListener, List
   JTextField saveName;
 
   public Export(EditorView c) {
-    this.c = c;
+    this.editor = c;
     container = new JPanel();
     container.setLayout(new GridLayout(1,2));
     panelLeft = new JPanel();
@@ -112,6 +111,4 @@ public class Export extends JFrame implements ActionListener, ItemListener, List
     return container;
   }
 
-  public void updateParam() {
-  }
 }

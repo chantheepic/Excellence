@@ -1,15 +1,15 @@
 package cs3500.excellence.view.Editor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.JFrame;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Parameters extends JFrame {
-  EditorView c;
-
+public class Parameters extends JPanel {
+  EditorView editor;
   private JPanel container;
   private JLabel label;
   private JTextField fileName;
@@ -17,7 +17,7 @@ public class Parameters extends JFrame {
   private JTextField speed;
 
   public  Parameters(EditorView c){
-    this.c = c;
+    this.editor = c;
 
     container = new JPanel();
     container.setLayout(new GridLayout(4,1));

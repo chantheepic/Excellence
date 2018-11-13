@@ -49,7 +49,7 @@ public class Component implements IComponent, IROComponent {
   public ArrayList<State> returnAllKeyStates() {
     return new ArrayList<>(this.keyStates);
   }
-
+  @Override
   public ArrayList returnAllKeyTimes() {
     return new ArrayList(this.keyTimes);
   }
@@ -59,8 +59,12 @@ public class Component implements IComponent, IROComponent {
     if (motion == null) {
       throw new IllegalArgumentException("State cannot be null");
     }
-    if (keyStates.size() == 0 || (keyStates.get(keyStates.size() - 1).equals(motion.initialState())
-        && keyTimes.get(keyStates.size() - 1) == motion.initialTick())) {
+    if(keyStates.size() == 0){
+      keyStates.add(motion.initialState());
+      keyTimes.add(motion.initialTick());
+    }
+    if (keyStates.get(keyStates.size() - 1).equals(motion.initialState())
+        && keyTimes.get(keyStates.size() - 1) == motion.initialTick()) {
       keyStates.add(motion.endState());
       keyTimes.add(motion.endTick());
     }
@@ -122,15 +126,37 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public State getStateAtTick(int tick) {
-    System.out.println(tick);
-    List<IMotion> motions = returnAllMotions();
-    for (IMotion motion : motions) {
-      if (motion.containsTick(tick)) {
-        return motion.getStateAtTick(tick);
-      }
+    if(!hasMotion()) {
+      throw new IllegalArgumentException("no keyframes have been added");
     }
-    throw new IllegalArgumentException("Tick does not exist");
-  }
+    // Find index just larger than tick
+    int index = 0;
+    while(tick > keyTimes.get(index) && index < keyTimes.size()){
+      index++;
+    }
+    if(index == 0 || tick == keyTimes.get(index)){
+      return keyStates.get(index);
+    }
+
+    State iState = keyStates.get(index - 1);
+    State eState = keyStates.get(index);
+    int iTime = keyTimes.get(index - 1);
+    int eTime = keyTimes.get(index);
+    double tickDelta = eTime - iTime;
+    double relTick = tick - iTime;
+    double timeDelta = relTick / tickDelta;
+
+    int posX = (int)(iState.xPos() + ((eState.xPos() - iState.xPos()) * timeDelta));
+    int posY = (int)(iState.yPos() + ((eState.yPos() - iState.yPos()) * timeDelta));
+    int width = (int)(iState.width() + ((eState.width() - iState.width()) * timeDelta));
+    int height = (int)(iState.height() + ((eState.height() - iState.height()) * timeDelta));
+    int red = (int)(iState.red() + ((eState.red() - iState.red()) * timeDelta));
+    int green = (int)(iState.green() + ((eState.green() - iState.green()) * timeDelta));
+    int blue = (int)(iState.blue() + ((eState.blue() - iState.blue()) * timeDelta));
+    State newState = new State(posX, posY, width, height, red, green, blue);
+
+    return newState;
+}
 
   @Override
   public boolean hasMotionAtTick(int tick) {

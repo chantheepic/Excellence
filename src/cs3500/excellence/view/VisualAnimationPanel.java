@@ -4,9 +4,12 @@ import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.Shape;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.shape.Ellipse;
 import javax.swing.JPanel;
 
 public class VisualAnimationPanel extends JPanel {
@@ -47,4 +50,5 @@ public class VisualAnimationPanel extends JPanel {
       super.paintComponent(g);
       drawShape(g);
     }
+
 }

@@ -106,6 +106,7 @@ public class Model implements IModel {
   }
 
   @Override
+  // IS anything using this?
   public Set<String> getAllIds() {
     return new TreeSet<>(registeredShapes.keySet());
   }

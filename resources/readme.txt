@@ -40,6 +40,14 @@ overview.
    different types. We could have had an Enum representing the different available types, but that
    would require more work to extend.
 
+5. The main utilizes a builder and a factory so that the arguments can be provided out of order.
+
+6. Each view handles the separate drawing of the different shapes. Because the process used to
+   draw the shapes is different for each view, no abstraction was possible. Even within each view
+   because the parameters and calculations done to draw each shape was different
+   (i.e. center point for rect and ellipse in svgView), Abstracting the calculations done to
+   different shapes were difficult.
+
 *Future Revisions*
     - Factory for creating components
     - Builder for adding motions to components
@@ -49,3 +57,5 @@ overview.
     - Need to hold order that shapes were added, dictionary that holds order??
         -> or need to use a list instead of a map.
         ->UPDATE: linked hashmap is what we need.
+
+    - New method needed to retrieve all components of a shape. The views need a list of components.

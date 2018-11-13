@@ -18,6 +18,8 @@ public interface IROComponent {
    * @return An array that contains all motions made by the component.
    */
   ArrayList<IMotion> returnAllMotions();
+  ArrayList<State> returnAllKeyStates();
+  ArrayList<Integer> returnAllKeyTimes();
 
 
   Shape getShape();
