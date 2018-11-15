@@ -48,6 +48,11 @@ public class Component implements IComponent, IROComponent {
   }
 
   @Override
+  public List<Keyframe> returnAllKeyframes() {
+    return new ArrayList<>(keyframes);
+  }
+
+  @Override
   public void addMotion(IMotion motion) {
     if (motion == null) {
       throw new IllegalArgumentException("State cannot be null");
@@ -82,13 +87,7 @@ public class Component implements IComponent, IROComponent {
     }
   }
 
-//  @Override
-//  public void removeMotion(int startingTick) {
-//    if (index < keyStates.size()) {
-//      keyStates.remove(index);
-//      keyTimes.remove(index);
-//    }
-//  }
+
 
   @Override
   public void removeAllMotion() {
@@ -154,17 +153,18 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public boolean hasMotionAtTick(int tick) {
-    return tick > keyTimes.get(0) && tick < keyTimes.get(keyTimes.size() - 1);
+    return tick > keyframes.get(0).getTick() &&
+            tick < keyframes.get(keyframes.size() - 1).getTick();
   }
 
   @Override
   public int getFinalTick() {
-    return keyTimes.get(keyTimes.size() - 1);
+    return keyframes.get(keyframes.size() - 1).getTick();
   }
 
   @Override
   public boolean hasMotion() {
-    return !keyStates.isEmpty();
+    return !keyframes.isEmpty();
   }
 
   @Override

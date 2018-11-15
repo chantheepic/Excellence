@@ -20,14 +20,9 @@ public interface IComponent extends IROComponent {
    * @throws IllegalArgumentException - if the motion is null, or does not line up. EX: [ tick = 1
    *                                  ... tick = 10 ] and [tick = 10 ... tick = 25 ]
    */
-  void addKeyFrame(IMotion motion) throws IllegalArgumentException;
+  void addMotion(IMotion motion) throws IllegalArgumentException;
 
-  /**
-   * Removes the index_th motion from the component.
-   *
-   * @param index - the given index of move to remove.
-   */
-  void removeMotion(int index);
+  void insertKeyframe(int tick, State state);
 
   /**
    * Removes all motions from the component.
