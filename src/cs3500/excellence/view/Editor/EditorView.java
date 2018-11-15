@@ -175,7 +175,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     }
     display.updatePanelStates(states, shapes, boundary, scale);
 
-    // calling repaint twice enables us to avoid the glitching when manipulating keyframes while
+    // calling repaint twice enables us to avoid the glitching when manipulating keyframePanel while
     // the animation is playing.
     this.repaint();
   }

@@ -2,8 +2,8 @@ package cs3500.excellence.view.Editor;
 
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
+import cs3500.excellence.model.components.Keyframe;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +27,9 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
   JTextField tick;
   JButton setTick;
 
-  JPanel elements;
+  JPanel elementPanel;
   JRadioButton[] elementOptions;
-  JPanel keyframes;
+  JPanel keyframePanel;
   JRadioButton[] keyOptions;
   JPanel parameters;
 
@@ -44,18 +44,17 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
   JButton deleteKeyframe;
 
   JPanel container;
+  private List<Keyframe> keyframes;
   private List<IROComponent> components;
   private IROComponent component;
-  private List<State> keyStates;
-  private List<Integer> keyTimes;
 
   JScrollPane elementsPane;
   JScrollPane statesPane;
 
   public Interactive (EditorView c){
     this.editor = c;
-    elements  = new JPanel();
-    keyframes = new JPanel();
+    elementPanel = new JPanel();
+    keyframePanel = new JPanel();
     parameters = new JPanel();
     container = new JPanel();
 
@@ -64,9 +63,9 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     setTick.setActionCommand("moveto");
     setTick.addActionListener(this);
 
-    elementsPane = new JScrollPane(elements);
+    elementsPane = new JScrollPane(elementPanel);
     container.add(elementsPane);
-    statesPane = new JScrollPane(keyframes);
+    statesPane = new JScrollPane(keyframePanel);
     container.add(statesPane);
 
     paramSizeX = new JTextField();
@@ -101,7 +100,7 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
 
     container.add(parameters);
     container.setLayout(new GridLayout(1,3));
-    elements.setBorder(BorderFactory.createLineBorder(Color.black));
+    elementPanel.setBorder(BorderFactory.createLineBorder(Color.black));
   }
 
   public JPanel returnPanel(){
@@ -110,10 +109,10 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
 
   public void setComponents(List<IROComponent> components) {
     this.components = components;
-    elements.removeAll();
-    elements.add(new JLabel("Elements"));
+    elementPanel.removeAll();
+    elementPanel.add(new JLabel("Elements"));
     elementOptions = new JRadioButton[components.size()];
-    elements.setLayout(new GridLayout(components.size() + 1, 1));
+    elementPanel.setLayout(new GridLayout(components.size() + 1, 1));
     ButtonGroup group = new ButtonGroup();
 
     for(int i = 0; i < components.size(); i++){
@@ -121,7 +120,7 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
       elementOptions[i].setActionCommand("comp " + i);
       elementOptions[i].addActionListener(this);
       group.add(elementOptions[i]);
-      elements.add(elementOptions[i]);
+      elementPanel.add(elementOptions[i]);
     }
     elementsPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     elementsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -129,20 +128,20 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
 
   public void setKeyTimes(int index){
     this.component = components.get(index);
-    this.keyStates = components.get(index).returnAllKeyStates();
-    this.keyTimes = components.get(index).returnAllKeyTimes();
-    keyframes.removeAll();
-    keyframes.add(new JLabel("Key Frames"));
-    keyOptions = new JRadioButton[keyTimes.size()];
-    keyframes.setLayout(new GridLayout(keyTimes.size() + 1, 1));
+    this.keyframes = component.returnAllKeyframes();
+
+    keyframePanel.removeAll();
+    keyframePanel.add(new JLabel("Key Frames"));
+    keyOptions = new JRadioButton[keyframes.size()];
+    keyframePanel.setLayout(new GridLayout(keyframes.size() + 1, 1));
     ButtonGroup group2 = new ButtonGroup();
 
-    for(int i = 0; i < keyTimes.size(); i++){
-      keyOptions[i] = new JRadioButton(String.valueOf(keyTimes.get(i)));
+    for(int i = 0; i < keyframes.size(); i++){
+      keyOptions[i] = new JRadioButton(String.valueOf(keyframes.get(i).getTick()));
       keyOptions[i].setActionCommand("key " + i);
       keyOptions[i].addActionListener(this);
       group2.add(keyOptions[i]);
-      keyframes.add(keyOptions[i]);
+      keyframePanel.add(keyOptions[i]);
     }
     statesPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     statesPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -170,10 +169,10 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
         setKeyTimes(index);
         break;
       case "key":
-        setStateParameters(keyStates.get(index));
-        tick.setText(String.valueOf(keyTimes.get(index)));
-        editor.drawFrame(keyTimes.get(index));
-        editKeyframe.setText("Edit Keyframe");
+        setStateParameters(keyframes.get(index).getState());
+        tick.setText(String.valueOf(keyframes.get(index).getTick()));
+        editor.drawFrame(keyframes.get(index).getTick());
+//        editKeyframe.setText("Edit Keyframe");
         break;
       case "color":
         Color color = JColorChooser.showDialog(Interactive.this, "Color palette", paramColor.getBackground());
@@ -182,15 +181,15 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
       case "moveto":
         try{
           int newTick = Integer.parseInt(tick.getText());
-          if(newTick >= keyTimes.get(0) && newTick <= keyTimes.get(keyTimes.size() - 1)){
+          if(newTick >= keyframes.get(0).getTick() && newTick <= keyframes.get(keyframes.size() - 1).getTick()){
             setStateParameters(component.getStateAtTick(newTick));
             editor.drawFrame(newTick);
             // Changes label on button to pull double duty
-            if(!keyTimes.contains(newTick)){
-              editKeyframe.setText("Add Keyframe");
-            } else {
-              editKeyframe.setText("Edit Keyframe");
-            }
+//            if(!keyframes.contains(newTick)){
+//              editKeyframe.setText("Add Keyframe");
+//            } else {
+//              editKeyframe.setText("Edit Keyframe");
+//            }
           }
         } catch (NumberFormatException format){
 
