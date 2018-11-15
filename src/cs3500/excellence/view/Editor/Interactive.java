@@ -173,6 +173,7 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
         setStateParameters(keyStates.get(index));
         tick.setText(String.valueOf(keyTimes.get(index)));
         editor.drawFrame(keyTimes.get(index));
+        editKeyframe.setText("Edit Keyframe");
         break;
       case "color":
         Color color = JColorChooser.showDialog(Interactive.this, "Color palette", paramColor.getBackground());
