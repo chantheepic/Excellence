@@ -174,6 +174,10 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
       scale = boundary.getWidth() / 300;
     }
     display.updatePanelStates(states, shapes, boundary, scale);
+
+    // calling repaint twice enables us to avoid the glitching when manipulating keyframes while
+    // the animation is playing.
+    this.repaint();
   }
 
   @Override

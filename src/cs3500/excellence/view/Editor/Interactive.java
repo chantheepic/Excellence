@@ -24,6 +24,9 @@ import javax.swing.event.ListSelectionListener;
 
 public class Interactive extends JPanel implements ActionListener, ItemListener, ListSelectionListener {
   EditorView editor;
+  JTextField tick;
+  JButton setTick;
+
   JPanel elements;
   JRadioButton[] elementOptions;
   JPanel keyframes;
@@ -36,8 +39,13 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
   JTextField paramSizeY;
   JPanel paramColor;
   JButton colorChooser;
+
+  JButton editKeyframe;
+  JButton deleteKeyframe;
+
   JPanel container;
   private List<IROComponent> components;
+  private IROComponent component;
   private List<State> keyStates;
   private List<Integer> keyTimes;
 
@@ -51,6 +59,11 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     parameters = new JPanel();
     container = new JPanel();
 
+    tick = new JTextField();
+    setTick = new JButton("Move to tick");
+    setTick.setActionCommand("moveto");
+    setTick.addActionListener(this);
+
     elementsPane = new JScrollPane(elements);
     container.add(elementsPane);
     statesPane = new JScrollPane(keyframes);
@@ -63,7 +76,10 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     paramColor = new JPanel();
     colorChooser = new JButton("Choose Color");
 
-    parameters.setLayout(new GridLayout(4,3));
+    parameters.setLayout(new GridLayout(5,3));
+    parameters.add(new JLabel("Tick Position"));
+    parameters.add(tick);
+    parameters.add(setTick);
     parameters.add(new JLabel("Size (X,Y)"));
     parameters.add(paramSizeX);
     parameters.add(paramSizeY);
@@ -77,6 +93,11 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     colorChooser.setActionCommand("color");
     colorChooser.addActionListener(this);
     parameters.add(colorChooser);
+
+    editKeyframe = new JButton("Edit Keyframe");
+    parameters.add(editKeyframe);
+    deleteKeyframe = new JButton("Delete Keyframe");
+    parameters.add(deleteKeyframe);
 
     container.add(parameters);
     container.setLayout(new GridLayout(1,3));
@@ -106,9 +127,10 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     elementsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
   }
 
-  public void setKeyTimes(List<Integer> keyTimes, List<State> keyStates){
-    this.keyStates = keyStates;
-    this.keyTimes = keyTimes;
+  public void setKeyTimes(int index){
+    this.component = components.get(index);
+    this.keyStates = components.get(index).returnAllKeyStates();
+    this.keyTimes = components.get(index).returnAllKeyTimes();
     keyframes.removeAll();
     keyframes.add(new JLabel("Key Frames"));
     keyOptions = new JRadioButton[keyTimes.size()];
@@ -145,14 +167,36 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     }
     switch(split[0]){
       case "comp":
-        setKeyTimes(components.get(index).returnAllKeyTimes(), components.get(index).returnAllKeyStates());
+        setKeyTimes(index);
         break;
       case "key":
         setStateParameters(keyStates.get(index));
+        tick.setText(String.valueOf(keyTimes.get(index)));
+        editor.drawFrame(keyTimes.get(index));
         break;
       case "color":
-        Color col = JColorChooser.showDialog(Interactive.this, "Choose a color", paramColor.getBackground());
-        paramColor.setBackground(col);
+        Color color = JColorChooser.showDialog(Interactive.this, "Color palette", paramColor.getBackground());
+        paramColor.setBackground(color);
+        break;
+      case "moveto":
+        try{
+          int newTick = Integer.parseInt(tick.getText());
+          if(newTick >= keyTimes.get(0) && newTick <= keyTimes.get(keyTimes.size() - 1)){
+            setStateParameters(component.getStateAtTick(newTick));
+            editor.drawFrame(newTick);
+            // Changes label on button to pull double duty
+            if(!keyTimes.contains(newTick)){
+              editKeyframe.setText("Add Keyframe");
+            } else {
+              editKeyframe.setText("Edit Keyframe");
+            }
+          }
+        } catch (NumberFormatException format){
+
+        }
+        break;
+      default:
+
     }
   }
 
