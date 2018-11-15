@@ -3,7 +3,7 @@ package cs3500.excellence.view.Editor;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,8 @@ import java.awt.event.ItemListener;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -27,6 +29,13 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
   JPanel keyframes;
   JRadioButton[] keyOptions;
   JPanel parameters;
+
+  JTextField paramPosnX;
+  JTextField paramPosnY;
+  JTextField paramSizeX;
+  JTextField paramSizeY;
+  JPanel paramColor;
+  JButton colorChooser;
   JPanel container;
   private List<IROComponent> components;
   private List<State> keyStates;
@@ -46,6 +55,28 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     container.add(elementsPane);
     statesPane = new JScrollPane(keyframes);
     container.add(statesPane);
+
+    paramSizeX = new JTextField();
+    paramSizeY = new JTextField();
+    paramPosnX = new JTextField();
+    paramPosnY = new JTextField();
+    paramColor = new JPanel();
+    colorChooser = new JButton("Choose Color");
+
+    parameters.setLayout(new GridLayout(4,3));
+    parameters.add(new JLabel("Size (X,Y)"));
+    parameters.add(paramSizeX);
+    parameters.add(paramSizeY);
+    parameters.add(new JLabel("Position (X,Y)"));
+    parameters.add(paramPosnX);
+    parameters.add(paramPosnY);
+    parameters.add(new JLabel("Color"));
+    parameters.add(paramColor);
+    paramColor.setBackground(Color.white);
+    paramColor.setOpaque(true);
+    colorChooser.setActionCommand("color");
+    colorChooser.addActionListener(this);
+    parameters.add(colorChooser);
 
     container.add(parameters);
     container.setLayout(new GridLayout(1,3));
@@ -86,7 +117,7 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
 
     for(int i = 0; i < keyTimes.size(); i++){
       keyOptions[i] = new JRadioButton(String.valueOf(keyTimes.get(i)));
-      keyOptions[i].setActionCommand("time " + i);
+      keyOptions[i].setActionCommand("key " + i);
       keyOptions[i].addActionListener(this);
       group2.add(keyOptions[i]);
       keyframes.add(keyOptions[i]);
@@ -96,28 +127,32 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
 
   }
 
+
   public void setStateParameters(State state){
-    parameters.removeAll();
-    JPanel param = new JPanel();
-    param.setLayout(new GridLayout(3,1));
-    param.setPreferredSize(new Dimension(200,300));
-    param.add(new JTextField(state.height() + " x " + state.width()));
-    param.add(new JTextField(state.xPos() + " x " + state.yPos()));
-    param.add(new JTextField(state.red() + " " + state.green() + " " + state.blue()));
-    parameters.add(param);
+    paramSizeX.setText(String.valueOf(state.width()));
+    paramSizeY.setText(String.valueOf(state.height()));
+    paramPosnX.setText(String.valueOf(state.xPos()));
+    paramPosnY.setText(String.valueOf(state.yPos()));
+    paramColor.setBackground(new Color(state.red(), state.green(), state.blue()));
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     String[] split = e.getActionCommand().split("\\s+");
-    int index = Integer.parseInt(split[1]);
+    int index = 0;
+    if(split.length > 1){
+      index = Integer.parseInt(split[1]);
+    }
     switch(split[0]){
       case "comp":
         setKeyTimes(components.get(index).returnAllKeyTimes(), components.get(index).returnAllKeyStates());
         break;
-      case "time":
+      case "key":
         setStateParameters(keyStates.get(index));
         break;
+      case "color":
+        Color col = JColorChooser.showDialog(Interactive.this, "Choose a color", paramColor.getBackground());
+        paramColor.setBackground(col);
     }
   }
 
