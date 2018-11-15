@@ -38,4 +38,6 @@ public interface IROModel {
    */
   Boundary getBoundary();
 
+  List<State> getKeyframes();
+
 }

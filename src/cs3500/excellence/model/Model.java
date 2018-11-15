@@ -106,6 +106,24 @@ public class Model implements IModel {
   }
 
   @Override
+  public void insertKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void removeKeyframe(String name, int tick) throws IllegalArgumentException {
+    if(!registeredShapes.containsKey(name)) {
+      throw new IllegalArgumentException("Invalid name");
+    }
+    if (!registeredShapes.get(name).hasMotionAtTick(tick)) {
+      throw new IllegalArgumentException("Invalid tick");
+    }
+
+    registeredShapes.get(name).re
+
+  }
+
+  @Override
   // IS anything using this?
   public Set<String> getAllIds() {
     return new TreeSet<>(registeredShapes.keySet());
@@ -127,6 +145,11 @@ public class Model implements IModel {
   @Override
   public Boundary getBoundary() {
     return boundary;
+  }
+
+  @Override
+  public List<State> getKeyframes() {
+    return null;
   }
 
   public static final class Builder implements AnimationBuilder<IModel> {

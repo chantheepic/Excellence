@@ -33,4 +33,7 @@ public interface IComponent extends IROComponent {
    * Removes all motions from the component.
    */
   void removeAllMotion();
+
+  void removeKeyframe(int tick);
+
 }
