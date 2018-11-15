@@ -1,6 +1,6 @@
 package cs3500.excellence.model.components;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
@@ -17,9 +17,8 @@ public interface IROComponent {
    * Returns all motions made by the component.
    * @return An array that contains all motions made by the component.
    */
-  ArrayList<IMotion> returnAllMotions();
-  ArrayList<State> returnAllKeyStates();
-  ArrayList<Integer> returnAllKeyTimes();
+  List<IMotion> returnAllMotions();
+  List<Keyframe> returnAllKeyframes();
 
 
   Shape getShape();

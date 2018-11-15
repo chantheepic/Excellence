@@ -16,8 +16,9 @@ import cs3500.excellence.model.State;
 public class Component implements IComponent, IROComponent {
 
   //private final List<IMotion> motions;
-  List<State> keyStates;
-  List<Integer> keyTimes;
+  ArrayList<Keyframe> keyframes;
+  //List<State> keyStates;
+  //List<Integer> keyTimes;
   private final String name;
   private final Shape type;
 
@@ -29,8 +30,7 @@ public class Component implements IComponent, IROComponent {
    * @param type - the type of the component.
    */
   public Component(String name, Shape type) {
-    this.keyStates = new ArrayList<>();
-    this.keyTimes = new ArrayList();
+    this.keyframes = new ArrayList<>();
     this.name = Objects.requireNonNull(name, "Name not valid");
     this.type = Objects.requireNonNull(type, "Type not valid");
   }
@@ -38,84 +38,65 @@ public class Component implements IComponent, IROComponent {
   @Override
   public ArrayList<IMotion> returnAllMotions() {
     ArrayList<IMotion> motions = new ArrayList<>();
-    for (int i = 0; i < keyStates.size() - 1; i++) {
-      IMotion m = new BasicMotion(keyStates.get(i), keyStates.get(i + 1), keyTimes.get(i),
-          keyTimes.get(i + 1));
+    for (int i = 1; i < keyframes.size(); i++) {
+      Keyframe start = keyframes.get(i-1);
+      Keyframe end = keyframes.get(i);
+      IMotion m = new BasicMotion(start.getState(), end.getState(), start.getTick(), end.getTick());
       motions.add(m);
     }
     return motions;
   }
 
-  public ArrayList<State> returnAllKeyStates() {
-    return new ArrayList<>(this.keyStates);
-  }
   @Override
-  public ArrayList returnAllKeyTimes() {
-    return new ArrayList(this.keyTimes);
+  public List<Keyframe> returnAllKeyframes() {
+    return new ArrayList<>(keyframes);
   }
 
   @Override
-  public void addKeyFrame(IMotion motion) {
+  public void addMotion(IMotion motion) {
     if (motion == null) {
       throw new IllegalArgumentException("State cannot be null");
     }
-    if(keyStates.size() == 0){
-      keyStates.add(motion.initialState());
-      keyTimes.add(motion.initialTick());
+    if(keyframes.size() == 0){
+      keyframes.add(new Keyframe(motion.initialTick(), motion.initialState()));
+      keyframes.add(new Keyframe(motion.endTick(), motion.endState()));
+      return;
     }
-    if (keyStates.get(keyStates.size() - 1).equals(motion.initialState())
-        && keyTimes.get(keyStates.size() - 1) == motion.initialTick()) {
-      keyStates.add(motion.endState());
-      keyTimes.add(motion.endTick());
+    Keyframe last = lastKeyframe();
+    if (last.getTick() != motion.initialTick() || last.getState() != motion.initialState()) {
+      throw new IllegalArgumentException("Motions must not overlap");
     }
+
   }
 
-  public void insertKeyFrame(State state, int tick) {
-    if (tick < keyTimes.get(0)) {
-      keyStates.add(0, state);
-      keyTimes.add(0, tick);
-      return;
-    }
-    if (tick > keyTimes.get(keyTimes.size() - 1)) {
-      keyStates.add(state);
-      keyTimes.add(tick);
-      return;
-    }
-    for (int i = 0; i < keyTimes.get(keyTimes.size() - 1); i++) {
-      if (tick == keyTimes.get(i)) {
-        keyStates.remove(i);
-        keyStates.add(i, state);
-        keyTimes.remove(i);
-        keyTimes.add(i, tick);
-        return;
-      }
-      if (tick == keyTimes.get(i + 1)) {
-        keyStates.remove(i + 1);
-        keyStates.add(i + 1, state);
-        keyTimes.remove(i + 1);
-        keyTimes.add(i + 1, tick);
-        return;
-      }
-      if (tick > keyTimes.get(i) && tick < keyTimes.get(i + 1)) {
-        keyStates.add(i, state);
-        keyTimes.add(i, tick);
-        return;
-      }
-    }
+  private Keyframe lastKeyframe() {
+    return this.keyframes.get(keyframes.size()-1);
   }
 
   @Override
-  public void removeMotion(int index) {
-    if (index < keyStates.size()) {
-      keyStates.remove(index);
-      keyTimes.remove(index);
+  public void insertKeyframe(int tick, State state) {
+    if(keyframes.size() == 0){
+      keyframes.add(new Keyframe(tick, state));
+    } else {
+      for (int i = 0; i < keyframes.size() ; i++) {
+        if(keyframes.get(i).getTick()> tick) {
+          keyframes.add(i, new Keyframe(tick,state));
+        }
+      }
+
     }
   }
+
+
 
   @Override
   public void removeAllMotion() {
-    keyStates.clear();
-    keyTimes.clear();
+    keyframes.clear();
+  }
+
+  @Override
+  public void removeKeyframe(int tick) {
+    keyframes.removeIf(k -> k.getTick() == tick);
   }
 
 
@@ -129,19 +110,27 @@ public class Component implements IComponent, IROComponent {
     if(!hasMotion()) {
       throw new IllegalArgumentException("no keyframes have been added");
     }
-    // Find index just larger than tick
-    int index = 0;
-    while(tick > keyTimes.get(index) && index < keyTimes.size()){
-      index++;
-    }
-    if(index == 0 || tick == keyTimes.get(index)){
-      return keyStates.get(index);
+    if(tick < getInitialTick() || tick > getFinalTick()) {
+      throw new IllegalArgumentException("invalid tick");
     }
 
-    State iState = keyStates.get(index - 1);
-    State eState = keyStates.get(index);
-    int iTime = keyTimes.get(index - 1);
-    int eTime = keyTimes.get(index);
+    // Find index just larger than tick
+    int index = 0;
+    for (int i = 0; i < keyframes.size(); i++) {
+      if(tick <= keyframes.get(i).getTick()) {
+        index = i;
+      }
+    }
+
+    //The only way for index to be 0 is for tick to align with first keyframe
+    if(index == 0) {
+      return keyframes.get(0).getState();
+    }
+
+    State iState = keyframes.get(index - 1).getState();
+    State eState = keyframes.get(index).getState();
+    int iTime = keyframes.get(index - 1).getTick();
+    int eTime = keyframes.get(index).getTick();
     double tickDelta = eTime - iTime;
     double relTick = tick - iTime;
     double timeDelta = relTick / tickDelta;
@@ -156,25 +145,31 @@ public class Component implements IComponent, IROComponent {
     State newState = new State(posX, posY, width, height, red, green, blue);
 
     return newState;
-}
+  }
+
+  private int getInitialTick() {
+    return keyframes.get(0).getTick();
+  }
 
   @Override
   public boolean hasMotionAtTick(int tick) {
-    return tick > keyTimes.get(0) && tick < keyTimes.get(keyTimes.size() - 1);
+    return tick > keyframes.get(0).getTick() &&
+            tick < keyframes.get(keyframes.size() - 1).getTick();
   }
 
   @Override
   public int getFinalTick() {
-    return keyTimes.get(keyTimes.size() - 1);
+    return keyframes.get(keyframes.size() - 1).getTick();
   }
 
   @Override
   public boolean hasMotion() {
-    return !keyStates.isEmpty();
+    return !keyframes.isEmpty();
   }
 
   @Override
   public String getID() {
     return name;
   }
+
 }

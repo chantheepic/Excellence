@@ -56,4 +56,28 @@ public interface IModel extends IROModel {
    * @param tick - the tick of the motion.
    */
   void removeMotion(String name, int tick) throws IllegalArgumentException;
+
+
+  /**
+   * Inserts a keyframe into the model. There are four cases:
+   * 1. In between existing keyframes: splits the motion into two motions
+   * 2. After existing keyframes: Adds motion with same initial state, after the last motion.
+   * 3. Before existing keyframes: Adds motions with same ending state, before the first motions.
+   * 4. No existing keyframes: creates a
+   *
+   *
+   * It does this my splitting a motion into two. Or it adds a new motion
+   * @param name
+   * @param tick
+   */
+  void insertKeyframe(String name, int tick, State newState) throws IllegalArgumentException;
+
+  /**
+   * Removes a keyframe the model. It does this by taking two motions and converting it into one.
+   * @param name
+   * @param tick
+   */
+  void removeKeyframe(String name, int tick);
+
+
 }
