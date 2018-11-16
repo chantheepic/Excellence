@@ -119,7 +119,7 @@ public class Model implements IModel {
       throw new IllegalArgumentException("Invalid tick");
     }
 
-    registeredShapes.get(name).re
+    //registeredShapes.get(name).re
 
   }
 
@@ -199,7 +199,7 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Motions do not lineup");
       }
       //Throws errors if invalid.
-      comp.addKeyFrame(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
+      //comp.addKeyFrame(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
       return this;
     }
 

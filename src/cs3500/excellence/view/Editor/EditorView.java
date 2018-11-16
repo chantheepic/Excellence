@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class EditorView extends JFrame implements ActionListener, ItemListener, ListSelectionListener {
 
-  private Export export;
+  private ImportExport export;
   private Parameters param;
   private Display display;
   private Interactive interactive;
@@ -45,7 +45,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
 
   EditorView() throws InterruptedException {
     super();
-    this.export = new Export(this);
+    this.export = new ImportExport(this);
     this.param = new Parameters(this);
     this.display = new Display(this);
     this.interactive = new Interactive(this);

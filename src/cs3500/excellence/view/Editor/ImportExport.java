@@ -2,14 +2,12 @@ package cs3500.excellence.view.Editor;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,17 +18,18 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class Export extends JPanel implements ActionListener, ItemListener, ListSelectionListener {
+public class ImportExport extends JPanel implements ActionListener, ItemListener, ListSelectionListener {
   EditorView editor;
   JPanel container;
   JPanel panelLeft;
   JPanel panelRight;
-  JLabel title;
   JRadioButton[] saveOptions;
   JButton save;
+  JButton open;
   JTextField saveName;
+  JTextField openName;
 
-  public Export(EditorView c) {
+  public ImportExport(EditorView c) {
     this.editor = c;
     container = new JPanel();
     container.setLayout(new GridLayout(1,2));
@@ -38,29 +37,33 @@ public class Export extends JPanel implements ActionListener, ItemListener, List
     panelLeft.setLayout(new GridLayout(4,2));
     panelRight = new JPanel();
     panelRight.setLayout(new GridLayout(3,1));
-    title = new JLabel("Export");
 
     // Buttons
     // Left Panel
     JButton saveDirectory = new JButton("Save Dir");
     saveDirectory.setActionCommand("save directory");
     saveDirectory.addActionListener(this);
-
     save = new JButton("Save");
     save.setActionCommand("Save");
     save.addActionListener(this);
-
     saveName = new JTextField("Save File Name");
     saveName.setForeground(new Color(116, 116, 116));
-
-    panelLeft.add(title);
+    panelLeft.add(new JLabel("ImportExport"));
     panelLeft.add(saveName);
     panelLeft.add(saveDirectory);
     panelLeft.add(save);
-    panelLeft.add(new JLabel("Import"));
-    panelLeft.add(new JTextField("Import Dir"));
-    panelLeft.add(new JButton("Import Dir"));
-    panelLeft.add(new JButton("Import"));
+
+    JButton importDirectory = new JButton("Import Dir");
+    importDirectory.setActionCommand("import directory");
+    importDirectory.addActionListener(this);
+    open = new JButton("Import");
+    open.setActionCommand("Import");
+    open.addActionListener(this);
+    panelLeft.add(new JLabel("Import File"));
+    panelLeft.add(openName);
+    openName.setForeground(new Color(116, 116, 116));
+    panelLeft.add(saveDirectory);
+    panelLeft.add(open);
 
     // Right Panel
     saveOptions = new JRadioButton[3];
@@ -101,10 +104,18 @@ public class Export extends JPanel implements ActionListener, ItemListener, List
         break;
       case "save directory": {
         final JFileChooser chooser = new JFileChooser(".");
-        int val = chooser.showSaveDialog(Export.this);
+        int val = chooser.showSaveDialog(ImportExport.this);
         if (val == JFileChooser.APPROVE_OPTION) {
           File f = chooser.getSelectedFile();
           saveName.setText(f.getAbsolutePath());
+        }
+      }
+      case "import directory": {
+        final JFileChooser chooser = new JFileChooser(".");
+        int val = chooser.showSaveDialog(ImportExport.this);
+        if (val == JFileChooser.APPROVE_OPTION) {
+          File f = chooser.getSelectedFile();
+          openName.setText(f.getAbsolutePath());
         }
       }
       default:

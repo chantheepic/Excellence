@@ -3,6 +3,7 @@ package cs3500.excellence.view.Editor;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Keyframe;
+import cs3500.excellence.model.components.Shape;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -58,15 +59,15 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     parameters = new JPanel();
     container = new JPanel();
 
-    tick = new JTextField();
-    setTick = new JButton("Move to tick");
-    setTick.setActionCommand("moveto");
-    setTick.addActionListener(this);
-
     elementsPane = new JScrollPane(elementPanel);
     container.add(elementsPane);
     statesPane = new JScrollPane(keyframePanel);
     container.add(statesPane);
+
+    tick = new JTextField();
+    setTick = new JButton("Move to tick");
+    setTick.setActionCommand("moveto");
+    setTick.addActionListener(this);
 
     paramSizeX = new JTextField();
     paramSizeY = new JTextField();
@@ -99,7 +100,8 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     parameters.add(deleteKeyframe);
 
     container.add(parameters);
-    container.setLayout(new GridLayout(1,3));
+    container.add(newShapePanel());
+    container.setLayout(new GridLayout(1,4));
     elementPanel.setBorder(BorderFactory.createLineBorder(Color.black));
   }
 
@@ -145,8 +147,35 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
     }
     statesPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     statesPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
   }
+
+  private JPanel newShapePanel(){
+    JPanel newShapePanel = new JPanel();
+    newShapePanel.setLayout(new GridLayout(3,1));
+
+    newShapePanel.add(new JLabel("Add Shape"));
+
+    JPanel shapes = new JPanel();
+    String shape;
+    shapes.setLayout(new GridLayout(2,1));
+    JRadioButton[] shapeOptions = new JRadioButton[2];
+    ButtonGroup group3 = new ButtonGroup();
+    shapeOptions[0] =  new JRadioButton("Rectangle");
+    shapes.add(shapeOptions[0]);
+    shape = "rectangle";
+    group3.add(shapeOptions[0]);
+    shapeOptions[1] = new JRadioButton("Ellipse");
+    shapes.add(shapeOptions[1]);
+    group3.add(shapeOptions[1]);
+    shape = "ellipse";
+    newShapePanel.add(shapes);
+
+    JButton addShape = new JButton("add shape");
+    addShape.setActionCommand("add " + shape);
+    addShape.addActionListener(this);
+    return newShapePanel;
+  }
+
 
 
   public void setStateParameters(State state){

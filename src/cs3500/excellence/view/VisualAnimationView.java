@@ -90,35 +90,6 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     }
   }
 
-  public void sampleView() {
-    List<IROComponent> roList = new ArrayList<>();
-    IComponent e;
-    IComponent r;
-    e = new Component("E", Shape.ELLIPSE);
-    r = new Component("R", Shape.RECTANGLE);
-    State s = new State(1, 2, 33, 40, 5, 6, 7);
-    State t = new State(110, 120, 13, 14, 15, 16, 17);
-    IMotion forward = new BasicMotion(s, t, 0, 10);
-    IMotion backward = new BasicMotion(t, s, 10, 20);
-    IMotion forward2 = new BasicMotion(t, s, 0, 10);
-    IMotion backward2 = new BasicMotion(s, s, 10, 20);
-
-    e.addKeyFrame(forward);
-    e.addKeyFrame(backward);
-    r.addKeyFrame(forward2);
-    r.addKeyFrame(backward2);
-    roList.add(e);
-    roList.add(r);
-
-    this.components = roList;
-    this.speed = 10;
-    this.boundary = new Boundary(0,0,100,100);
-    findFinalTick();
-    setSize(getPreferredSize());
-    tickTimer = new Timer(1000/speed, this);
-    tickTimer.start();
-  }
-
   public static final class errPanel{
     public void error(String msg){
       JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);
