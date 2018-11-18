@@ -2,6 +2,7 @@ package cs3500.excellence.view;
 
 import cs3500.excellence.model.Boundary;
 import java.util.ArrayList;
+import java.util.List;
 
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
@@ -33,13 +34,13 @@ public class SVGShapeFactory {
 
   private String rectBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
-    ArrayList<IMotion> motions = comp.returnAllMotions();
+    List<IMotion> motions = comp.returnAllMotions();
     IMotion firstMotion = motions.get(0);
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
-        "rect", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width(), firstState.height(),
-        firstState.red(), firstState.green(), firstState.green()));
+            "rect", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width(), firstState.height(),
+            firstState.red(), firstState.green(), firstState.green()));
 
     for (IMotion motion : motions) {
       State s = motion.getStateAtTick(motion.initialTick());
@@ -55,12 +56,12 @@ public class SVGShapeFactory {
 
       if (s.xPos() != e.xPos()) {
         output.append(String.format(stringFormat
-            , attributes[0], s.xPos() - boundary.getX(), e.xPos() - boundary.getX(), initialTime, timeDelta));
+                , attributes[0], s.xPos() - boundary.getX(), e.xPos() - boundary.getX(), initialTime, timeDelta));
       }
 
       if (s.yPos() != e.yPos()) {
         output.append(String.format(stringFormat
-            , attributes[1], s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
+                , attributes[1], s.yPos() - boundary.getY(), e.yPos() - boundary.getY(), initialTime, timeDelta));
       }
     }
     return output.toString();
@@ -68,13 +69,13 @@ public class SVGShapeFactory {
 
   private String ellipseBuild(IROComponent comp, Boundary boundary, int speed){
     StringBuilder output = new StringBuilder();
-    ArrayList<IMotion> motions = comp.returnAllMotions();
+    List<IMotion> motions = comp.returnAllMotions();
     IMotion firstMotion = motions.get(0);
     State firstState = firstMotion.getStateAtTick(firstMotion.initialTick());
 
     output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
-        "ellipse", firstState.xPos() - boundary.getX() + firstState.width()/2, firstState.yPos() - boundary.getY() + firstState.height()/2, firstState.width()/2, firstState.height()/2,
-        firstState.red(), firstState.green(), firstState.green()));
+            "ellipse", firstState.xPos() - boundary.getX() + firstState.width()/2, firstState.yPos() - boundary.getY() + firstState.height()/2, firstState.width()/2, firstState.height()/2,
+            firstState.red(), firstState.green(), firstState.green()));
 
     for (IMotion motion : motions) {
       State s = motion.getStateAtTick(motion.initialTick());
@@ -90,12 +91,12 @@ public class SVGShapeFactory {
 
       if (s.xPos() != e.xPos()) {
         output.append(String.format(stringFormat
-            , attributes[0], s.xPos() - boundary.getX() + s.width()/2, e.xPos() - boundary.getX() + e.width()/2, initialTime, timeDelta));
+                , attributes[0], s.xPos() - boundary.getX() + s.width()/2, e.xPos() - boundary.getX() + e.width()/2, initialTime, timeDelta));
       }
 
       if (s.yPos() != e.yPos()) {
         output.append(String.format(stringFormat
-            , attributes[1], s.yPos() - boundary.getY() + s.height()/2, e.yPos() - boundary.getY() + e.height()/2, initialTime, timeDelta));
+                , attributes[1], s.yPos() - boundary.getY() + s.height()/2, e.yPos() - boundary.getY() + e.height()/2, initialTime, timeDelta));
       }
 
     }
@@ -111,16 +112,16 @@ public class SVGShapeFactory {
 
     if (!sColor.equals(eColor)) {
       output.append(String.format(stringFormat
-          , "fill", sColor, eColor, initialTime, timeDelta));
+              , "fill", sColor, eColor, initialTime, timeDelta));
     }
 
     if (s.width() != e.width()) {
       output.append(String.format(stringFormat
-          , width, s.width(), e.width(), initialTime, timeDelta));
+              , width, s.width(), e.width(), initialTime, timeDelta));
     }
     if (s.height() != e.height()) {
       output.append(String.format(stringFormat
-          , height, s.height(), e.height(), initialTime, timeDelta));
+              , height, s.height(), e.height(), initialTime, timeDelta));
     }
     return output.toString();
   }

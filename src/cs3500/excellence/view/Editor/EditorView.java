@@ -4,20 +4,17 @@ import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Label;
+import cs3500.excellence.view.VisualAnimationPanel;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -25,7 +22,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
 
   private ImportExport export;
   private Parameters param;
-  private Display display;
+  private VisualAnimationPanel display;
   private Interactive interactive;
   private JPanel leftPanel;
   private JPanel topPanel;
@@ -47,8 +44,10 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     super();
     this.export = new ImportExport(this);
     this.param = new Parameters(this);
-    this.display = new Display(this);
+    this.display = new VisualAnimationPanel();
     this.interactive = new Interactive(this);
+
+    display.setBorder(BorderFactory.createLineBorder(Color.black));
 
     leftPanel = new JPanel();
     leftPanel.setLayout(new GridLayout(3,1));
@@ -98,7 +97,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
 
     this.add(container);
 
-    setResizable(false);
+    setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
@@ -173,7 +172,7 @@ public class EditorView extends JFrame implements ActionListener, ItemListener, 
     if(boundary.getHeight() < boundary.getWidth()){
       scale = boundary.getWidth() / 300;
     }
-    display.updatePanelStates(states, shapes, boundary, scale);
+    display.updatePanelStates(states, shapes, boundary);
 
     // calling repaint twice enables us to avoid the glitching when manipulating keyframePanel while
     // the animation is playing.

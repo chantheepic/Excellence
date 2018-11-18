@@ -27,12 +27,12 @@ public class VisualController {
   public static void main(String[] args) throws InterruptedException {
     IModel model;
     try {
-      String pathName = "resources/toh-8.txt";
+      String pathName = "resources/smalldemo.txt";
       model = AnimationReader.parseFile(new FileReader(new File(pathName)), Model.builder());
       System.out.println("model Imported");
 
       EditorView editor = new EditorView();
-      VisualController con = new VisualController(model,editor, pathName, 2000);
+      VisualController con = new VisualController(model,editor, pathName, 10);
       con.run();
     } catch (FileNotFoundException e) {
       e.printStackTrace();

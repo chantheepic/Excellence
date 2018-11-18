@@ -32,10 +32,10 @@ public class SimpleViewTests {
     IMotion forward2 = new BasicMotion(t, s, 0, 10);
     IMotion backward2 = new BasicMotion(s, s, 10, 20);
 
-    e.addKeyFrame(forward);
-    e.addKeyFrame(backward);
-    r.addKeyFrame(forward2);
-    r.addKeyFrame(backward2);
+    e.addMotion(forward);
+    e.addMotion(backward);
+    r.addMotion(forward2);
+    r.addMotion(backward2);
     roList.add(e);
     roList.add(r);
   }

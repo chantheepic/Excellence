@@ -60,8 +60,10 @@ public class ImportExport extends JPanel implements ActionListener, ItemListener
     open.setActionCommand("Import");
     open.addActionListener(this);
     panelLeft.add(new JLabel("Import File"));
-    panelLeft.add(openName);
+    openName = new JTextField("Open File Name");
     openName.setForeground(new Color(116, 116, 116));
+    panelLeft.add(openName);
+
     panelLeft.add(saveDirectory);
     panelLeft.add(open);
 

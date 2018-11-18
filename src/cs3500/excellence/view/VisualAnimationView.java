@@ -1,11 +1,7 @@
 package cs3500.excellence.view;
 
-import cs3500.excellence.model.BasicMotion;
 import cs3500.excellence.model.Boundary;
-import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Component;
-import cs3500.excellence.model.components.IComponent;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 import java.awt.Dimension;
@@ -13,17 +9,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class VisualAnimationView extends JFrame implements IView, ActionListener {
+
   private VisualAnimationPanel panel;
-  private int speed;
   private int finalTick;
   private Boundary boundary;
   List<IROComponent> components;
   private int currentTick;
   private Timer tickTimer;
 
+  /**
+   * Constructor for VisualAnimationVIew. Initializes all necessary swing components before the
+   * shapes are drawn.
+   */
   public VisualAnimationView() {
     super();
     this.panel = new VisualAnimationPanel();
@@ -34,30 +37,31 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     currentTick = 0;
   }
 
-
   @Override
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = components;
-    this.speed = speed;
     this.boundary = boundary;
     findFinalTick();
-    setSize(new Dimension(boundary.getWidth() + boundary.getX(), boundary.getHeight() + boundary.getY()));
-    tickTimer = new Timer(1000/speed, this);
+    setSize(getPreferredSize());
+    tickTimer = new Timer(1000 / speed, this);
     tickTimer.start();
   }
 
   @Override
-  public void setOutput(Appendable app) {
+  public void setOutput(Appendable app) throws UnsupportedOperationException {
     throw new UnsupportedOperationException();
   }
 
-//
-//  @Override
-//  public Dimension getPreferredSize() {
-//    return );
-//  }
+  @Override
+  public Dimension getPreferredSize() {
+    return new Dimension(boundary.getWidth() + boundary.getX(),
+        boundary.getHeight() + boundary.getY());
+  }
 
-  public void findFinalTick() {
+  /**
+   * Finds overall final tick of an object.
+   */
+  private void findFinalTick() {
     int output = 0;
     for (IROComponent component : components) {
       int finalTick = component.getFinalTick();
@@ -68,11 +72,16 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     finalTick = output;
   }
 
-  public void drawFrame(int tick){
+  /**
+   * When method is called, the states of all components at tick are updated to the panel.
+   *
+   * @param tick tick value
+   */
+  private void drawFrame(int tick) {
     List<State> states = new ArrayList();
     List<Shape> shapes = new ArrayList();
-    for(IROComponent c : components){
-      if(c.hasMotionAtTick(tick)){
+    for (IROComponent c : components) {
+      if (c.hasMotionAtTick(tick)) {
         states.add(c.getStateAtTick(tick));
         shapes.add(c.getShape());
       }
@@ -80,16 +89,26 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     panel.updatePanelStates(states, shapes, boundary);
   }
 
+  /**
+   * Action repaints the panel at constant time intervals.
+   *
+   * @param e action
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
+    System.out.println("test");
     drawFrame(currentTick++);
+
     setVisible(true);
     this.repaint();
-    if(currentTick>= finalTick) {
+    if (currentTick >= finalTick) {
       tickTimer.stop();
     }
   }
 
+  /**
+   * Static class that creates a error popup when parsing has failed in the main method.
+   */
   public static final class errPanel{
     public void error(String msg){
       JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);

@@ -14,8 +14,8 @@ import cs3500.excellence.model.components.Shape;
 import cs3500.excellence.util.AnimationBuilder;
 
 /**
- * Represents a model for supporting BasicMotions.
- * The model knows all components and the boundary size
+ * Represents a model for supporting BasicMotions. The model knows all components and the boundary
+ * size
  */
 public class Model implements IModel {
 
@@ -57,7 +57,7 @@ public class Model implements IModel {
   }
 
   @Override
-  public void removeComponent(String name) throws IllegalArgumentException{
+  public void removeComponent(String name) throws IllegalArgumentException {
     if (name == null) {
       throw new IllegalArgumentException("Name cannot be null");
     }
@@ -69,7 +69,7 @@ public class Model implements IModel {
   }
 
   @Override
-  public void removeAllComponent(){
+  public void removeAllComponent() {
     registeredShapes.clear();
   }
 
@@ -92,7 +92,7 @@ public class Model implements IModel {
     }
     if (registeredShapes.containsKey(id)) {
       IComponent component = registeredShapes.get(id);
-      component.addKeyFrame(new BasicMotion(initialState, endState, initialTick, endTick));
+      component.addMotion(new BasicMotion(initialState, endState, initialTick, endTick));
     } else {
       throw new IllegalArgumentException("Object does not exist");
     }
@@ -112,7 +112,7 @@ public class Model implements IModel {
 
   @Override
   public void removeKeyframe(String name, int tick) throws IllegalArgumentException {
-    if(!registeredShapes.containsKey(name)) {
+    if (!registeredShapes.containsKey(name)) {
       throw new IllegalArgumentException("Invalid name");
     }
     if (!registeredShapes.get(name).hasMotionAtTick(tick)) {
@@ -155,7 +155,7 @@ public class Model implements IModel {
   public static final class Builder implements AnimationBuilder<IModel> {
 
     private final LinkedHashMap<String, IComponent> registeredShapes = new LinkedHashMap<>();
-    private Boundary boundary = new Boundary(0,0,500,500);
+    private Boundary boundary = new Boundary(0, 0, 500, 500);
 
     @Override
     public IModel build() {
@@ -199,12 +199,18 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Motions do not lineup");
       }
       //Throws errors if invalid.
-      //comp.addKeyFrame(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
+      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
       return this;
     }
 
     @Override
     public AnimationBuilder<IModel> addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+
+      if (!registeredShapes.containsKey(name)) {
+        throw new IllegalArgumentException("Name does not exist");
+      }
+      IComponent comp = registeredShapes.get(name);
+      comp.insertKeyframe(t, new State(x, y, w, h, r, g, b));
       return this;
     }
   }

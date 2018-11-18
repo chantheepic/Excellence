@@ -1,10 +1,10 @@
 package cs3500.excellence.model.components;
 
-import cs3500.excellence.model.BasicMotion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.excellence.model.BasicMotion;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 
@@ -15,12 +15,12 @@ import cs3500.excellence.model.State;
  */
 public class Component implements IComponent, IROComponent {
 
-  //private final List<IMotion> motions;
-  ArrayList<Keyframe> keyframes;
   //List<State> keyStates;
   //List<Integer> keyTimes;
   private final String name;
   private final Shape type;
+  //private final List<IMotion> motions;
+  ArrayList<Keyframe> keyframes;
 
 
   /**
@@ -39,7 +39,7 @@ public class Component implements IComponent, IROComponent {
   public ArrayList<IMotion> returnAllMotions() {
     ArrayList<IMotion> motions = new ArrayList<>();
     for (int i = 1; i < keyframes.size(); i++) {
-      Keyframe start = keyframes.get(i-1);
+      Keyframe start = keyframes.get(i - 1);
       Keyframe end = keyframes.get(i);
       IMotion m = new BasicMotion(start.getState(), end.getState(), start.getTick(), end.getTick());
       motions.add(m);
@@ -57,41 +57,52 @@ public class Component implements IComponent, IROComponent {
     if (motion == null) {
       throw new IllegalArgumentException("State cannot be null");
     }
-    if(keyframes.size() == 0){
-      keyframes.add(new Keyframe(motion.initialTick(), motion.initialState()));
-      keyframes.add(new Keyframe(motion.endTick(), motion.endState()));
+    if (keyframes.size() == 0) {
+      this.insertKeyframe(motion.initialTick(), motion.initialState());
+      this.insertKeyframe(motion.endTick(), motion.endState());
       return;
     }
     Keyframe last = lastKeyframe();
-    if (last.getTick() != motion.initialTick() || last.getState() != motion.initialState()) {
+    if (last.getTick() != motion.initialTick() || !(last.getState().equals(motion.initialState()))) {
       throw new IllegalArgumentException("Motions must not overlap");
     }
+    this.insertKeyframe(motion.initialTick(), motion.initialState());
+    this.insertKeyframe(motion.endTick(), motion.endState());
+
 
   }
 
   private Keyframe lastKeyframe() {
-    return this.keyframes.get(keyframes.size()-1);
+    return this.keyframes.get(keyframes.size() - 1);
   }
 
   @Override
   public void insertKeyframe(int tick, State state) {
-    if(keyframes.size() == 0){
+    if (keyframes.size() == 0) {
       keyframes.add(new Keyframe(tick, state));
     } else {
-      for (int i = 0; i < keyframes.size() ; i++) {
-        if(keyframes.get(i).getTick()> tick) {
-          keyframes.add(i, new Keyframe(tick,state));
+      for (int i = 0; i < keyframes.size(); i++) {
+        if (keyframes.get(i).getTick() == tick) {
+          keyframes.set(i, new Keyframe(tick, state));
+          return;
+        } else if (keyframes.get(i).getTick() > tick) {
+          keyframes.add(i, new Keyframe(tick, state));
+          return;
         }
       }
-
+      keyframes.add(new Keyframe(tick, state));
     }
   }
-
 
 
   @Override
   public void removeAllMotion() {
     keyframes.clear();
+  }
+
+  @Override
+  public void removeMotion(int index) {
+    //TODO
   }
 
   @Override
@@ -107,23 +118,24 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public State getStateAtTick(int tick) {
-    if(!hasMotion()) {
+    if (!hasMotion()) {
       throw new IllegalArgumentException("no keyframes have been added");
     }
-    if(tick < getInitialTick() || tick > getFinalTick()) {
+    if (tick < getInitialTick() || tick > getFinalTick()) {
       throw new IllegalArgumentException("invalid tick");
     }
 
     // Find index just larger than tick
     int index = 0;
     for (int i = 0; i < keyframes.size(); i++) {
-      if(tick <= keyframes.get(i).getTick()) {
+      if (tick >= keyframes.get(i).getTick()) {
         index = i;
       }
     }
+    index++;
 
     //The only way for index to be 0 is for tick to align with first keyframe
-    if(index == 0) {
+    if (index == 0) {
       return keyframes.get(0).getState();
     }
 
@@ -135,13 +147,13 @@ public class Component implements IComponent, IROComponent {
     double relTick = tick - iTime;
     double timeDelta = relTick / tickDelta;
 
-    int posX = (int)(iState.xPos() + ((eState.xPos() - iState.xPos()) * timeDelta));
-    int posY = (int)(iState.yPos() + ((eState.yPos() - iState.yPos()) * timeDelta));
-    int width = (int)(iState.width() + ((eState.width() - iState.width()) * timeDelta));
-    int height = (int)(iState.height() + ((eState.height() - iState.height()) * timeDelta));
-    int red = (int)(iState.red() + ((eState.red() - iState.red()) * timeDelta));
-    int green = (int)(iState.green() + ((eState.green() - iState.green()) * timeDelta));
-    int blue = (int)(iState.blue() + ((eState.blue() - iState.blue()) * timeDelta));
+    int posX = (int) (iState.xPos() + ((eState.xPos() - iState.xPos()) * timeDelta));
+    int posY = (int) (iState.yPos() + ((eState.yPos() - iState.yPos()) * timeDelta));
+    int width = (int) (iState.width() + ((eState.width() - iState.width()) * timeDelta));
+    int height = (int) (iState.height() + ((eState.height() - iState.height()) * timeDelta));
+    int red = (int) (iState.red() + ((eState.red() - iState.red()) * timeDelta));
+    int green = (int) (iState.green() + ((eState.green() - iState.green()) * timeDelta));
+    int blue = (int) (iState.blue() + ((eState.blue() - iState.blue()) * timeDelta));
     State newState = new State(posX, posY, width, height, red, green, blue);
 
     return newState;
@@ -153,8 +165,8 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public boolean hasMotionAtTick(int tick) {
-    return tick > keyframes.get(0).getTick() &&
-            tick < keyframes.get(keyframes.size() - 1).getTick();
+    return tick >= keyframes.get(0).getTick() &&
+            tick <= keyframes.get(keyframes.size() - 1).getTick();
   }
 
   @Override
