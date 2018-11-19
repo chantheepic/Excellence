@@ -1,5 +1,8 @@
 package cs3500.excellence;
 
+import cs3500.excellence.controller.Controller;
+import cs3500.excellence.controller.IController;
+import cs3500.excellence.view.Editor.EditorView;
 import cs3500.excellence.view.VisualAnimationView.errPanel;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +27,7 @@ import cs3500.excellence.view.VisualAnimationView;
 public class Excellence {
 
   public static void main(String[] args) throws FileNotFoundException {
+
     Factory factory = new Factory();
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
@@ -72,9 +76,9 @@ public class Excellence {
         System.exit(0);
       }
 
-      view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
       out.close();
 
+      IController controller = new Controller(model,view, speed);
     }
 
     private void parseIn(String in) {
@@ -106,6 +110,9 @@ public class Excellence {
           break;
         case "svg":
           this.view = new SVGView(out);
+          break;
+        case "edit":
+          this.view = new EditorView();
           break;
 
           default:new errPanel().error("view not supported");

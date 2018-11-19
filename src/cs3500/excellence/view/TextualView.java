@@ -34,6 +34,16 @@ public class TextualView implements IView {
     this.out = Objects.requireNonNull(app, "Output cannot be null");
   }
 
+  @Override
+  public void setEditListener(IEditListener listener) {
+    //DO NOTHING
+  }
+
+  @Override
+  public void tick(int currentTick) {
+    //DO NOTHING
+  }
+
   private String getOverview() {
     StringBuilder output = new StringBuilder();
     for (IROComponent comp : this.components) {

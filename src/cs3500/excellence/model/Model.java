@@ -152,6 +152,19 @@ public class Model implements IModel {
     return null;
   }
 
+  @Override
+  public int getFinalTick() {
+    int output = 0;
+    for (IROComponent component : registeredShapes.values()) {
+      int finalTick = component.getFinalTick();
+      if (finalTick > output) {
+        output = finalTick;
+      }
+    }
+    return output;
+
+}
+
   public static final class Builder implements AnimationBuilder<IModel> {
 
     private final LinkedHashMap<String, IComponent> registeredShapes = new LinkedHashMap<>();

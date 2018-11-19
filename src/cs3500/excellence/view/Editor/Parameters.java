@@ -3,12 +3,11 @@ package cs3500.excellence.view.Editor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.BorderFactory;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -69,8 +68,8 @@ public class Parameters extends JPanel implements ActionListener, ItemListener, 
     return container;
   }
 
-  public void updateParam(String fileName, Dimension dimension, int speed) {
-    this.fileName.setText("FIle Name: " + fileName);
+  public void updateParam(Dimension dimension, int speed) {
+    this.fileName.setText("FIle Name: " + "blahhh");
     this.dimension.setText("Dimension: " + dimension.width + " x " + dimension.height);
     this.currentSpeed.setText("Speed: " + speed);
   }

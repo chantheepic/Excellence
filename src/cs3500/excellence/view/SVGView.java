@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,16 @@ public class SVGView implements IView {
     this.out = app;
   }
 
+  @Override
+  public void setEditListener(IEditListener listener) {
+
+  }
+
+  @Override
+  public void tick(int currentTick) {
+
+  }
+
   private String getOverview() {
     StringBuilder output = new StringBuilder();
     output.append(setCanvas());
@@ -62,6 +73,5 @@ public class SVGView implements IView {
     output.append("</svg>");
     return output.toString();
   }
-
 
 }

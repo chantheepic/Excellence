@@ -14,14 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class VisualAnimationView extends JFrame implements IView, ActionListener {
+public class VisualAnimationView extends JFrame implements IView {
 
   private VisualAnimationPanel panel;
   private int finalTick;
   private Boundary boundary;
   List<IROComponent> components;
   private int currentTick;
-  private Timer tickTimer;
+
+  IEditListener listener;
 
   /**
    * Constructor for VisualAnimationVIew. Initializes all necessary swing components before the
@@ -43,13 +44,25 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     this.boundary = boundary;
     findFinalTick();
     setSize(getPreferredSize());
-    tickTimer = new Timer(1000 / speed, this);
-    tickTimer.start();
+    listener.edit("start");
+
   }
 
   @Override
   public void setOutput(Appendable app) throws UnsupportedOperationException {
     throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void setEditListener(IEditListener listener) {
+    this.listener = listener;
+  }
+
+  @Override
+  public void tick(int currentTick) {
+    drawFrame(currentTick);
+    setVisible(true);
+    this.repaint();
   }
 
   @Override
@@ -89,22 +102,6 @@ public class VisualAnimationView extends JFrame implements IView, ActionListener
     panel.updatePanelStates(states, shapes, boundary);
   }
 
-  /**
-   * Action repaints the panel at constant time intervals.
-   *
-   * @param e action
-   */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.println("test");
-    drawFrame(currentTick++);
-
-    setVisible(true);
-    this.repaint();
-    if (currentTick >= finalTick) {
-      tickTimer.stop();
-    }
-  }
 
   /**
    * Static class that creates a error popup when parsing has failed in the main method.

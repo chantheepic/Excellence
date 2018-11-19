@@ -3,6 +3,7 @@ package cs3500.excellence.view.Editor;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

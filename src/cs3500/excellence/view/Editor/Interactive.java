@@ -3,7 +3,7 @@ package cs3500.excellence.view.Editor;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Keyframe;
-import cs3500.excellence.model.components.Shape;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -208,21 +208,7 @@ public class Interactive extends JPanel implements ActionListener, ItemListener,
         paramColor.setBackground(color);
         break;
       case "moveto":
-        try{
-          int newTick = Integer.parseInt(tick.getText());
-          if(newTick >= keyframes.get(0).getTick() && newTick <= keyframes.get(keyframes.size() - 1).getTick()){
-            setStateParameters(component.getStateAtTick(newTick));
-            editor.drawFrame(newTick);
-            // Changes label on button to pull double duty
-//            if(!keyframes.contains(newTick)){
-//              editKeyframe.setText("Add Keyframe");
-//            } else {
-//              editKeyframe.setText("Edit Keyframe");
-//            }
-          }
-        } catch (NumberFormatException format){
 
-        }
         break;
       default:
 

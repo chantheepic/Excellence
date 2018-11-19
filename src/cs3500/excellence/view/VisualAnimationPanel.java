@@ -6,14 +6,15 @@ import cs3500.excellence.model.components.Shape;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
 public class VisualAnimationPanel extends JPanel {
 
-  private List<State> states;
-  private List<Shape> shapes;
-  private Boundary boundary;
+  private List<State> states = new ArrayList<>();
+  private List<Shape> shapes = new ArrayList<>();
+  private Boundary boundary = new Boundary(0,0,0,0);
 
   /**
    * Constructor for VisualAnimationPanel. Emptiness is explained below.

@@ -40,4 +40,6 @@ public interface IROModel {
 
   List<State> getKeyframes();
 
+  int getFinalTick();
+
 }
