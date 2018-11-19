@@ -127,17 +127,16 @@ public class Component implements IComponent, IROComponent {
 
     // Find index just larger than tick
     int index = 0;
-    for (int i = 0; i < keyframes.size(); i++) {
-      if (tick >= keyframes.get(i).getTick()) {
-        index = i;
-      }
+    while(keyframes.get(index).getTick() < tick) {
+      index++;
     }
-    index++;
+
 
     //The only way for index to be 0 is for tick to align with first keyframe
     if (index == 0) {
       return keyframes.get(0).getState();
     }
+
 
     State iState = keyframes.get(index - 1).getState();
     State eState = keyframes.get(index).getState();

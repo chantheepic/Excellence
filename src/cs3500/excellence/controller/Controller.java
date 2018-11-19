@@ -28,9 +28,10 @@ public class Controller implements IController, IEditListener, ActionListener {
     model = m;
     view = v;
     this.speed = speed;
+    tickTimer = new Timer(1000 / speed, this);
     view.setEditListener(this);
     view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
-    tickTimer = new Timer(1000 / speed, this);
+
 
   }
 //
@@ -74,7 +75,7 @@ public class Controller implements IController, IEditListener, ActionListener {
           break;
 
         case "insertKeyframe":
-          model.insertKeyframe(s.next(), s.nextInt(), new State(s.nextInt(), s.nextInt(),
+          model.insertKeyframe(s.next(), this.currentTick, new State(s.nextInt(), s.nextInt(),
                   s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt()));
           break;
         case "togglePlay":
@@ -112,12 +113,13 @@ public class Controller implements IController, IEditListener, ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if(currentTick == model.getFinalTick()){
+      view.tick(currentTick);
       if(loop) {
         currentTick = 0;
       } else {
-
+        tickTimer.stop();
       }
-      tickTimer.stop();
+
     } else {
       view.tick(currentTick++);
     }

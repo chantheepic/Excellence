@@ -7,9 +7,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.StringJoiner;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,9 +24,10 @@ import cs3500.excellence.view.IEditListener;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.VisualAnimationPanel;
 
-public class EditorView extends JFrame implements IView, ActionListener, ItemListener, ListSelectionListener {
+public class EditorView extends JFrame implements IView, ActionListener, ItemListener, ListSelectionListener, ChangeListener {
 
   List<IROComponent> components;
+  JSpinner speedSpinner;
   private IEditListener listener;
   private ImportExport export;
   private Parameters param;
@@ -33,21 +36,20 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
 //  private JPanel leftPanel;
 //  private JPanel topPanel;
 //  private JPanel container;
-  private JPanel edit;
+  private EditPanel edit;
   private JScrollPane mainScrollPane;
   //  private String filename;
   private int speed;
   private int finalTick;
   private boolean loop = false;
-  private int currentTick;
   private JPanel currentTickLabel;
   //private Timer tickTimer;
   private Boundary boundary;
-
   private JLabel comboboxDisplay;
   private JComboBox<Integer> keyframeTicks;
   private JComboBox<String> compBox;
-
+  private JTextField tickChoice;
+  private JLabel currentTick;
 
   public EditorView() {
     super();
@@ -68,7 +70,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
     this.setLayout(new GridLayout(2, 2));
 
 
-    edit = new EditPanel();
+    edit = new EditPanel(this);
     //    leftPanel.add(param.returnPanel());
     //    leftPanel.add(export.returnPanel());
 
@@ -98,13 +100,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
     restart.addActionListener(this);
     playback.add(restart);
 
-    JLabel currentTick = new JLabel("0");
+    currentTick = new JLabel("0");
     playback.add(currentTick);
 
-    JLabel tickInfo = new JLabel("GoTo Tick:");
-    playback.add(tickInfo);
-
-    JTextField tickChoice = new JTextField();
+    tickChoice = new JTextField();
+    tickChoice.setBorder(BorderFactory.createTitledBorder("Set Tick"));
     playback.add(tickChoice);
 
     JButton tickGo = new JButton("Go");
@@ -114,7 +114,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
 
     JPanel comboboxPanel = new JPanel();
     comboboxPanel.setBorder(BorderFactory.createTitledBorder("Select Keyframe"));
-    comboboxPanel.setLayout(new GridLayout(1,2));
+    comboboxPanel.setLayout(new GridLayout(1, 2));
     playback.add(comboboxPanel);
 
     compBox = new JComboBox<>();
@@ -129,6 +129,12 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
 
     comboboxPanel.add(compBox);
     comboboxPanel.add(keyframeTicks);
+
+    speedSpinner = new JSpinner(new SpinnerNumberModel(1, 1, null, 1));
+    speedSpinner.addChangeListener(this);
+    speedSpinner.setBorder(BorderFactory.createTitledBorder("Set Speed"));
+    playback.add(speedSpinner);
+
 
     this.add(playback);
 
@@ -176,21 +182,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
   }
 
   public void actionPerformed(ActionEvent e) {
-    if (e.getActionCommand() == null) {
-      drawFrame(currentTick++);
-      currentTickLabel.removeAll();
-      currentTickLabel.add(new Label(String.valueOf(currentTick)));
-      setVisible(true);
-      this.repaint();
-      if (currentTick >= finalTick) {
-        if (loop == true) {
-          currentTick = 0;
-        } else {
-//          tickTimer.stop();
-        }
-      }
-      return;
-    }
 
     switch (e.getActionCommand()) {
       case "togglePlay":
@@ -203,10 +194,27 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
         populateTickSelector(compBox.getSelectedIndex());
         break;
       case "keyframe options":
-        if(keyframeTicks.getSelectedItem() instanceof Integer) {
+        if (keyframeTicks.getSelectedItem() instanceof Integer) {
           listener.edit("moveto " + keyframeTicks.getSelectedItem());
         }
 
+        break;
+      case "tickGo":
+        if (!tickChoice.getText().equals("")) {
+          listener.edit("moveto " + tickChoice.getText());
+        }
+
+        break;
+
+      case "insert keyframe":
+        listener.edit(new StringJoiner(" ").add("insertKeyframe").add(edit.getShapeName())
+                .add(edit.getXPos()).add(edit.getYPos()).add(edit.getWidthVal())
+                .add(edit.getHeightVal()).add(edit.getColor().getRed() + "")
+                .add(edit.getColor().getGreen() + "").add(edit.getColor().getBlue() + "").toString());
+
+        break;
+      case "create shape":
+        listener.edit("addShape " + edit.getName() + " " + edit.getShapeType());
         break;
     }
 
@@ -256,11 +264,13 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
 //    this.filename = filename;
     this.components = components;
     this.boundary = boundary;
+    populateCompSelector();
     findFinalTick();
     display.setPreferredSize(new Dimension(this.boundary.getWidth() + this.boundary.getX(), this.boundary.getHeight() + this.boundary.getY()));
 //    interactive.setComponents(this.components);
     param.updateParam(new Dimension(boundary.getWidth(), boundary.getHeight()), speed);
-    populateCompSelector();
+    speedSpinner.setValue(this.speed);
+
   }
 
   @Override
@@ -277,6 +287,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
   @Override
   public void tick(int currentTick) {
     drawFrame(currentTick);
+    this.currentTick.setText(currentTick + "");
   }
 
 
@@ -296,5 +307,12 @@ public class EditorView extends JFrame implements IView, ActionListener, ItemLis
     }
 
   }
+
+  @Override
+  public void stateChanged(ChangeEvent e) {
+    this.speed = (int) ((JSpinner) e.getSource()).getValue();
+    listener.edit("speed " + this.speed);
+  }
+
 
 }
