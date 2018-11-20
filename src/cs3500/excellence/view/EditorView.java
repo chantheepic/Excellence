@@ -21,38 +21,44 @@ import cs3500.excellence.model.components.Keyframe;
 import cs3500.excellence.model.components.Shape;
 import cs3500.excellence.util.errPanel;
 
+/**
+ * This class represents a visual for editing an animation. It supports the following: Adding shape,
+ * deleting shapes, adding keyframes, deleting keyframes, changing the speed, load, and save.
+ */
 public class EditorView extends JFrame implements IView, ActionListener, ChangeListener {
 
+  //These three variables are the information from the model.
   private List<IROComponent> components;
   private Boundary boundary;
   private int speed;
 
+  //The JPanel that draws the actual animation.
   private VisualAnimationPanel display;
 
+  //The listener for the various higher level commands.
   private Features listener;
 
+  private JSpinner speedSpinner; //speed selector
+  private JComboBox<String> compBox;//shape selector
+  private JComboBox<Integer> keyframeTicks; //shape-frame selector
+  private JTextField tickChoice; //tick selector
+  private JLabel currentTick; //display tick
 
-  private JSpinner speedSpinner;
-  private JComboBox<Integer> keyframeTicks;
-  private JComboBox<String> compBox;
-  private JTextField tickChoice;
-  private JLabel currentTick;
+  private JLabel colorChooserDisplay; //color chooser
 
-  private JLabel colorChooserDisplay;
+  private JTextField shapeNameField; //input name
+  private JTextField shapeTypeField; //input type
 
-  private JTextField shapeNameField;
-  private JTextField shapeTypeField;
+  private JTextField shapeXField; //input x
+  private JTextField shapeYField; //input y
 
-  private JTextField shapeXField;
-  private JTextField shapeYField;
+  private JTextField shapeWidthField; //input w
+  private JTextField shapeHeightField; //input h
 
-  private JTextField shapeWidthField;
-  private JTextField shapeHeightField;
+  private JScrollPane mainScroll; //scrollable display
 
-  private JScrollPane mainScroll;
-
-  private JLabel fileOpenDisplay;
-  private JLabel fileSaveDisplay;
+  private JLabel fileOpenDisplay; //load file
+  private JLabel fileSaveDisplay; //save fild
 
   public EditorView() {
     super();
@@ -179,8 +185,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     compBox.addActionListener(this);
 
     keyframeTicks = new JComboBox<>();
-    //keyframeTicks.setActionCommand("keyframe options");
-    //keyframeTicks.addActionListener(this);
 
     JButton keyframeGo = new JButton("Go");
     keyframeGo.setActionCommand("keyframe go");
@@ -261,23 +265,22 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   public void actionPerformed(ActionEvent e) {
 
     switch (e.getActionCommand()) {
-      case "togglePlay":
+      case "togglePlay": //from start/stop button
         listener.togglePlay();
         break;
-      case "restart":
+      case "restart": //from restart button
         listener.restart();
         break;
-      case "component options":
+      case "component options": //from shape selector
         populateTickSelector(compBox.getSelectedIndex());
         break;
-      case "keyframe go":
+      case "keyframe go": //from shape-frame selector
         if (keyframeTicks.getSelectedItem() instanceof Integer) {
           listener.setTick((Integer) keyframeTicks.getSelectedItem());
           populateData(compBox.getSelectedIndex(), (Integer) keyframeTicks.getSelectedItem());
         }
-
         break;
-      case "tickGo":
+      case "tickGo": //from tick selector
         if (!tickChoice.getText().equals("")) {
           listener.setTick(Integer.parseInt(tickChoice.getText()));
           if (keyframeTicks.getSelectedItem() instanceof Integer) {
@@ -314,7 +317,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         Color col = JColorChooser.showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
         colorChooserDisplay.setBackground(col);
         break;
-
 
       case "Open file": {
         final JFileChooser fchooser = new JFileChooser(".");
@@ -356,6 +358,9 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     listener.setSpeed(this.speed);
   }
 
+  /*
+    Updates the display panel with states and shapes at tick.
+   */
   private void drawFrame(int tick) {
     List<State> states = new ArrayList<>();
     List<Shape> shapes = new ArrayList<>();
@@ -430,6 +435,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     }
   }
 
+  //Populates the data in the input fields
   private void populateData(int index, int tick) {
     clearData();
     IROComponent component = components.get(index);
@@ -449,6 +455,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     }
   }
 
+  //Clears the input field data.
   private void clearData() {
     shapeNameField.setText("");
     shapeTypeField.setText("");
@@ -457,9 +464,5 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     shapeWidthField.setText("");
     shapeHeightField.setText("");
     colorChooserDisplay.setBackground(Color.white);
-
-
   }
-
-
 }

@@ -38,8 +38,17 @@ public interface IROModel {
    */
   Boundary getBoundary();
 
+  /**
+   * Gets the entire list of of keyframes. A Keyframe is completely immutable and the list should be
+   * a duplicate one.
+   * @return
+   */
   List<State> getKeyframes();
 
+  /**
+   * Gets the final tick in the animation.
+   * @return - the last tick of any component.
+   */
   int getFinalTick();
 
 }

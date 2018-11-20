@@ -12,12 +12,15 @@ import cs3500.excellence.model.State;
  * Represents an animate-able object in the animation. Each component knows its name(String),
  * type(Shape), and moves(List<IMotion>). Contains fields List of motions, a String name, a Shape
  * type.
+ * Invariant: The list of keyframes should be in ascending order of tick.
+ * Changes: Instead of storing motions we not only store keyframes. We still have the methods to
+ * get motions, and therefore we convert between keyframes and motions.
  */
 public class Component implements IComponent, IROComponent {
 
   private final String name;
   private final Shape type;
-  private ArrayList<Keyframe> keyframes;
+  private List<Keyframe> keyframes;
 
 
   /**
@@ -69,8 +72,9 @@ public class Component implements IComponent, IROComponent {
 
   }
 
-
-
+  /*
+    Gets the last tick defined by any of the keyframes.
+   */
   private Keyframe lastKeyframe() {
     return this.keyframes.get(keyframes.size() - 1);
   }
@@ -101,7 +105,10 @@ public class Component implements IComponent, IROComponent {
 
 
   @Override
-  public void removeKeyframe(int tick) {
+  public void removeKeyframe(int tick) throws IllegalArgumentException {
+    if(!hasKeyframeAtTick(tick)) {
+      throw new IllegalArgumentException("no keyframe at the tick");
+    }
     keyframes.removeIf(k -> k.getTick() == tick);
   }
 

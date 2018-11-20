@@ -23,6 +23,12 @@ public interface IComponent extends IROComponent {
   void addMotion(IMotion motion) throws IllegalArgumentException;
 
 
+  /**
+   * Adds a keyframe to the component at a specific tick. The keyframe will either overwrite an
+   * existing keyframe or create a new one. It does not throw any errors.
+   * @param tick - the specified tick
+   * @param state - the specified state
+   */
   void createKeyframe(int tick, State state);
 
   /**
@@ -30,7 +36,11 @@ public interface IComponent extends IROComponent {
    */
   void removeAllMotion();
 
-
-  void removeKeyframe(int tick);
+  /**
+   * This method removes a keyframe from the specified tick.
+   * @param tick - the specified tick
+   * @throws IllegalArgumentException - if the tick is not a keyframe it throws error
+   */
+  void removeKeyframe(int tick) throws IllegalArgumentException;
 
 }

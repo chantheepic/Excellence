@@ -18,6 +18,11 @@ import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 
+/**
+ * This is the controller for our IModel and IView. It is responsible for holding
+ * information about the current tick. It also is a callback for Features. It has a timer that tells
+ * the view how often to update.
+ */
 public class Controller implements IController, ActionListener, Features {
 
   private IModel model;
@@ -30,9 +35,12 @@ public class Controller implements IController, ActionListener, Features {
 
   private boolean loop;
 
-
-
-
+  /**
+   * Creates an instance of the controller with a given model and speed. It creates the timer, and
+   * sets the callback listener to this class.
+   * @param m - the given model
+   * @param speed - the given speed
+   */
   public Controller(IModel m, int speed) {
     model = m;
     this.speed = speed;
@@ -145,6 +153,12 @@ public class Controller implements IController, ActionListener, Features {
     loadFile(fName);
   }
 
+  /**
+   * This method takes care of calculation when it receives a "tick" command. This tick
+   * command is given by the timer. If necessary is updates the currentTick and tells view to
+   * display it.
+   * @param e - the Action Event.
+   */
   @Override
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
@@ -165,16 +179,24 @@ public class Controller implements IController, ActionListener, Features {
 
   }
 
-
+  //Checks if a tick is valid
   private boolean validTick(int tick) {
     return tick >=0;
   }
 
+  /*
+    Refreshes the view by giving it the components, boundary, and speed. Then
+    Then it tells it to draw the current tick.
+   */
   private void refreshView(){
     view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
     view.tick(this.currentTick);
   }
 
+  /*
+    Loads a file and creates and sets the model to the newly parsed file.
+    Tells the view to display any errors it encounters.
+   */
   private void loadFile(String fName) {
     try {
       this.model = AnimationReader
@@ -187,6 +209,10 @@ public class Controller implements IController, ActionListener, Features {
     }
   }
 
+  /*
+    Saves the current model to a file, based on the type.
+    Tells the view to display any errors it encounters.
+   */
   private void saveWork(String type, String fName) {
 
     if(fName.equals("")) {
@@ -216,7 +242,4 @@ public class Controller implements IController, ActionListener, Features {
         break;
     }
   }
-
-
-
 }

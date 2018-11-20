@@ -19,9 +19,18 @@ public interface IROComponent {
    * @return An array that contains all motions made by the component.
    */
   ArrayList<IMotion> returnAllMotions();
+
+  /**
+   * Gets a list of all of the keyframes for the component. Keyframe is final, so
+   * it cannot be mutated.
+   * @return - list of Keyframes for component.
+   */
   List<Keyframe> returnAllKeyframes();
 
-
+  /**
+   * Gets the shape information for a component.
+   * @return - the shape enum
+   */
   Shape getShape();
 
   /**
@@ -40,6 +49,11 @@ public interface IROComponent {
    */
   boolean hasMotionAtTick(int tick);
 
+  /**
+   * Determines if the component has a keyframe a specific tick.
+   * @param tick - the specufuc tick
+   * @return - true if it exists, false if it does not.
+   */
   boolean hasKeyframeAtTick(int tick);
 
   /**

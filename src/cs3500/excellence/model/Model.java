@@ -15,7 +15,7 @@ import cs3500.excellence.util.AnimationBuilder;
 
 /**
  * Represents a model for supporting BasicMotions. The model knows all components and the boundary
- * size
+ * size.
  */
 public class Model implements IModel {
 
