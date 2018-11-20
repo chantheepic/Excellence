@@ -1,4 +1,5 @@
-package cs3500.excellence.view.Editor;
+package cs3500.excellence.view;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,19 +7,18 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Keyframe;
 import cs3500.excellence.model.components.Shape;
-import cs3500.excellence.view.IEditListener;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.VisualAnimationPanel;
 
@@ -30,9 +30,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private VisualAnimationPanel display;
 
-  private IEditListener listener;
+  private Features listener;
 
-  private ImportExport export;
 
   private JSpinner speedSpinner;
   private JComboBox<Integer> keyframeTicks;
@@ -58,7 +57,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   public EditorView() {
     super();
-    this.export = new ImportExport(this);
     this.display = new VisualAnimationPanel();
 
 
@@ -265,50 +263,52 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     switch (e.getActionCommand()) {
       case "togglePlay":
-        listener.edit("togglePlay");
+        listener.togglePlay();
         break;
       case "restart":
-        listener.edit("restart");
+        listener.restart();
         break;
       case "component options":
         populateTickSelector(compBox.getSelectedIndex());
         break;
       case "keyframe go":
         if (keyframeTicks.getSelectedItem() instanceof Integer) {
-          listener.edit("moveto " + keyframeTicks.getSelectedItem());
+          listener.setTick((Integer) keyframeTicks.getSelectedItem());
           populateData(compBox.getSelectedIndex(), (Integer) keyframeTicks.getSelectedItem());
         }
 
         break;
       case "tickGo":
         if (!tickChoice.getText().equals("")) {
-          listener.edit("moveto " + tickChoice.getText());
+          listener.setTick(Integer.parseInt(tickChoice.getText()));
           if (keyframeTicks.getSelectedItem() instanceof Integer) {
             populateData(compBox.getSelectedIndex(), Integer.parseInt(tickChoice.getText()));
           }
         }
         break;
       case "create keyframe":
-        listener.edit(new StringJoiner(" ").add("createKeyframe").add(shapeNameField.getText())
-                .add(shapeXField.getText()).add(shapeYField.getText())
-                .add(shapeWidthField.getText()).add(shapeHeightField.getText())
-                .add(colorChooserDisplay.getBackground().getRed() + "")
-                .add(colorChooserDisplay.getBackground().getGreen() + "")
-                .add(colorChooserDisplay.getBackground().getBlue() + "").toString());
+        listener.createFrame(shapeNameField.getText(),
+                Integer.parseInt(shapeXField.getText()),
+                Integer.parseInt(shapeYField.getText()),
+                Integer.parseInt(shapeWidthField.getText()),
+                Integer.parseInt(shapeHeightField.getText()),
+                colorChooserDisplay.getBackground().getRed(),
+                colorChooserDisplay.getBackground().getGreen(),
+                colorChooserDisplay.getBackground().getBlue());
         break;
       case "create shape":
-        listener.edit("addShape " + shapeNameField.getText() + " " + shapeTypeField.getText());
+        listener.addShape(shapeNameField.getText(), shapeTypeField.getText());
         break;
       case "delete shape":
-        listener.edit("delShape " + shapeNameField.getText());
+        listener.deleteShape(shapeNameField.getText());
         clearData();
         break;
       case "delete keyframe":
-        listener.edit("delKeyframe " + shapeNameField.getText());
+        listener.deleteFrame(shapeNameField.getText());
         clearData();
         break;
       case "loop":
-        listener.edit("loop");
+        listener.toggleLoop();
         break;
 
       case "Color chooser":
@@ -327,7 +327,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
           File f = fchooser.getSelectedFile();
           fileOpenDisplay.setText(f.getAbsolutePath());
         }
-        listener.edit("load " + fileOpenDisplay.getText());
+        listener.load(fileOpenDisplay.getText());
       }
       break;
       case "Save file": {
@@ -341,10 +341,10 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       break;
 
       case "saveText":
-        listener.edit("save text " + fileSaveDisplay.getText());
+        listener.saveAsText(fileSaveDisplay.getText());
         break;
       case "saveSVG":
-        listener.edit("save svg " + fileSaveDisplay.getText());
+        listener.saveAsSVG(fileSaveDisplay.getText());
         break;
 
     }
@@ -354,7 +354,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   @Override
   public void stateChanged(ChangeEvent e) {
     this.speed = (int) ((JSpinner) e.getSource()).getValue();
-    listener.edit("speed " + this.speed);
+    listener.setSpeed(this.speed);
   }
 
   private void drawFrame(int tick) {
@@ -392,7 +392,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   }
 
   @Override
-  public void setEditListener(IEditListener listener) {
+  public void setFeatureListener(Features listener) {
     this.listener = listener;
   }
 
@@ -403,6 +403,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     //Updates the current tick label
     this.currentTick.setText(currentTick + "");
   }
+
 
   //Repopulates the component Selector
   private void populateCompSelector() {

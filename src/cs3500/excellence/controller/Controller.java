@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 import javax.swing.Timer;
 
@@ -15,12 +14,11 @@ import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.model.State;
 import cs3500.excellence.util.AnimationReader;
-import cs3500.excellence.view.IEditListener;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 
-public class Controller implements IController, IEditListener, ActionListener {
+public class Controller implements IController, ActionListener, Features {
 
   private IModel model;
   private IView view;
@@ -42,86 +40,85 @@ public class Controller implements IController, IEditListener, ActionListener {
     tickTimer = new Timer(1000 / this.speed, this);
     tickTimer.setActionCommand("tick");
     this.currentTick = 0;
-    view.setEditListener(this);
+    view.setFeatureListener(this);
     view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
 
 
   }
 
-
   @Override
-  public void edit(String description) {
-    Scanner s = new Scanner(description);
-
-
-    while (s.hasNext()) {
-      String in = s.next();
-      switch (in) {
-        case "speed":
-          this.speed = s.nextInt();
-          tickTimer.setDelay(1000 / this.speed);
-          break;
-        case "addShape":
-          model.addComponent(s.next(), s.next());
-          refreshView();
-          break;
-        case "delShape":
-          model.removeComponent(s.next());
-          refreshView();
-          break;
-        case "createKeyframe":
-          model.createKeyframe(s.next(), this.currentTick, new State(s.nextInt(), s.nextInt(),
-                  s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt()));
-          refreshView();
-          break;
-        case "delKeyframe":
-          model.removeKeyframe(s.next(), this.currentTick);
-          refreshView();
-          break;
-        case "togglePlay":
-          if(tickTimer.isRunning()){
-            tickTimer.stop();
-          } else {
-            tickTimer.start();
-          }
-          break;
-        case "restart":
-          this.currentTick = 0;
-          view.tick(currentTick);
-          tickTimer.stop();
-          break;
-        case "loop":
-          loop = !loop;
-          break;
-        case "moveto":
-          int nextTick = s.nextInt();
-          if(validTick(nextTick)) {
-            this.currentTick = nextTick;
-            view.tick(currentTick);
-          }
-          break;
-
-        case "save":
-          saveWork(s.next(),s.next());
-          break;
-        case "load":
-          loadFile(s.next());
-
-      }
-    }
-
+  public void setSpeed(int speed) {
+    this.speed = speed;
+    tickTimer.setDelay(1000/this.speed);
   }
 
-  private void loadFile(String fname) {
-    try {
-      this.model = AnimationReader
-              .parseFile(new FileReader(new File(fname)), Model.builder());
-      refreshView();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+  @Override
+  public void addShape(String name, String type) {
+    model.addComponent(name, type);
+    refreshView();
+  }
+
+  @Override
+  public void deleteShape(String name) {
+    model.removeComponent(name);
+    refreshView();
+  }
+
+  @Override
+  public void createFrame(String name, int x, int y, int w, int h, int r, int g, int b) {
+    model.createKeyframe(name, this.currentTick, new State(x, y, w, h, r, g, b));
+    refreshView();
+  }
+
+  @Override
+  public void deleteFrame(String name) {
+    model.removeKeyframe(name, this.currentTick);
+    refreshView();
+  }
+
+  @Override
+  public void togglePlay() {
+    if(tickTimer.isRunning()){
+      tickTimer.stop();
+    } else {
+      tickTimer.start();
     }
+  }
 
+  @Override
+  public void restart() {
+    this.currentTick = 0;
+    view.tick(currentTick);
+    tickTimer.stop();
+  }
 
+  @Override
+  public void toggleLoop() {
+    loop = !loop;
+  }
+
+  @Override
+  public void setTick(int tick) {
+    int nextTick = tick;
+    if(validTick(nextTick)) {
+      this.currentTick = nextTick;
+      view.tick(currentTick);
+    }
+  }
+
+  @Override
+  public void saveAsText(String fname) {
+    saveWork("text", fname);
+  }
+
+  @Override
+  public void saveAsSVG(String fname) {
+    saveWork("svg", fname);
+  }
+
+  @Override
+  public void load(String fname) {
+    loadFile(fname);
   }
 
   @Override
@@ -154,6 +151,16 @@ public class Controller implements IController, IEditListener, ActionListener {
     view.tick(this.currentTick);
   }
 
+  private void loadFile(String fname) {
+    try {
+      this.model = AnimationReader
+              .parseFile(new FileReader(new File(fname)), Model.builder());
+      refreshView();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void saveWork(String type, String fname) {
 
     switch (type) {
@@ -180,6 +187,7 @@ public class Controller implements IController, IEditListener, ActionListener {
         break;
     }
   }
+
 
 
 }

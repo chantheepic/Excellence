@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.components.IROComponent;
 
@@ -36,7 +37,7 @@ public class SVGView implements IView {
   }
 
   @Override
-  public void setEditListener(IEditListener listener) {
+  public void setFeatureListener(Features listener) {
     //Do Nothing
   }
 

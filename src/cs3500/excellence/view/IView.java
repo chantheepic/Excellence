@@ -1,5 +1,7 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.controller.Controller;
+import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.components.IROComponent;
 
@@ -23,8 +25,7 @@ public interface IView {
    */
   void setOutput(Appendable app);
 
-
-  void setEditListener(IEditListener listener);
-
   void tick(int currentTick);
+
+  void setFeatureListener(Features listener);
 }

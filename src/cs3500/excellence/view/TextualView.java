@@ -3,9 +3,12 @@ package cs3500.excellence.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
@@ -13,6 +16,7 @@ import cs3500.excellence.model.components.IROComponent;
 
 public class TextualView implements IView {
   private List<IROComponent> components;
+  private Boundary boundary;
   private Appendable out;
 
 
@@ -24,7 +28,19 @@ public class TextualView implements IView {
   @Override
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
+    this.boundary = boundary;
+    appendText(this.getCanvas());
+    appendText("\n");
     appendText(this.getOverview());
+
+  }
+
+  private String getCanvas() {
+    List<Integer> canvas = Arrays.asList(boundary.getX(), boundary.getY(),
+            boundary.getWidth(), boundary.getHeight());
+    return "canvas " + canvas.stream()
+            .map(n -> n.toString())
+            .collect(Collectors.joining(" "));
 
   }
 
@@ -34,7 +50,7 @@ public class TextualView implements IView {
   }
 
   @Override
-  public void setEditListener(IEditListener listener) {
+  public void setFeatureListener(Features listener) {
     //DO NOTHING
   }
 
@@ -54,7 +70,7 @@ public class TextualView implements IView {
   private String getComponentOverview(IROComponent component) {
 
     StringBuilder output = new StringBuilder();
-    output.append("shape ").append(component.getID()).append(" ").append(component.getShape()).append("\n");
+    output.append("shape ").append(component.getID()).append(" ").append(component.getShape().toString().toLowerCase()).append("\n");
     for (IMotion m : component.returnAllMotions()) {
       output.append("motion ").append(component.getID()).append(" ").append(getMotionOverview(m)).append("\n");
     }

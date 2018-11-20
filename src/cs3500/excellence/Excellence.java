@@ -10,7 +10,7 @@ import cs3500.excellence.controller.IController;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
-import cs3500.excellence.view.Editor.EditorView;
+import cs3500.excellence.view.EditorView;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;

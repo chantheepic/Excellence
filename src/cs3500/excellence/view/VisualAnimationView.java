@@ -1,5 +1,6 @@
 package cs3500.excellence.view;
 
+import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
@@ -19,7 +20,7 @@ public class VisualAnimationView extends JFrame implements IView {
   List<IROComponent> components;
   private int currentTick;
 
-  IEditListener listener;
+  Features listener;
 
   /**
    * Constructor for VisualAnimationVIew. Initializes all necessary swing components before the
@@ -41,7 +42,7 @@ public class VisualAnimationView extends JFrame implements IView {
     this.boundary = boundary;
     findFinalTick();
     setSize(getPreferredSize());
-    listener.edit("start");
+    listener.togglePlay();
 
   }
 
@@ -51,7 +52,7 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   @Override
-  public void setEditListener(IEditListener listener) {
+  public void setFeatureListener(Features listener) {
     this.listener = listener;
   }
 
