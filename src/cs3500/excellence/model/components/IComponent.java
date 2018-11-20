@@ -22,7 +22,8 @@ public interface IComponent extends IROComponent {
    */
   void addMotion(IMotion motion) throws IllegalArgumentException;
 
-  void insertKeyframe(int tick, State state);
+
+  void createKeyframe(int tick, State state);
 
   /**
    * Removes all motions from the component.

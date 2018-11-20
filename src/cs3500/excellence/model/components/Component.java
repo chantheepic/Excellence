@@ -58,26 +58,28 @@ public class Component implements IComponent, IROComponent {
       throw new IllegalArgumentException("State cannot be null");
     }
     if (keyframes.size() == 0) {
-      this.insertKeyframe(motion.initialTick(), motion.initialState());
-      this.insertKeyframe(motion.endTick(), motion.endState());
+      this.createKeyframe(motion.initialTick(), motion.initialState());
+      this.createKeyframe(motion.endTick(), motion.endState());
       return;
     }
     Keyframe last = lastKeyframe();
     if (last.getTick() != motion.initialTick() || !(last.getState().equals(motion.initialState()))) {
       throw new IllegalArgumentException("Motions must not overlap");
     }
-    this.insertKeyframe(motion.initialTick(), motion.initialState());
-    this.insertKeyframe(motion.endTick(), motion.endState());
+    this.createKeyframe(motion.initialTick(), motion.initialState());
+    this.createKeyframe(motion.endTick(), motion.endState());
 
 
   }
+
+
 
   private Keyframe lastKeyframe() {
     return this.keyframes.get(keyframes.size() - 1);
   }
 
   @Override
-  public void insertKeyframe(int tick, State state) {
+  public void createKeyframe(int tick, State state) {
     if (keyframes.size() == 0) {
       keyframes.add(new Keyframe(tick, state));
     } else {

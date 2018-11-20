@@ -105,11 +105,13 @@ public class Model implements IModel {
     }
   }
 
+
+
   @Override
-  public void insertKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
+  public void createKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
     if (registeredShapes.containsKey(name)) {
       IComponent component = registeredShapes.get(name);
-      component.insertKeyframe(tick, newState);
+      component.createKeyframe(tick, newState);
     }
   }
 
@@ -122,7 +124,7 @@ public class Model implements IModel {
       throw new IllegalArgumentException("Invalid tick");
     }
 
-    //registeredShapes.get(name).re
+    registeredShapes.get(name).removeKeyframe(tick);
 
   }
 
@@ -226,7 +228,7 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Name does not exist");
       }
       IComponent comp = registeredShapes.get(name);
-      comp.insertKeyframe(t, new State(x, y, w, h, r, g, b));
+      comp.createKeyframe(t, new State(x, y, w, h, r, g, b));
       return this;
     }
   }

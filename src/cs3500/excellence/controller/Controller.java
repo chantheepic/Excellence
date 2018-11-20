@@ -58,8 +58,8 @@ public class Controller implements IController, IEditListener, ActionListener {
           model.removeComponent(s.next());
           refreshView();
           break;
-        case "insertKeyframe":
-          model.insertKeyframe(s.next(), this.currentTick, new State(s.nextInt(), s.nextInt(),
+        case "createKeyframe":
+          model.createKeyframe(s.next(), this.currentTick, new State(s.nextInt(), s.nextInt(),
                   s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt()));
           refreshView();
           break;
@@ -125,6 +125,7 @@ public class Controller implements IController, IEditListener, ActionListener {
 
   private void refreshView(){
     view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
+    view.tick(this.currentTick);
   }
 
 

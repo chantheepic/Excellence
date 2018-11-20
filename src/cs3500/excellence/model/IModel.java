@@ -70,7 +70,7 @@ public interface IModel extends IROModel {
    * @param name
    * @param tick
    */
-  void insertKeyframe(String name, int tick, State newState) throws IllegalArgumentException;
+  void createKeyframe(String name, int tick, State newState) throws IllegalArgumentException;
 
   /**
    * Removes a keyframe the model. It does this by taking two motions and converting it into one.

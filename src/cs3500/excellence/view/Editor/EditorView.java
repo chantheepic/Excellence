@@ -28,7 +28,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private VisualAnimationPanel display;
 
-
   private IEditListener listener;
 
   private ImportExport export;
@@ -50,13 +49,18 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   private JTextField shapeWidthField;
   private JTextField shapeHeightField;
 
+  private JScrollPane mainScroll;
+
   public EditorView() {
     super();
     this.export = new ImportExport(this);
     this.display = new VisualAnimationPanel();
 
 
-    add(new JScrollPane(display));
+
+    mainScroll = new JScrollPane(display);
+    add(mainScroll);
+
 
     display.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -114,11 +118,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     deleteShape.addActionListener(this);
     edit.add(deleteShape);
 
-    //Insert keyframe button
-    JButton insertKeyframe = new JButton("Insert Keyframe");
-    insertKeyframe.setActionCommand("insert keyframe");
-    insertKeyframe.addActionListener(this);
-    edit.add(insertKeyframe);
+    //Edit a keyframe button
+    JButton createKeyframe = new JButton("Create Keyframe");
+    createKeyframe.setActionCommand("create keyframe");
+    createKeyframe.addActionListener(this);
+    edit.add(createKeyframe);
 
     //Delete a keyframe button
     JButton deleteKeyframe = new JButton("Delete Keyframe");
@@ -126,11 +130,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     deleteKeyframe.addActionListener(this);
     edit.add(deleteKeyframe);
 
-    //Edit a keyframe button
-    JButton editKeyframe = new JButton("Edit Keyframe");
-    editKeyframe.setActionCommand("edit keyframe");
-    editKeyframe.addActionListener(this);
-    edit.add(editKeyframe);
+
 
     add(edit);
 
@@ -213,8 +213,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
-    setPreferredSize(new Dimension(500,500));
+
+
+
     setVisible(true);
+
 
   }
 
@@ -233,17 +236,20 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       case "keyframe go":
         if (keyframeTicks.getSelectedItem() instanceof Integer) {
           listener.edit("moveto " + keyframeTicks.getSelectedItem());
+          populateData(compBox.getSelectedIndex(), (Integer) keyframeTicks.getSelectedItem());
         }
 
         break;
       case "tickGo":
         if (!tickChoice.getText().equals("")) {
           listener.edit("moveto " + tickChoice.getText());
+          if (keyframeTicks.getSelectedItem() instanceof Integer) {
+            populateData(compBox.getSelectedIndex(), Integer.parseInt(tickChoice.getText()));
+          }
         }
         break;
-
-      case "insert keyframe":
-        listener.edit(new StringJoiner(" ").add("insertKeyframe").add(shapeNameField.getText())
+      case "create keyframe":
+        listener.edit(new StringJoiner(" ").add("createKeyframe").add(shapeNameField.getText())
                 .add(shapeXField.getText()).add(shapeYField.getText())
                 .add(shapeWidthField.getText()).add(shapeHeightField.getText())
                 .add(colorChooserDisplay.getBackground().getRed() + "")
@@ -255,9 +261,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         break;
       case "delete shape":
         listener.edit("delShape " + shapeNameField.getText());
+        clearData();
         break;
       case "delete keyframe":
         listener.edit("delKeyframe " + shapeNameField.getText());
+        clearData();
         break;
       case "loop":
         listener.edit("loop");
@@ -299,7 +307,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     this.boundary = boundary;
     this.speed = speed;
     speedSpinner.setValue(this.speed);
+    display.setPreferredSize(new Dimension(boundary.getWidth(),boundary.getHeight()));
+    //mainScroll.getViewport().revalidate();
+
     populateCompSelector();
+    tick(5);
 
   }
 
@@ -327,6 +339,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     for (IROComponent comp : components) {
       compBox.addItem(comp.getID());
     }
+    keyframeTicks.removeAllItems();
+    populateTickSelector(compBox.getSelectedIndex());
   }
 
   //Repopulates the keyframe selector with given component index
@@ -339,6 +353,39 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       }
     }
   }
+
+  private void populateData(int index, int tick) {
+    clearData();
+    IROComponent component = components.get(index);
+
+    shapeNameField.setText(component.getID());
+    shapeTypeField.setText(component.getShape().toString().toLowerCase());
+
+    if (component.hasMotionAtTick(tick)) {
+      State currentState = component.getStateAtTick(tick);
+      shapeXField.setText(currentState.xPos() + "");
+      shapeYField.setText(currentState.yPos() + "");
+      shapeHeightField.setText(currentState.height() + "");
+      shapeWidthField.setText(currentState.width() + "");
+      colorChooserDisplay.setBackground(new Color(currentState.red(),
+              currentState.green(),
+              currentState.blue()));
+    }
+  }
+
+  private void clearData() {
+    shapeNameField.setText("");
+    shapeTypeField.setText("");
+    shapeXField.setText("");
+    shapeYField.setText("");
+    shapeWidthField.setText("");
+    shapeHeightField.setText("");
+    colorChooserDisplay.setBackground(Color.white);
+
+
+  }
+
+
 
 
 
