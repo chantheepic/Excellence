@@ -125,7 +125,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     edit.add(deleteShape);
 
     //Edit a keyframe button
-    JButton createKeyframe = new JButton("Create Keyframe");
+    JButton createKeyframe = new JButton("Create/Edit Keyframe");
     createKeyframe.setActionCommand("create keyframe");
     createKeyframe.addActionListener(this);
     edit.add(createKeyframe);
