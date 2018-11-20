@@ -33,46 +33,68 @@ public class Controller implements IController, ActionListener, Features {
 
 
 
-  public Controller(IModel m, IView v, int speed) {
+  public Controller(IModel m, int speed) {
     model = m;
-    view = v;
     this.speed = speed;
     tickTimer = new Timer(1000 / this.speed, this);
     tickTimer.setActionCommand("tick");
     this.currentTick = 0;
-    view.setFeatureListener(this);
-    view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
-
 
   }
 
   @Override
+  public void setView(IView view) {
+    this.view = view;
+    view.setFeatureListener(this);
+    view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
+  }
+
+  @Override
   public void setSpeed(int speed) {
+    if(speed < 0) {
+      view.displayError("Speed must be positive");
+    }
     this.speed = speed;
     tickTimer.setDelay(1000/this.speed);
   }
 
   @Override
   public void addShape(String name, String type) {
-    model.addComponent(name, type);
+    try {
+      model.addComponent(name, type);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
     refreshView();
   }
 
   @Override
   public void deleteShape(String name) {
-    model.removeComponent(name);
+    try {
+      model.removeComponent(name);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
     refreshView();
   }
 
   @Override
   public void createFrame(String name, int x, int y, int w, int h, int r, int g, int b) {
-    model.createKeyframe(name, this.currentTick, new State(x, y, w, h, r, g, b));
+    try {
+      model.createKeyframe(name, this.currentTick, new State(x, y, w, h, r, g, b));
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
     refreshView();
   }
 
   @Override
   public void deleteFrame(String name) {
-    model.removeKeyframe(name, this.currentTick);
+    try {
+      model.removeKeyframe(name, this.currentTick);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
     refreshView();
   }
 
@@ -103,22 +125,24 @@ public class Controller implements IController, ActionListener, Features {
     if(validTick(nextTick)) {
       this.currentTick = nextTick;
       view.tick(currentTick);
+    } else {
+      view.displayError("invalid tick");
     }
   }
 
   @Override
-  public void saveAsText(String fname) {
-    saveWork("text", fname);
+  public void saveAsText(String fName) {
+    saveWork("text", fName);
   }
 
   @Override
-  public void saveAsSVG(String fname) {
-    saveWork("svg", fname);
+  public void saveAsSVG(String fName) {
+    saveWork("svg", fName);
   }
 
   @Override
-  public void load(String fname) {
-    loadFile(fname);
+  public void load(String fName) {
+    loadFile(fName);
   }
 
   @Override
@@ -151,38 +175,43 @@ public class Controller implements IController, ActionListener, Features {
     view.tick(this.currentTick);
   }
 
-  private void loadFile(String fname) {
+  private void loadFile(String fName) {
     try {
       this.model = AnimationReader
-              .parseFile(new FileReader(new File(fname)), Model.builder());
+              .parseFile(new FileReader(new File(fName)), Model.builder());
       refreshView();
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      view.displayError(e.getMessage());
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
     }
   }
 
-  private void saveWork(String type, String fname) {
+  private void saveWork(String type, String fName) {
 
+    if(fName.equals("")) {
+      view.displayError("Output file not defined");
+    }
     switch (type) {
       case "svg":
         try {
-          FileWriter fw = new FileWriter(fname);
+          FileWriter fw = new FileWriter(fName);
           new SVGView(fw).setComponents(model.getAllComponents(),
                   model.getBoundary(),this.speed);
           fw.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          view.displayError(e.getMessage());
         }
 
         break;
       case "text":
         try {
-          FileWriter fw = new FileWriter(fname);
+          FileWriter fw = new FileWriter(fName);
           new TextualView(fw).setComponents(model.getAllComponents(),
                   model.getBoundary(),this.speed);
           fw.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          view.displayError(e.getMessage());
         }
         break;
     }

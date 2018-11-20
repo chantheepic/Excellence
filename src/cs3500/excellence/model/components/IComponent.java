@@ -30,7 +30,6 @@ public interface IComponent extends IROComponent {
    */
   void removeAllMotion();
 
-  void removeMotion(int index);
 
   void removeKeyframe(int tick);
 

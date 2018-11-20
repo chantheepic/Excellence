@@ -19,8 +19,7 @@ import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Keyframe;
 import cs3500.excellence.model.components.Shape;
-import cs3500.excellence.view.IView;
-import cs3500.excellence.view.VisualAnimationPanel;
+import cs3500.excellence.util.errPanel;
 
 public class EditorView extends JFrame implements IView, ActionListener, ChangeListener {
 
@@ -394,6 +393,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   @Override
   public void setFeatureListener(Features listener) {
     this.listener = listener;
+  }
+
+  @Override
+  public void displayError(String msg) {
+    errPanel.error(msg);
   }
 
   @Override

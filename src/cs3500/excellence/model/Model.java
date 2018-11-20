@@ -99,20 +99,13 @@ public class Model implements IModel {
   }
 
   @Override
-  public void removeMotion(String name, int index) {
-    if (registeredShapes.containsKey(name)) {
-      registeredShapes.get(name).removeMotion(index);
-    }
-  }
-
-
-
-  @Override
   public void createKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
-    if (registeredShapes.containsKey(name)) {
-      IComponent component = registeredShapes.get(name);
-      component.createKeyframe(tick, newState);
+    if (!registeredShapes.containsKey(name)) {
+      throw new IllegalArgumentException("Name doesn't exist");
     }
+    IComponent component = registeredShapes.get(name);
+    component.createKeyframe(tick, newState);
+
   }
 
   @Override
@@ -120,7 +113,7 @@ public class Model implements IModel {
     if (!registeredShapes.containsKey(name)) {
       throw new IllegalArgumentException("Invalid name");
     }
-    if (!registeredShapes.get(name).hasMotionAtTick(tick)) {
+    if (!registeredShapes.get(name).hasKeyframeAtTick(tick)) {
       throw new IllegalArgumentException("Invalid tick");
     }
 

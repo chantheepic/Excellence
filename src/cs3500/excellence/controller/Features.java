@@ -11,8 +11,8 @@ public interface Features {
   void restart();
   void toggleLoop();
   void setTick(int tick);
-  void saveAsText(String fname);
-  void saveAsSVG(String fname);
-  void load(String fname);
+  void saveAsText(String fName);
+  void saveAsSVG(String fName);
+  void load(String fName);
 
 }

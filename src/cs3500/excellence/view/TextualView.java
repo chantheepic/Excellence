@@ -13,6 +13,7 @@ import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.IMotion;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
+import cs3500.excellence.util.errPanel;
 
 public class TextualView implements IView {
   private List<IROComponent> components;
@@ -52,6 +53,11 @@ public class TextualView implements IView {
   @Override
   public void setFeatureListener(Features listener) {
     //DO NOTHING
+  }
+
+  @Override
+  public void displayError(String msg) {
+    errPanel.error(msg);
   }
 
   @Override

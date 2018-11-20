@@ -65,7 +65,7 @@ public class TextualViewMutationTest {
             prints("shape E ELLIPSE"),
             prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
-    basicModel.removeMotion("R", 25);
+    basicModel.removeKeyframe("R", 25);
 
     assertTestRun(basicModel,
             prints("shape R RECTANGLE"),
@@ -74,7 +74,7 @@ public class TextualViewMutationTest {
             prints("shape E ELLIPSE"),
             prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
-    basicModel.removeMotion("R", 5);
+    basicModel.removeKeyframe("R", 5);
     assertTestRun(basicModel,
             prints("shape R RECTANGLE"),
             prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),

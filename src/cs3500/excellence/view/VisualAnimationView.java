@@ -5,6 +5,8 @@ import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
+import cs3500.excellence.util.errPanel;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,11 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
   @Override
+  public void displayError(String msg) {
+    errPanel.error(msg);
+  }
+
+  @Override
   public void tick(int currentTick) {
     drawFrame(currentTick);
     setVisible(true);
@@ -101,15 +108,5 @@ public class VisualAnimationView extends JFrame implements IView {
   }
 
 
-  /**
-   * Static class that creates a error popup when parsing has failed in the main method.
-   */
-  public static final class errPanel{
-    public void error(String msg){
-      JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);
-      JDialog dialog = optionPane.createDialog("Parse Failed");
-      dialog.setAlwaysOnTop(true);
-      dialog.setVisible(true);
-    }
-  }
+
 }

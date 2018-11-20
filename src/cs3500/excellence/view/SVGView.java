@@ -8,6 +8,7 @@ import java.util.Objects;
 import cs3500.excellence.controller.Features;
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.components.IROComponent;
+import cs3500.excellence.util.errPanel;
 
 /**
  * Represents the SVG View.
@@ -39,6 +40,11 @@ public class SVGView implements IView {
   @Override
   public void setFeatureListener(Features listener) {
     //Do Nothing
+  }
+
+  @Override
+  public void displayError(String msg) {
+    errPanel.error(msg);
   }
 
   @Override

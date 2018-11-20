@@ -46,17 +46,6 @@ public interface IModel extends IROModel {
    */
   void removeAllComponent();
 
-  /**
-   * Removes a motion from a component. If a component with matching name exists in the model,
-   * remove the motion that contains the specified tick from the component. If the name does not
-   * exist in the model, do nothing. If the tick does not exist in the matching component, throw an
-   * error.
-   *
-   * @param name - the name of the component.
-   * @param tick - the tick of the motion.
-   */
-  void removeMotion(String name, int tick) throws IllegalArgumentException;
-
 
   /**
    * Inserts a keyframe into the model. There are four cases:
@@ -77,7 +66,7 @@ public interface IModel extends IROModel {
    * @param name
    * @param tick
    */
-  void removeKeyframe(String name, int tick);
+  void removeKeyframe(String name, int tick) throws IllegalArgumentException;
 
 
 

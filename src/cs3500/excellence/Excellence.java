@@ -10,12 +10,12 @@ import cs3500.excellence.controller.IController;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
+import cs3500.excellence.util.errPanel;
 import cs3500.excellence.view.EditorView;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
-import cs3500.excellence.view.VisualAnimationView.errPanel;
 
 /**
  * This is the class that creates a model, and a view from the main method arguments. The required
@@ -68,16 +68,17 @@ public class Excellence {
 
     private void execute() {
       if (model == null) {
-        new errPanel().error("Need to define input");
+        errPanel.error("Need to define input");
         System.exit(0);
       }
       if (view == null) {
-        new errPanel().error("Need to specify the view");
+        errPanel.error("Need to specify the view");
         System.exit(0);
       }
 
 
-      IController controller = new Controller(model, view, speed);
+      IController controller = new Controller(model, speed);
+      controller.setView(view);
       out.close();
     }
 
@@ -86,8 +87,10 @@ public class Excellence {
         this.model = AnimationReader
                 .parseFile(new FileReader(new File(in)), Model.builder());
       } catch (FileNotFoundException e) {
-        new errPanel().error(e.getMessage());
+        errPanel.error(e.getMessage());
         System.exit(0);
+      } catch (IllegalArgumentException e) {
+        errPanel.error(e.getMessage());
       }
     }
 
@@ -116,7 +119,7 @@ public class Excellence {
           break;
 
         default:
-          new errPanel().error("view not supported");
+          errPanel.error("view not supported");
           System.exit(0);
       }
     }
@@ -125,7 +128,7 @@ public class Excellence {
       try {
         speed = Integer.parseInt(view);
       } catch (NumberFormatException e) {
-        new errPanel().error(e.getMessage());
+        errPanel.error(e.getMessage());
         System.exit(0);
       }
     }

@@ -15,12 +15,9 @@ import cs3500.excellence.model.State;
  */
 public class Component implements IComponent, IROComponent {
 
-  //List<State> keyStates;
-  //List<Integer> keyTimes;
   private final String name;
   private final Shape type;
-  //private final List<IMotion> motions;
-  ArrayList<Keyframe> keyframes;
+  private ArrayList<Keyframe> keyframes;
 
 
   /**
@@ -102,10 +99,6 @@ public class Component implements IComponent, IROComponent {
     keyframes.clear();
   }
 
-  @Override
-  public void removeMotion(int index) {
-    //TODO
-  }
 
   @Override
   public void removeKeyframe(int tick) {
@@ -155,9 +148,8 @@ public class Component implements IComponent, IROComponent {
     int red = (int) (iState.red() + ((eState.red() - iState.red()) * timeDelta));
     int green = (int) (iState.green() + ((eState.green() - iState.green()) * timeDelta));
     int blue = (int) (iState.blue() + ((eState.blue() - iState.blue()) * timeDelta));
-    State newState = new State(posX, posY, width, height, red, green, blue);
 
-    return newState;
+    return new State(posX, posY, width, height, red, green, blue);
   }
 
   private int getInitialTick() {
@@ -169,6 +161,16 @@ public class Component implements IComponent, IROComponent {
     if(hasMotion()) {
       return tick >= keyframes.get(0).getTick() &&
               tick <= keyframes.get(keyframes.size() - 1).getTick();
+    }
+    return false;
+  }
+
+  @Override
+  public boolean hasKeyframeAtTick(int tick) {
+    for(Keyframe k : keyframes) {
+      if(k.getTick() == tick) {
+        return true;
+      }
     }
     return false;
   }

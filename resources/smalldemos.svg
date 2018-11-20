@@ -1,0 +1,18 @@
+<svg width="360px" height="360px" xmlns="http://www.w3.org/2000/svg"> 
+<rect x="0" y="130" width="50" height="100" fill="rgb(255,0,0)"> 
+  <animate attributeName="x" from="0" to="2" begin="500ms" dur="50ms" fill="freeze"/> 
+  <animate attributeName="y" from="130" to="132" begin="500ms" dur="50ms" fill="freeze"/> 
+  <animate attributeName="x" from="2" to="100" begin="550ms" dur="1950ms" fill="freeze"/> 
+  <animate attributeName="y" from="132" to="230" begin="550ms" dur="1950ms" fill="freeze"/> 
+  <animate attributeName="width" from="50" to="25" begin="2550ms" dur="950ms" fill="freeze"/> 
+  <animate attributeName="fill" from="rgb(255,0,0)" to="rgb(0,0,255)" begin="3500ms" dur="1500ms" fill="freeze"/> 
+  <animate attributeName="x" from="100" to="0" begin="3500ms" dur="1500ms" fill="freeze"/> 
+  <animate attributeName="y" from="230" to="130" begin="3500ms" dur="1500ms" fill="freeze"/> 
+</rect> 
+<ellipse cx="300" cy="30" rx="60" ry="30" fill="rgb(0,0,255)"> 
+  <animate attributeName="cy" from="30" to="210" begin="1000ms" dur="1500ms" fill="freeze"/> 
+  <animate attributeName="fill" from="rgb(0,0,255)" to="rgb(0,170,85)" begin="2500ms" dur="1000ms" fill="freeze"/> 
+  <animate attributeName="cy" from="210" to="330" begin="2500ms" dur="1000ms" fill="freeze"/> 
+  <animate attributeName="fill" from="rgb(0,170,85)" to="rgb(0,255,0)" begin="3500ms" dur="500ms" fill="freeze"/> 
+</ellipse> 
+</svg>

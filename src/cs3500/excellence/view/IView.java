@@ -28,4 +28,6 @@ public interface IView {
   void tick(int currentTick);
 
   void setFeatureListener(Features listener);
+
+  void displayError(String msg);
 }

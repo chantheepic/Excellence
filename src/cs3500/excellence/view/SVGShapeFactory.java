@@ -40,7 +40,7 @@ public class SVGShapeFactory {
 
     output.append(String.format("<%s x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
             "rect", firstState.xPos() - boundary.getX(), firstState.yPos() - boundary.getY(), firstState.width(), firstState.height(),
-            firstState.red(), firstState.green(), firstState.green()));
+            firstState.red(), firstState.green(), firstState.blue()));
 
     for (IMotion motion : motions) {
       State s = motion.getStateAtTick(motion.initialTick());
@@ -75,7 +75,7 @@ public class SVGShapeFactory {
 
     output.append(String.format("<%s cx=\"%s\" cy=\"%s\" rx=\"%s\" ry=\"%s\" fill=\"rgb(%s,%s,%s)\"> \n",
             "ellipse", firstState.xPos() - boundary.getX() + firstState.width()/2, firstState.yPos() - boundary.getY() + firstState.height()/2, firstState.width()/2, firstState.height()/2,
-            firstState.red(), firstState.green(), firstState.green()));
+            firstState.red(), firstState.green(), firstState.blue()));
 
     for (IMotion motion : motions) {
       State s = motion.getStateAtTick(motion.initialTick());

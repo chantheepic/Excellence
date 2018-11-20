@@ -40,6 +40,8 @@ public interface IROComponent {
    */
   boolean hasMotionAtTick(int tick);
 
+  boolean hasKeyframeAtTick(int tick);
+
   /**
    * Gets the ending tick of the last motion that the component has.
    *
