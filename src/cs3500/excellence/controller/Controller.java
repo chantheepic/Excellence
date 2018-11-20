@@ -2,14 +2,23 @@ package cs3500.excellence.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.Timer;
 
 import cs3500.excellence.model.IModel;
+import cs3500.excellence.model.Model;
 import cs3500.excellence.model.State;
+import cs3500.excellence.util.AnimationReader;
 import cs3500.excellence.view.IEditListener;
 import cs3500.excellence.view.IView;
+import cs3500.excellence.view.SVGView;
+import cs3500.excellence.view.TextualView;
 
 public class Controller implements IController, IEditListener, ActionListener {
 
@@ -22,6 +31,8 @@ public class Controller implements IController, IEditListener, ActionListener {
   private Timer tickTimer;
 
   private boolean loop;
+
+
 
 
   public Controller(IModel m, IView v, int speed) {
@@ -48,7 +59,7 @@ public class Controller implements IController, IEditListener, ActionListener {
       switch (in) {
         case "speed":
           this.speed = s.nextInt();
-          tickTimer.setDelay(1000 / speed);
+          tickTimer.setDelay(1000 / this.speed);
           break;
         case "addShape":
           model.addComponent(s.next(), s.next());
@@ -74,9 +85,6 @@ public class Controller implements IController, IEditListener, ActionListener {
             tickTimer.start();
           }
           break;
-        case "start":
-          //tickTimer.start();
-          break;
         case "restart":
           this.currentTick = 0;
           view.tick(currentTick);
@@ -93,8 +101,26 @@ public class Controller implements IController, IEditListener, ActionListener {
           }
           break;
 
+        case "save":
+          saveWork(s.next(),s.next());
+          break;
+        case "load":
+          loadFile(s.next());
+
       }
     }
+
+  }
+
+  private void loadFile(String fname) {
+    try {
+      this.model = AnimationReader
+              .parseFile(new FileReader(new File(fname)), Model.builder());
+      refreshView();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
 
   }
 
@@ -126,6 +152,33 @@ public class Controller implements IController, IEditListener, ActionListener {
   private void refreshView(){
     view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
     view.tick(this.currentTick);
+  }
+
+  private void saveWork(String type, String fname) {
+
+    switch (type) {
+      case "svg":
+        try {
+          FileWriter fw = new FileWriter(fname);
+          new SVGView(fw).setComponents(model.getAllComponents(),
+                  model.getBoundary(),this.speed);
+          fw.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+
+        break;
+      case "text":
+        try {
+          FileWriter fw = new FileWriter(fname);
+          new TextualView(fw).setComponents(model.getAllComponents(),
+                  model.getBoundary(),this.speed);
+          fw.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+    }
   }
 
 

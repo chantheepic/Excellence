@@ -3,6 +3,7 @@ package cs3500.excellence.view.Editor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -10,6 +11,7 @@ import java.util.StringJoiner;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import cs3500.excellence.model.Boundary;
 import cs3500.excellence.model.State;
@@ -51,11 +53,13 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private JScrollPane mainScroll;
 
+  private JLabel fileOpenDisplay;
+  private JLabel fileSaveDisplay;
+
   public EditorView() {
     super();
     this.export = new ImportExport(this);
     this.display = new VisualAnimationPanel();
-
 
 
     mainScroll = new JScrollPane(display);
@@ -131,7 +135,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     edit.add(deleteKeyframe);
 
 
-
     add(edit);
 
     //Playback control
@@ -191,7 +194,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     comboboxPanel.add(keyframeGo);
 
 
-
     playback.add(comboboxPanel);
 
     //Change the speed between 1 and infinity at step of 1
@@ -210,10 +212,48 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     add(playback);
 
+
+    JPanel io = new JPanel();
+    io.setLayout(new GridLayout(3, 1));
+
+
+    //file open
+    JPanel fileopenPanel = new JPanel();
+    fileopenPanel.setLayout(new FlowLayout());
+    io.add(fileopenPanel);
+    JButton fileOpenButton = new JButton("Open a file");
+    fileOpenButton.setActionCommand("Open file");
+    fileOpenButton.addActionListener(this);
+    fileopenPanel.add(fileOpenButton);
+    fileOpenDisplay = new JLabel("File path will appear here");
+    fileopenPanel.add(fileOpenDisplay);
+
+    //file save
+    JPanel filesavePanel = new JPanel();
+    filesavePanel.setLayout(new FlowLayout());
+    io.add(filesavePanel);
+    JButton fileSaveButton = new JButton("Save a file");
+    fileSaveButton.setActionCommand("Save file");
+    fileSaveButton.addActionListener(this);
+    filesavePanel.add(fileSaveButton);
+    fileSaveDisplay = new JLabel("File path will appear here");
+    filesavePanel.add(fileSaveDisplay);
+
+    JButton saveAsText = new JButton("Save as Text");
+    saveAsText.setActionCommand("saveText");
+    saveAsText.addActionListener(this);
+    filesavePanel.add(saveAsText);
+
+    JButton saveAsSVG = new JButton("Save as SVG");
+    saveAsSVG.setActionCommand("saveSVG");
+    saveAsSVG.addActionListener(this);
+    filesavePanel.add(saveAsSVG);
+
+    add(io);
+
     setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
-
 
 
     setVisible(true);
@@ -275,6 +315,38 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         Color col = JColorChooser.showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
         colorChooserDisplay.setBackground(col);
         break;
+
+
+      case "Open file": {
+        final JFileChooser fchooser = new JFileChooser(".");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & GIF Images", "jpg", "gif");
+        fchooser.setFileFilter(filter);
+        int retvalue = fchooser.showOpenDialog(this);
+        if (retvalue == JFileChooser.APPROVE_OPTION) {
+          File f = fchooser.getSelectedFile();
+          fileOpenDisplay.setText(f.getAbsolutePath());
+        }
+        listener.edit("load " + fileOpenDisplay.getText());
+      }
+      break;
+      case "Save file": {
+        final JFileChooser fchooser = new JFileChooser(".");
+        int retvalue = fchooser.showSaveDialog(this);
+        if (retvalue == JFileChooser.APPROVE_OPTION) {
+          File f = fchooser.getSelectedFile();
+          fileSaveDisplay.setText(f.getAbsolutePath());
+        }
+      }
+      break;
+
+      case "saveText":
+        listener.edit("save text " + fileSaveDisplay.getText());
+        break;
+      case "saveSVG":
+        listener.edit("save svg " + fileSaveDisplay.getText());
+        break;
+
     }
 
   }
@@ -307,11 +379,10 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     this.boundary = boundary;
     this.speed = speed;
     speedSpinner.setValue(this.speed);
-    display.setPreferredSize(new Dimension(boundary.getWidth(),boundary.getHeight()));
-    //mainScroll.getViewport().revalidate();
+    display.setPreferredSize(new Dimension(boundary.getWidth(), boundary.getHeight()));
+    mainScroll.getViewport().revalidate();
 
     populateCompSelector();
-    tick(5);
 
   }
 
@@ -384,10 +455,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
 
   }
-
-
-
-
 
 
 }

@@ -25,6 +25,7 @@ public class TextualView implements IView {
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
     appendText(this.getOverview());
+
   }
 
   @Override

@@ -76,9 +76,9 @@ public class Excellence {
         System.exit(0);
       }
 
-      out.close();
 
       IController controller = new Controller(model, view, speed);
+      out.close();
     }
 
     private void parseIn(String in) {
