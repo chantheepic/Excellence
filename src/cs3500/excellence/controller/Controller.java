@@ -28,34 +28,14 @@ public class Controller implements IController, IEditListener, ActionListener {
     model = m;
     view = v;
     this.speed = speed;
-    tickTimer = new Timer(1000 / speed, this);
+    tickTimer = new Timer(1000 / this.speed, this);
+    tickTimer.setActionCommand("tick");
+    this.currentTick = 0;
     view.setEditListener(this);
-    view.setComponents(model.getAllComponents(), model.getBoundary(), speed);
+    view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
 
 
   }
-//
-//  @Override
-//  public void action(String e) {
-//    switch (e) {
-//      //read from the input textfield
-//      case "Echo Button":
-//        String text = view.getInputString();
-//        //send text to the model
-//        model.setString(text);
-//
-//        //clear input textfield
-//        view.clearInputString();
-//        //finally echo the string in view
-//        text = model.getString();
-//        view.setEchoOutput(text);
-//
-//        break;
-//      case "Exit Button":
-//        System.exit(0);
-//        break;
-//    }
-//  }
 
 
   @Override
@@ -72,11 +52,20 @@ public class Controller implements IController, IEditListener, ActionListener {
           break;
         case "addShape":
           model.addComponent(s.next(), s.next());
+          refreshView();
           break;
-
+        case "delShape":
+          model.removeComponent(s.next());
+          refreshView();
+          break;
         case "insertKeyframe":
           model.insertKeyframe(s.next(), this.currentTick, new State(s.nextInt(), s.nextInt(),
                   s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt()));
+          refreshView();
+          break;
+        case "delKeyframe":
+          model.removeKeyframe(s.next(), this.currentTick);
+          refreshView();
           break;
         case "togglePlay":
           if(tickTimer.isRunning()){
@@ -86,8 +75,7 @@ public class Controller implements IController, IEditListener, ActionListener {
           }
           break;
         case "start":
-
-          tickTimer.start();
+          //tickTimer.start();
           break;
         case "restart":
           this.currentTick = 0;
@@ -95,7 +83,7 @@ public class Controller implements IController, IEditListener, ActionListener {
           tickTimer.stop();
           break;
         case "loop":
-          loop = true;
+          loop = !loop;
           break;
         case "moveto":
           int nextTick = s.nextInt();
@@ -112,22 +100,32 @@ public class Controller implements IController, IEditListener, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if(currentTick == model.getFinalTick()){
-      view.tick(currentTick);
-      if(loop) {
-        currentTick = 0;
-      } else {
-        tickTimer.stop();
-      }
+    switch (e.getActionCommand()) {
+      case "tick":
+        if(currentTick == model.getFinalTick()){
+          view.tick(currentTick);
+          if(loop) {
+            currentTick = 0;
+          } else {
+            tickTimer.stop();
+          }
 
-    } else {
-      view.tick(currentTick++);
+        } else {
+          view.tick(currentTick++);
+        }
+        break;
     }
+
   }
 
 
   private boolean validTick(int tick) {
     return tick >=0;
   }
+
+  private void refreshView(){
+    view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
+  }
+
 
 }

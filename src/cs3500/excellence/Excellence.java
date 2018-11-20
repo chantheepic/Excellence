@@ -1,21 +1,21 @@
 package cs3500.excellence;
 
-import cs3500.excellence.controller.Controller;
-import cs3500.excellence.controller.IController;
-import cs3500.excellence.view.Editor.EditorView;
-import cs3500.excellence.view.VisualAnimationView.errPanel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
+import cs3500.excellence.controller.Controller;
+import cs3500.excellence.controller.IController;
 import cs3500.excellence.model.IModel;
 import cs3500.excellence.model.Model;
 import cs3500.excellence.util.AnimationReader;
+import cs3500.excellence.view.Editor.EditorView;
 import cs3500.excellence.view.IView;
 import cs3500.excellence.view.SVGView;
 import cs3500.excellence.view.TextualView;
 import cs3500.excellence.view.VisualAnimationView;
+import cs3500.excellence.view.VisualAnimationView.errPanel;
 
 /**
  * This is the class that creates a model, and a view from the main method arguments. The required
@@ -78,7 +78,7 @@ public class Excellence {
 
       out.close();
 
-      IController controller = new Controller(model,view, speed);
+      IController controller = new Controller(model, view, speed);
     }
 
     private void parseIn(String in) {
@@ -115,8 +115,9 @@ public class Excellence {
           this.view = new EditorView();
           break;
 
-          default:new errPanel().error("view not supported");
-            System.exit(0);
+        default:
+          new errPanel().error("view not supported");
+          System.exit(0);
       }
     }
 

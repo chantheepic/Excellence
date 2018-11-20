@@ -18,7 +18,7 @@ public class TextualViewMutationTest {
   IModel basicModel;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     basicModel = new Model(new Boundary(0,0,0,0));
   }
 

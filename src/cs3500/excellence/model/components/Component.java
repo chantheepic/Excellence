@@ -164,13 +164,19 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public boolean hasMotionAtTick(int tick) {
-    return tick >= keyframes.get(0).getTick() &&
-            tick <= keyframes.get(keyframes.size() - 1).getTick();
+    if(hasMotion()) {
+      return tick >= keyframes.get(0).getTick() &&
+              tick <= keyframes.get(keyframes.size() - 1).getTick();
+    }
+    return false;
   }
 
   @Override
   public int getFinalTick() {
-    return keyframes.get(keyframes.size() - 1).getTick();
+    if(keyframes.size()!=0) {
+      return keyframes.get(keyframes.size() - 1).getTick();
+    }
+    return -1;
   }
 
   @Override

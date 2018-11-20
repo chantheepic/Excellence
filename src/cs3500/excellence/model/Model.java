@@ -107,7 +107,10 @@ public class Model implements IModel {
 
   @Override
   public void insertKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
-
+    if (registeredShapes.containsKey(name)) {
+      IComponent component = registeredShapes.get(name);
+      component.insertKeyframe(tick, newState);
+    }
   }
 
   @Override

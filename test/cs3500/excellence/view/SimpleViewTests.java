@@ -44,7 +44,7 @@ public class SimpleViewTests {
   public void simpleTextViewTest() {
     StringBuilder output = new StringBuilder();
     TextualView tView = new TextualView(output);
-    tView.setComponents(roList, new Boundary(0, 0, 200, 200), 20);
+    tView.setComponents(roList, new Boundary(0, 0, 200, 200), 1);
     tView.setOutput(output);
     assertEquals(output.toString(), "shape E ELLIPSE\n"
         + "motion E 0 1 2 33 40 5 6 7    10 110 120 13 14 15 16 17\n"
@@ -62,7 +62,7 @@ public class SimpleViewTests {
   public void simpleSVGViewTest() {
     StringBuilder output = new StringBuilder();
     SVGView tView = new SVGView(output);
-    tView.setComponents(roList, new Boundary(0, 0, 200, 200), 20);
+    tView.setComponents(roList, new Boundary(0, 0, 200, 200), 1);
     tView.setOutput(output);
     assertEquals(output.toString(),
         "<svg width=\"200px\" height=\"200px\" xmlns=\"http://www.w3.org/2000/svg\"> \n"

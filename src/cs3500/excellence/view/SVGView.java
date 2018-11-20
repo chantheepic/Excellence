@@ -1,6 +1,5 @@
 package cs3500.excellence.view;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +37,12 @@ public class SVGView implements IView {
 
   @Override
   public void setEditListener(IEditListener listener) {
-
+    //Do Nothing
   }
 
   @Override
   public void tick(int currentTick) {
-
+    //Do Nothing
   }
 
   private String getOverview() {

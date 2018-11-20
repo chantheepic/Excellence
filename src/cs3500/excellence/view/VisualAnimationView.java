@@ -5,14 +5,11 @@ import cs3500.excellence.model.State;
 import cs3500.excellence.model.components.IROComponent;
 import cs3500.excellence.model.components.Shape;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 public class VisualAnimationView extends JFrame implements IView {
 

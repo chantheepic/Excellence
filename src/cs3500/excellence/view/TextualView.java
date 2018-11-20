@@ -13,7 +13,6 @@ import cs3500.excellence.model.components.IROComponent;
 
 public class TextualView implements IView {
   private List<IROComponent> components;
-  private int speed;
   private Appendable out;
 
 
@@ -25,7 +24,6 @@ public class TextualView implements IView {
   @Override
   public void setComponents(List<IROComponent> components, Boundary boundary, int speed) {
     this.components = Objects.requireNonNull(components, "Components cannot be null");
-    this.speed = speed;
     appendText(this.getOverview());
   }
 
@@ -55,9 +53,9 @@ public class TextualView implements IView {
   private String getComponentOverview(IROComponent component) {
 
     StringBuilder output = new StringBuilder();
-    output.append("shape " + component.getID() + " " + component.getShape()).append("\n");
+    output.append("shape ").append(component.getID()).append(" ").append(component.getShape()).append("\n");
     for (IMotion m : component.returnAllMotions()) {
-      output.append("motion " + component.getID() + " ").append(getMotionOverview(m)).append("\n");
+      output.append("motion ").append(component.getID()).append(" ").append(getMotionOverview(m)).append("\n");
     }
     return output.toString();
 
@@ -75,7 +73,7 @@ public class TextualView implements IView {
             motion.initialTick(), getStateOverview(motion.initialState()));
     String endOut = String.format("%d %s",
             motion.endTick(), getStateOverview(motion.endState()));
-    output.append(initOut + "    " + endOut);
+    output.append(initOut).append("    ").append(endOut);
     return output.toString();
   }
 
