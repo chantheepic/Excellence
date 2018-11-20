@@ -15,7 +15,7 @@ import cs3500.animator.util.AnimationBuilder;
 
 /**
  * Represents a model for supporting BasicMotions. The model knows all components and the boundary
- * size.
+ * size. The model consists of IComponents.
  */
 public class Model implements IModel {
 
@@ -83,6 +83,7 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Not valid type");
     }
   }
+
 
   @Override
   public void addMotion(String id, State initialState, State endState, int initialTick, int endTick)
@@ -173,7 +174,6 @@ public class Model implements IModel {
       return new Model(registeredShapes, boundary);
     }
 
-    //TODO
     @Override
     public AnimationBuilder<IModel> setBounds(int x, int y, int width, int height) {
       this.boundary = new Boundary(x, y, width, height);

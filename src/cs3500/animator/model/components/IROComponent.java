@@ -9,7 +9,7 @@ import cs3500.animator.model.State;
 /**
  * Read Only interface for Component
  * Represents an animate-able object in the animation.
- * Each component knows its name(String), type(Shape), and moves(List<IMotion>)
+ * Each component knows its name(String), type(Shape), and moves(List<Keyframe>)
  * Different components may have different shapes.
  */
 public interface IROComponent {

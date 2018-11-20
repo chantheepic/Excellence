@@ -129,9 +129,8 @@ public class Controller implements IController, ActionListener, Features {
 
   @Override
   public void setTick(int tick) {
-    int nextTick = tick;
-    if(validTick(nextTick)) {
-      this.currentTick = nextTick;
+    if(validTick(tick)) {
+      this.currentTick = tick;
       view.tick(currentTick);
     } else {
       view.displayError("invalid tick");
@@ -202,9 +201,7 @@ public class Controller implements IController, ActionListener, Features {
       this.model = AnimationReader
               .parseFile(new FileReader(new File(fName)), Model.builder());
       refreshView();
-    } catch (FileNotFoundException e) {
-      view.displayError(e.getMessage());
-    } catch (IllegalArgumentException e) {
+    } catch (FileNotFoundException | IllegalStateException | IllegalArgumentException e) {
       view.displayError(e.getMessage());
     }
   }

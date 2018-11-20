@@ -48,14 +48,44 @@ overview.
    (i.e. center point for rect and ellipse in svgView), Abstracting the calculations done to
    different shapes were difficult.
 
+==[HW07]==
+
+7. We decided to have the Controller catch errors that might be thrown when mutating the model. The
+   controller then delegates these errors to the view to display whoever it chooses. This means
+   IView has a displayError(str) method.
+
+8. The EditView takes care of low level callbacks, when something meaningful needs to happen, it
+   calls methods defined in the Features interface. This listener is currently the controller.
+
+9. The user has the option to delete or create keyframes, we decided to not mutate the model when
+   a user just wants to "insert" a keyframe. This is because it doesn't change the animation. The
+   only time the model should care is when that keyframe alters the animation.
+
 *Future Revisions*
     - Factory for creating components
     - Builder for adding motions to components
 
 *CHANGES*
 
-    - Need to hold order that shapes were added, dictionary that holds order??
-        -> or need to use a list instead of a map.
-        ->UPDATE: linked hashmap is what we need.
+  ==[HW06]==
 
-    - New method needed to retrieve all components of a shape. The views need a list of components.
+  - Need to hold order that shapes were added, dictionary that holds order??
+      -> or need to use a list instead of a map.
+      ->UPDATE: linked hashmap is what we need.
+
+  - New method needed to retrieve all components of a shape. The views need a list of components.
+
+  ==[HW07]==
+
+  - The model now stores keyframes as its data structure. It still has methods that can return
+    motions. We did this because holding on to motions is slightly less space efficient. In addition
+    mutating the model with respect to keyframes is easier when the data is already in keyframe form.
+
+  - Have a new class called Keyframe which holds onto a State and a tick. This class is completely
+    immutable.
+
+  - IView added: tick(int), setListener(listener), displayError(str). Each of these methods were
+    added for the edit view. displayError(str) is used in the other views when they want to display
+    an error. tick(int) and setListener(listener) are do absolutely nothing in the text, svg  and
+    visual view.
+

@@ -4,14 +4,14 @@ package cs3500.animator.model;
 /**
  * Extended model interface with setters. Represents a model for supporting animations.
  *
- * A Model is an animation. It has shapes that each might have motions. Each motion has a starting
- * point and ending pont.
+ * A Model is an animation. It has shapes that each might have keyframes. Each keyframe represents
+ * the state of a component at a specific tick.
  */
 public interface IModel extends IROModel {
 
   /**
    * Adds a component to the model. The given id is used later on to refer to this component. All
-   * components added will stored in alphabetical order.
+   * components added will stored in the order they are added.
    *
    * @param name - Represents the name of the component being added.
    * @param type - Represents the type of the component being added. So far rectangle and ellipse
@@ -38,6 +38,8 @@ public interface IModel extends IROModel {
 
   /**
    * Removes a component from the model. If the name does not exist, error is thrown.
+    * @param name - the name of the Shape
+   * @throws IllegalArgumentException - if shape does not exist.
    */
   void removeComponent(String name) throws IllegalArgumentException;
 
@@ -48,27 +50,20 @@ public interface IModel extends IROModel {
 
 
   /**
-   * Inserts a keyframe into the model. There are four cases:
-   * 1. In between existing keyframes: splits the motion into two motions
-   * 2. After existing keyframes: Adds motion with same initial state, after the last motion.
-   * 3. Before existing keyframes: Adds motions with same ending state, before the first motions.
-   * 4. No existing keyframes: creates a
-   *
-   *
-   * It does this my splitting a motion into two. Or it adds a new motion
-   * @param name
-   * @param tick
+   * Inserts a keyframe into the model. It can override existing keyframes with the same tick.
+   * @param name - the name of the shape.
+   * @param tick - the tick of the keyframe
+   * @param newState - the state at the given tick.
+   * @throws IllegalArgumentException - this thrown when the name does not exist.
    */
   void createKeyframe(String name, int tick, State newState) throws IllegalArgumentException;
 
   /**
-   * Removes a keyframe the model. It does this by taking two motions and converting it into one.
-   * @param name
-   * @param tick
+   * Removes a keyframe the model. If the name doesn't exist or the tick, it throws error.
+   * @param name - the name of the shape.
+   * @param tick - the tick of the specified keyframe.
+   * @throws IllegalArgumentException - throws error if keyframe does not exist.
    */
   void removeKeyframe(String name, int tick) throws IllegalArgumentException;
-
-
-
 
 }
