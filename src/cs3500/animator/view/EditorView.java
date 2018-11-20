@@ -280,9 +280,9 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         }
         break;
       case "tickGo": //from tick selector
-        if (!tickChoice.getText().equals("")) {
+        if (tickChoice.getText().matches("[0-9]+")) {
           listener.setTick(Integer.parseInt(tickChoice.getText()));
-          if (keyframeTicks.getSelectedItem() instanceof Integer) {
+          if (keyframeTicks.getSelectedItem().toString().matches("[0-9]]")) {
             populateData(compBox.getSelectedIndex(), Integer.parseInt(tickChoice.getText()));
           }
         }
@@ -319,15 +319,13 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
       case "Open file": {
         final JFileChooser fchooser = new JFileChooser(".");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG & GIF Images", "jpg", "gif");
-        fchooser.setFileFilter(filter);
         int retvalue = fchooser.showOpenDialog(this);
         if (retvalue == JFileChooser.APPROVE_OPTION) {
           File f = fchooser.getSelectedFile();
           fileOpenDisplay.setText(f.getAbsolutePath());
+          listener.load(fileOpenDisplay.getText());
         }
-        listener.load(fileOpenDisplay.getText());
+
       }
       break;
       case "Save file": {
