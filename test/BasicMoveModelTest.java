@@ -1,12 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import cs3500.excellence.model.IModel;
-import cs3500.excellence.model.Model;
-import cs3500.excellence.model.State;
-import cs3500.excellence.model.components.Component;
-import cs3500.excellence.model.components.IComponent;
-import cs3500.excellence.model.components.Shape;
+import cs3500.animator.model.IModel;
+import cs3500.animator.model.Model;
+import cs3500.animator.model.State;
+import cs3500.animator.model.components.Shape;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
