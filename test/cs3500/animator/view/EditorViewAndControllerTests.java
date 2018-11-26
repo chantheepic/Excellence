@@ -12,7 +12,7 @@ import org.junit.Test;
 public class EditorViewTests {
 
   IModel mockModel;
-  MockEditorView mockView;
+  IView mockView;
   Controller controller;
   StringBuilder output;
   int speed = 20;
@@ -31,7 +31,7 @@ public class EditorViewTests {
   @Test
   public void addKeyframeTest() {
     output.setLength(0);
-    mockView.actionPerformed(new ActionEvent(new Object(), 0, "create keyframe"));
+    ((MockEditorView)mockView).actionPerformed(new ActionEvent(new Object(), 0, "create keyframe"));
     assertEquals(output.toString(),
         "keyframe added\n"
             + "all components\n"
@@ -41,7 +41,7 @@ public class EditorViewTests {
   @Test
   public void removeKeyframeTest() {
     output.setLength(0);
-    mockView.actionPerformed(new ActionEvent(new Object(), 0, "delete keyframe"));
+    ((MockEditorView)mockView).actionPerformed(new ActionEvent(new Object(), 0, "delete keyframe"));
     assertEquals(output.toString(),
         "keyframe removed\n"
             + "all components\n"
@@ -51,7 +51,7 @@ public class EditorViewTests {
   @Test
   public void addShapeTest() {
     output.setLength(0);
-    mockView.actionPerformed(new ActionEvent(new Object(), 0, "create shape"));
+    ((MockEditorView)mockView).actionPerformed(new ActionEvent(new Object(), 0, "create shape"));
     assertEquals(output.toString(),
         "component added\n"
             + "all components\n"
@@ -61,7 +61,7 @@ public class EditorViewTests {
   @Test
   public void removeShapeTest() {
     output.setLength(0);
-    mockView.actionPerformed(new ActionEvent(new Object(), 0, "delete shape"));
+    ((MockEditorView)mockView).actionPerformed(new ActionEvent(new Object(), 0, "delete shape"));
     assertEquals(output.toString(),
         "component removed\n"
             + "all components\n"
