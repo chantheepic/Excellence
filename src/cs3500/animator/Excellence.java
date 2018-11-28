@@ -10,7 +10,7 @@ import cs3500.animator.controller.IController;
 import cs3500.animator.model.IModel;
 import cs3500.animator.model.Model;
 import cs3500.animator.util.AnimationReader;
-import cs3500.animator.view.errPanel;
+import cs3500.animator.view.ErrPanel;
 import cs3500.animator.view.EditorView;
 import cs3500.animator.view.IView;
 import cs3500.animator.view.svg.SVGView;
@@ -68,11 +68,11 @@ public class Excellence {
 
     private void execute() {
       if (model == null) {
-        errPanel.error("Need to define input");
+        ErrPanel.error("Need to define input");
         System.exit(0);
       }
       if (view == null) {
-        errPanel.error("Need to specify the view");
+        ErrPanel.error("Need to specify the view");
         System.exit(0);
       }
 
@@ -87,10 +87,10 @@ public class Excellence {
         this.model = AnimationReader
                 .parseFile(new FileReader(new File(in)), Model.builder());
       } catch (FileNotFoundException e) {
-        errPanel.error(e.getMessage());
+        ErrPanel.error(e.getMessage());
         System.exit(0);
       } catch (IllegalArgumentException e) {
-        errPanel.error(e.getMessage());
+        ErrPanel.error(e.getMessage());
       }
     }
 
@@ -119,7 +119,7 @@ public class Excellence {
           break;
 
         default:
-          errPanel.error("view not supported");
+          ErrPanel.error("view not supported");
           System.exit(0);
       }
     }
@@ -128,7 +128,7 @@ public class Excellence {
       try {
         speed = Integer.parseInt(view);
       } catch (NumberFormatException e) {
-        errPanel.error(e.getMessage());
+        ErrPanel.error(e.getMessage());
         System.exit(0);
       }
     }

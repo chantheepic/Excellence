@@ -399,7 +399,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   @Override
   public void displayError(String msg) {
-    errPanel.error(msg);
+    ErrPanel.error(msg);
   }
 
   @Override

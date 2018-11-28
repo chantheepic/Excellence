@@ -58,7 +58,7 @@ public class VisualAnimationView extends JFrame implements IView {
 
   @Override
   public void displayError(String msg) {
-    errPanel.error(msg);
+    ErrPanel.error(msg);
   }
 
   @Override

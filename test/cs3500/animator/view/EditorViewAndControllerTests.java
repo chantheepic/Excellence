@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EditorViewTests {
+public class EditorViewAndControllerTests {
 
   IModel mockModel;
   IView mockView;

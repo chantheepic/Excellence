@@ -13,8 +13,8 @@ import cs3500.animator.model.Boundary;
 import cs3500.animator.model.IMotion;
 import cs3500.animator.model.State;
 import cs3500.animator.model.components.IROComponent;
+import cs3500.animator.view.ErrPanel;
 import cs3500.animator.view.IView;
-import cs3500.animator.view.errPanel;
 
 public class TextualView implements IView {
   private List<IROComponent> components;
@@ -58,7 +58,7 @@ public class TextualView implements IView {
 
   @Override
   public void displayError(String msg) {
-    errPanel.error(msg);
+    ErrPanel.error(msg);
   }
 
   @Override

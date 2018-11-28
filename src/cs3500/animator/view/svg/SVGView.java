@@ -9,7 +9,7 @@ import cs3500.animator.controller.Features;
 import cs3500.animator.model.Boundary;
 import cs3500.animator.model.components.IROComponent;
 import cs3500.animator.view.IView;
-import cs3500.animator.view.errPanel;
+import cs3500.animator.view.ErrPanel;
 
 /**
  * Represents the SVG View.
@@ -45,7 +45,7 @@ public class SVGView implements IView {
 
   @Override
   public void displayError(String msg) {
-    errPanel.error(msg);
+    ErrPanel.error(msg);
   }
 
   @Override
