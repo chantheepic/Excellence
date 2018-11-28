@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * Static class that creates a error popup when parsing has failed in the main method.
  */
-public final class errPanel {
+public final class ErrPanel {
 
   public static void error(String msg) {
     JOptionPane optionPane = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE);
