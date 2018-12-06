@@ -53,8 +53,12 @@ Doing so would make it possible to mutate the model not from the view. This is a
 4. The different buttons are not given different command strings.
 
 This is a problem when we have the same ActionListener assigned to multiple buttons. We have to rely on other characteristics of the button instead (ie. The title). There is a simple method called setActionCommand(String) that can be used to define what string is used when the button is clicked.
+
+5. When you go through and reset to the initial state, all of the shapes get whatever the last initial state is. 
+
+You run a double for loop though all of the shapes and all of the initial states. This can be fixed by just using a counted for loop and grabbing the correct initial state.
  
-5. The timer delay calculation should be: (1000 / tempo)
+6. The timer delay calculation should be: (1000 / tempo)
 
 When setting the speed of the timer you had this: setDelay(1000 * (1 / tempo)). The problem with this is how integer division works. If we pass in a tempo other than 1, the following happens:
 
@@ -62,9 +66,9 @@ tempo = 20
 (1 / tempo) = 0 (since it is an int)
 (1000 * (1 / tempo)) = 0, therefore you set the delay to 0 instead of 20.
 
-6. In the ViewPanel class, what purpose is visibleShapes serving?
+7. In the ViewPanel class, what purpose is visibleShapes serving?
 
-7. Mutation complicates the restart functionality. 
+8. Mutation complicates the restart functionality. 
 
 ==[Documentation Critique]==
 

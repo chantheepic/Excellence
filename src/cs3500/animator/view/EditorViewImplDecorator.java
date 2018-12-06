@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -14,71 +13,26 @@ import javax.swing.event.ChangeListener;
 import cs3500.animator.provider.controller.classes.CommandType;
 import cs3500.animator.provider.view.interfaces.EditorView;
 
-public class EditorViewImplDecorator implements EditorView, ActionListener, ItemListener {
+/**
+ * This class decorates the EditorView with change, item and action listeners. Each listener is
+ * a separate class. It delegates methods to the composed EditorView.
+ */
+public class EditorViewImplDecorator implements EditorView {
 
   private EditorView view;
-  class HandleChanges implements ChangeListener {
-    @Override
-    public void stateChanged(ChangeEvent e) {
-      {
-
-        //Lets hope there is only 1 slider...
-        if (e.getSource() instanceof JSlider) {
-          JSlider slider = (JSlider) e.getSource();
-          try {
-            EditorViewImplDecorator.this.view.acceptCommand(CommandType.SET_SPEED, null, slider.getValue());
-          } catch (IOException exc) {
-            exc.printStackTrace();
-          }
-
-        }
-      }
-    }
-  }
 
   private HandleChanges changeListener = new HandleChanges();
+  private HandleItems itemListener = new HandleItems();
+  private HandleActions actionListener = new HandleActions();
+
+
+  /**
+   * This constructor takes in a view and sets its listeners to the listeners defined in this file.
+   * @param view
+   */
   public EditorViewImplDecorator(EditorView view) {
     this.view = view;
-    this.view.setListeners(this.changeListener,this,this);
-  }
-
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    if (e.getSource() instanceof JButton) {
-      JButton button = (JButton) e.getSource();
-
-      try {
-        switch (button.getText()) {
-          case "Play/Pause":
-            this.view.acceptCommand(CommandType.PLAY_PAUSE, null, -1);
-            break;
-          case "Restart":
-            this.view.acceptCommand(CommandType.RESTART, null, -1);
-            break;
-        }
-      } catch (IOException exc) {
-        exc.printStackTrace();
-      }
-    }
-  }
-
-  @Override
-  public void itemStateChanged(ItemEvent e) {
-    if (e.getSource() instanceof JCheckBox) {
-      JCheckBox box = (JCheckBox) e.getSource();
-
-      try {
-        switch (box.getText()) {
-          case "Toggle the loop":
-            this.view.acceptCommand(CommandType.LOOP, null, -1);
-            break;
-        }
-      } catch (IOException exc) {
-        exc.printStackTrace();
-      }
-    }
-
+    this.view.setListeners(changeListener,itemListener,actionListener);
   }
 
 
@@ -106,4 +60,76 @@ public class EditorViewImplDecorator implements EditorView, ActionListener, Item
   public void setTempo(int tempo) {
     view.setTempo(tempo);
   }
+
+  /**
+   * This class is used to handle stateChanges from the EditorView
+   */
+  class HandleChanges implements ChangeListener {
+    @Override
+    public void stateChanged(ChangeEvent e) {
+      {
+
+        //Lets hope there is only 1 slider...
+        if (e.getSource() instanceof JSlider) {
+          JSlider slider = (JSlider) e.getSource();
+          try {
+            EditorViewImplDecorator.this.view.acceptCommand(CommandType.SET_SPEED, null, slider.getValue());
+          } catch (IOException exc) {
+            exc.printStackTrace();
+          }
+
+        }
+      }
+    }
+  }
+
+  /**
+   * This class is used to handle itemStateChanges from the EditorView
+   */
+  class HandleItems implements ItemListener {
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+      if (e.getSource() instanceof JCheckBox) {
+        JCheckBox box = (JCheckBox) e.getSource();
+
+        try {
+          switch (box.getText()) {
+            case "Toggle the loop":
+              EditorViewImplDecorator.this.view.acceptCommand(CommandType.LOOP, null, -1);
+              break;
+          }
+        } catch (IOException exc) {
+          exc.printStackTrace();
+        }
+      }
+    }
+  }
+
+  /**
+   * This class is used to handle actions from the EditorView
+   */
+  class HandleActions implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if (e.getSource() instanceof JButton) {
+        JButton button = (JButton) e.getSource();
+
+        try {
+          switch (button.getText()) {
+            case "Play/Pause":
+              EditorViewImplDecorator.this.view.acceptCommand(CommandType.PLAY_PAUSE, null, -1);
+              break;
+            case "Restart":
+              EditorViewImplDecorator.this.view.acceptCommand(CommandType.RESTART, null, -1);
+              break;
+          }
+        } catch (IOException exc) {
+          exc.printStackTrace();
+        }
+      }
+    }
+  }
+
 }
