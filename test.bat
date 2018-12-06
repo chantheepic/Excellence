@@ -1,1 +1,0 @@
-java -jar Excellence.jar -in resources\smalldemo.txt -out a.svg -view svg -speed 20

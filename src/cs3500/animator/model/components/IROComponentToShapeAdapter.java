@@ -1,6 +1,7 @@
 package cs3500.animator.model.components;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +47,13 @@ public class IROComponentToShapeAdapter implements Shape {
   @Override
   public void setX(int x) {
     this.currentState = new State(
-            x,
-            currentState.yPos(),
-            currentState.width(),
-            currentState.height(),
-            currentState.red(),
-            currentState.green(),
-            currentState.blue());
+        x,
+        currentState.yPos(),
+        currentState.width(),
+        currentState.height(),
+        currentState.red(),
+        currentState.green(),
+        currentState.blue());
 
   }
 
@@ -64,13 +65,13 @@ public class IROComponentToShapeAdapter implements Shape {
   @Override
   public void setY(int y) {
     this.currentState = new State(
-            currentState.xPos(),
-            y,
-            currentState.width(),
-            currentState.height(),
-            currentState.red(),
-            currentState.green(),
-            currentState.blue());
+        currentState.xPos(),
+        y,
+        currentState.width(),
+        currentState.height(),
+        currentState.red(),
+        currentState.green(),
+        currentState.blue());
   }
 
   @Override
@@ -91,13 +92,13 @@ public class IROComponentToShapeAdapter implements Shape {
   @Override
   public void setColor(Color color) {
     this.currentState = new State(
-            currentState.xPos(),
-            currentState.yPos(),
-            currentState.width(),
-            currentState.height(),
-            color.getRed(),
-            color.getGreen(),
-            color.getBlue());
+        currentState.xPos(),
+        currentState.yPos(),
+        currentState.width(),
+        currentState.height(),
+        color.getRed(),
+        color.getGreen(),
+        color.getBlue());
   }
 
   /**
@@ -129,13 +130,13 @@ public class IROComponentToShapeAdapter implements Shape {
   @Override
   public void setDimensions(int firstDimension, int secondDimension) {
     this.currentState = new State(
-            currentState.xPos(),
-            currentState.yPos(),
-            firstDimension,
-            secondDimension,
-            currentState.red(),
-            currentState.green(),
-            currentState.blue());
+        currentState.xPos(),
+        currentState.yPos(),
+        firstDimension,
+        secondDimension,
+        currentState.red(),
+        currentState.green(),
+        currentState.blue());
   }
 
   @Override
@@ -154,7 +155,7 @@ public class IROComponentToShapeAdapter implements Shape {
   /**
    * Should not tightly couple the model with the view.
    *
-   * @param a     animation of shape.
+   * @param a animation of shape.
    * @param tempo speed of SVG.
    */
   @Override

@@ -8,7 +8,6 @@ import cs3500.animator.model.components.Component;
 import cs3500.animator.model.components.IComponent;
 import cs3500.animator.model.components.Shape;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class ComponentTests {
@@ -47,18 +46,12 @@ public class ComponentTests {
     assertEquals(new State(1, 2, 3, 4, 5, 6, 7), first.initialState());
     assertEquals(new State(11, 12, 13, 14, 15, 16, 17), first.endState());
 
-//    //Checks that overview works
-//    assertEquals("motion E  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17\n"
-//                    + "motion E 10 11  12  13  14  15  16  17     20  1   2   3   4   5   6   7\n",
-//            e.getOverview());
-
     //0->10 , 10->20 are critical points
-    Assert.assertEquals(new State( 1 ,  2 ,  3 ,  4 ,  5 ,  6 ,  7), e.getStateAtTick(0));
-    Assert.assertEquals(new State( 6,   7 ,  8 ,  9 , 10 , 11 , 12),  e.getStateAtTick(5));
-    Assert.assertEquals(new State( 11,   12 ,  13 ,  14 , 15 , 16 , 17),  e.getStateAtTick(10));
-    Assert.assertEquals(new State( 10,   11 ,  12 ,  13 , 14 , 15 , 16),  e.getStateAtTick(11));
-    Assert.assertEquals(new State( 1,   2 ,  3 ,  4 , 5 , 6 , 7),  e.getStateAtTick(20));
-
+    Assert.assertEquals(new State(1, 2, 3, 4, 5, 6, 7), e.getStateAtTick(0));
+    Assert.assertEquals(new State(6, 7, 8, 9, 10, 11, 12), e.getStateAtTick(5));
+    Assert.assertEquals(new State(11, 12, 13, 14, 15, 16, 17), e.getStateAtTick(10));
+    Assert.assertEquals(new State(10, 11, 12, 13, 14, 15, 16), e.getStateAtTick(11));
+    Assert.assertEquals(new State(1, 2, 3, 4, 5, 6, 7), e.getStateAtTick(20));
 
     // Test Resilience of hasMotionAtTick
     assertEquals(false, e.hasMotionAtTick(-1));

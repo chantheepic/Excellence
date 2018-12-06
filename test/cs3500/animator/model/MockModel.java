@@ -8,12 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Mock version of the model. For testing purposes only.
+ */
 public class MockModel implements IModel {
 
   StringBuilder output;
   IComponent e;
   List<IROComponent> roList;
 
+  /**
+   * Default Constructor for Mock Model.
+   * @param out output as string.
+   */
   public MockModel(StringBuilder out) {
     e = new Component("E", Shape.ELLIPSE);
     roList = new ArrayList<>();

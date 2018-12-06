@@ -6,7 +6,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,8 +16,8 @@ import cs3500.animator.provider.controller.classes.CommandType;
 import cs3500.animator.provider.view.interfaces.EditorView;
 
 /**
- * This class decorates the EditorView with change, item and action listeners. Each listener is
- * a separate class. It delegates methods to the composed EditorView.
+ * This class decorates the EditorView with change, item and action listeners. Each listener is a
+ * separate class. It delegates methods to the composed EditorView.
  */
 public class EditorViewImplDecorator implements EditorView {
 
@@ -28,17 +30,17 @@ public class EditorViewImplDecorator implements EditorView {
 
   /**
    * This constructor takes in a view and sets its listeners to the listeners defined in this file.
-   * @param view
    */
   public EditorViewImplDecorator(EditorView view) {
     this.view = view;
-    this.view.setListeners(changeListener,itemListener,actionListener);
+    this.view.setListeners(changeListener, itemListener, actionListener);
   }
 
 
   @Override
-  public void acceptCommand(CommandType commandType, String shapeName, int tempo) throws IOException {
-    view.acceptCommand(commandType,shapeName,tempo);
+  public void acceptCommand(CommandType commandType, String shapeName, int tempo)
+      throws IOException {
+    view.acceptCommand(commandType, shapeName, tempo);
   }
 
   @Override
@@ -65,6 +67,7 @@ public class EditorViewImplDecorator implements EditorView {
    * This class is used to handle stateChanges from the EditorView.
    */
   class HandleChanges implements ChangeListener {
+
     @Override
     public void stateChanged(ChangeEvent e) {
       {
@@ -73,7 +76,8 @@ public class EditorViewImplDecorator implements EditorView {
         if (e.getSource() instanceof JSlider) {
           JSlider slider = (JSlider) e.getSource();
           try {
-            EditorViewImplDecorator.this.view.acceptCommand(CommandType.SET_SPEED, null, slider.getValue());
+            EditorViewImplDecorator.this.view
+                .acceptCommand(CommandType.SET_SPEED, null, slider.getValue());
           } catch (IOException exc) {
             exc.printStackTrace();
           }
@@ -94,10 +98,8 @@ public class EditorViewImplDecorator implements EditorView {
         JCheckBox box = (JCheckBox) e.getSource();
 
         try {
-          switch (box.getText()) {
-            case "Toggle the loop":
-              EditorViewImplDecorator.this.view.acceptCommand(CommandType.LOOP, null, -1);
-              break;
+          if (box.getText().equals("Toggle the loop")) {
+            EditorViewImplDecorator.this.view.acceptCommand(CommandType.LOOP, null, -1);
           }
         } catch (IOException exc) {
           exc.printStackTrace();
@@ -117,13 +119,11 @@ public class EditorViewImplDecorator implements EditorView {
         JButton button = (JButton) e.getSource();
 
         try {
-          switch (button.getText()) {
-            case "Play/Pause":
-              EditorViewImplDecorator.this.view.acceptCommand(CommandType.PLAY_PAUSE, null, -1);
-              break;
-            case "Restart":
-              EditorViewImplDecorator.this.view.acceptCommand(CommandType.RESTART, null, -1);
-              break;
+          if (button.getText().equals("Play/Pause")) {
+            EditorViewImplDecorator.this.view.acceptCommand(CommandType.PLAY_PAUSE, null, -1);
+          }
+          if (button.getText().equals("Restart")) {
+            EditorViewImplDecorator.this.view.acceptCommand(CommandType.RESTART, null, -1);
           }
         } catch (IOException exc) {
           exc.printStackTrace();

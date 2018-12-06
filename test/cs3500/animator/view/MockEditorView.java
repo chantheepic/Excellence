@@ -9,8 +9,14 @@ import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * A mock version of EditorView for testing purposes only.
+ */
 public class MockEditorView implements IView, ActionListener, ChangeListener {
 
+  /**
+   * Constructor for mock editor.
+   */
   public MockEditorView(int keyframeTick, int speed, String shapeName, String shapeType, int shapeX,
       int shapeY, int shapeW, int shapeH, int shapeR, int shapeG, int shapeB, String saveName) {
     this.keyframeTick = keyframeTick;
@@ -41,6 +47,10 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
   private int shapeB;
   private String saveName;
 
+  /**
+   * Mock version of actions.
+   * @param e given action event.
+   */
   public void actionPerformed(ActionEvent e) {
 
     switch (e.getActionCommand()) {

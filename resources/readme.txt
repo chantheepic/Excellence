@@ -89,8 +89,3 @@ overview.
     an error. tick(int) and setListener(listener) are do absolutely nothing in the text, svg  and
     visual view.
 
-
-  ==[HW08]==
-
-  - Added adpaters!
-

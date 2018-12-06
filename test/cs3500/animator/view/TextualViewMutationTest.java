@@ -20,77 +20,75 @@ public class TextualViewMutationTest {
 
   @Before
   public void setUp() {
-    basicModel = new Model(new Boundary(0,0,0,0));
+    basicModel = new Model(new Boundary(0, 0, 0, 0));
   }
 
   @Test
-  public void basicModelMutation(){
+  public void basicModelMutation() {
 
     State s = new State(1, 2, 3, 4, 5, 6, 7);
     State t = new State(11, 12, 13, 14, 15, 16, 17);
 
     assertTestRun(basicModel,
-            prints());
+        prints());
 
     basicModel.addComponent("R", "rectangle");
 
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE\n\n"));
-
+        prints("shape R RECTANGLE\n\n"));
 
     basicModel.addMotion("R", s, t, 0, 10);
 
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17\n\n"));
-    basicModel.addMotion("R",t,s,10,20);
+        prints("shape R RECTANGLE"),
+        prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17\n\n"));
+    basicModel.addMotion("R", t, s, 10, 20);
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"));
+        prints("shape R RECTANGLE"),
+        prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"));
 
     basicModel.addComponent("E", "ellipse");
 
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
-            prints("shape E ELLIPSE\n\n"));
+        prints("shape R RECTANGLE"),
+        prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
+        prints("shape E ELLIPSE\n\n"));
 
-    basicModel.addMotion("E", t,s,5,16);
+    basicModel.addMotion("E", t, s, 5, 16);
 
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
-            prints("shape E ELLIPSE"),
-            prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
+        prints("shape R RECTANGLE"),
+        prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
+        prints("shape E ELLIPSE"),
+        prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
     basicModel.removeKeyframe("R", 25);
 
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
-            prints("shape E ELLIPSE"),
-            prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
+        prints("shape R RECTANGLE"),
+        prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
+        prints("shape E ELLIPSE"),
+        prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
     basicModel.removeKeyframe("R", 5);
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
-            prints("shape E ELLIPSE"),
-            prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
-
+        prints("shape R RECTANGLE"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"),
+        prints("shape E ELLIPSE"),
+        prints("motion E 5 11 12 13 14 15 16 17    16 1 2 3 4 5 6 7\n\n"));
 
     basicModel.removeComponent("E");
     assertTestRun(basicModel,
-            prints("shape R RECTANGLE"),
-            prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"));
+        prints("shape R RECTANGLE"),
+        prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"));
 
     basicModel.removeAllComponent();
     assertTestRun(basicModel,
-            prints());
+        prints());
 
   }
 
@@ -130,7 +128,7 @@ public class TextualViewMutationTest {
   }
 
   private void assertTestRun(IModel model, Interaction... interactions)
-          throws IllegalArgumentException, IllegalStateException {
+      throws IllegalArgumentException, IllegalStateException {
     StringBuilder fakeUserInput = new StringBuilder();
     StringBuilder expectedOutput = new StringBuilder();
 

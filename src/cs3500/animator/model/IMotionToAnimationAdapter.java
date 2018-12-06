@@ -1,9 +1,8 @@
 package cs3500.animator.model;
 
-import java.awt.*;
-
 import cs3500.animator.provider.model.interfaces.Animation;
 import cs3500.animator.provider.model.interfaces.Shape;
+import java.awt.Color;
 
 /**
  * This class adapts an IMotion to an Animation. Since the animation needs to mutate a Shape, it
@@ -15,9 +14,9 @@ public class IMotionToAnimationAdapter implements Animation, IMotion {
   private Shape shapeToMutate;
 
   /**
-   * Constructs an IMotionToAnimationAdapter with the IMotion and Shaoe
+   * Constructs an IMotionToAnimationAdapter with the IMotion and Shape.
    *
-   * @param adaptee       - given IMotion
+   * @param adaptee - given IMotion
    * @param shapeToMutate give Shape
    */
   public IMotionToAnimationAdapter(IMotion adaptee, Shape shapeToMutate) {

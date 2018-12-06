@@ -10,7 +10,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-
 public class BasicMoveModelTest {
 
   IModel basicModel;
@@ -68,14 +67,12 @@ public class BasicMoveModelTest {
     basicModel.addComponent("C", "rectangle");
     assertTrue(basicModel.getAllIds().contains("C"));
 
-
     // Test simple single command
     basicModel.addMotion("C", s, t, 2, 10);
 
-    assertEquals(1,basicModel.getComponentByID("C").returnAllMotions().size());
-    assertEquals(s,basicModel.getComponentByID("C").returnAllMotions().get(0).initialState());
-    assertEquals(t,basicModel.getComponentByID("C").returnAllMotions().get(0).endState());
-
+    assertEquals(1, basicModel.getComponentByID("C").returnAllMotions().size());
+    assertEquals(s, basicModel.getComponentByID("C").returnAllMotions().get(0).initialState());
+    assertEquals(t, basicModel.getComponentByID("C").returnAllMotions().get(0).endState());
 
     // Test if second object can be added to the model
     basicModel.addComponent("R", "rectangle");
@@ -89,15 +86,15 @@ public class BasicMoveModelTest {
 
     // Test if object can do nothing
     basicModel.addMotion("R", u, u, 10, 20);
-    assertEquals(2,basicModel.getComponentByID("R").returnAllMotions().size());
-    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(1).initialState());
-    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(1).endState());
+    assertEquals(2, basicModel.getComponentByID("R").returnAllMotions().size());
+    assertEquals(u, basicModel.getComponentByID("R").returnAllMotions().get(1).initialState());
+    assertEquals(u, basicModel.getComponentByID("R").returnAllMotions().get(1).endState());
 
     // Test if second move command can be added
     basicModel.addMotion("R", u, s, 20, 25);
-    assertEquals(3,basicModel.getComponentByID("R").returnAllMotions().size());
-    assertEquals(u,basicModel.getComponentByID("R").returnAllMotions().get(2).initialState());
-    assertEquals(s,basicModel.getComponentByID("R").returnAllMotions().get(2).endState());
+    assertEquals(3, basicModel.getComponentByID("R").returnAllMotions().size());
+    assertEquals(u, basicModel.getComponentByID("R").returnAllMotions().get(2).initialState());
+    assertEquals(s, basicModel.getComponentByID("R").returnAllMotions().get(2).endState());
 
 
   }
@@ -217,19 +214,6 @@ public class BasicMoveModelTest {
     basicModel.addMotion("E", s, t, 1, 10);
     basicModel.addMotion("E", s, t, 15, 20);
   }
-
-//  @Test
-//  public void finalTicks() {
-//    assertEquals(0, basicModel.getFinalTick());
-//
-//    basicModel.addComponent(ellipse);
-//    basicModel.addKeyFrame("E", s, t, 1, 10);
-//    assertEquals(10, basicModel.getFinalTick());
-//
-//    basicModel.addComponent(new Component("Z", Shape.ELLIPSE));
-//    basicModel.addKeyFrame("Z", s, t, 1, 30);
-//    assertEquals(30, basicModel.getFinalTick());
-//  }
 
   @Test(expected = IllegalArgumentException.class)
   public void noID() {

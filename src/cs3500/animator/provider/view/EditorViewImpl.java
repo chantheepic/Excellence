@@ -5,19 +5,26 @@ import cs3500.animator.provider.controller.interfaces.Controller;
 import cs3500.animator.provider.model.interfaces.EasyAnimatorModelReadOnly;
 import cs3500.animator.provider.view.interfaces.EditorView;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.io.IOException;
-
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.Timer;
 import javax.swing.event.ChangeListener;
 
 /**
  * The EditorViewImpl is a view that allows the user to interact directly with a visual
- * representation of the animation created. In addition, the view also allows for
- * the export of an animation in an SVG file.
+ * representation of the animation created. In addition, the view also allows for the export of an
+ * animation in an SVG file.
  */
 public class EditorViewImpl extends JFrame implements EditorView, ActionListener {
 
@@ -44,8 +51,8 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
 
 
   /**
-   * Constructs a Hybrid View from the user provided model of animaiton, an appendable
-   * that the SVG can be exported to, and a tempo of the speed of the animation.
+   * Constructs a Hybrid View from the user provided model of animaiton, an appendable that the SVG
+   * can be exported to, and a tempo of the speed of the animation.
    *
    * @param model The model that we are using to represent shapes and transformations
    * @param out The appendable that we can export an SVG to
@@ -92,7 +99,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
     controlPanel.add(exportButton, BorderLayout.CENTER);
 
     // Tick rate slider and its label
-    tickRateSlider = new JSlider(JSlider.HORIZONTAL, 1,100, tempo);
+    tickRateSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, tempo);
     tickRateSlider.setSnapToTicks(true);
     tickRateSlider.setMinorTickSpacing(1);
     tickRateSlider.setValue(tempo);
@@ -102,7 +109,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
     JLabel sliderLabel = new JLabel("Tempo (ticks per second)");
     sliderPanel.add(sliderLabel, BorderLayout.NORTH);
     sliderPanel.add(tickRateSlider, BorderLayout.SOUTH);
-    controlPanel.add(sliderPanel,BorderLayout.CENTER);
+    controlPanel.add(sliderPanel, BorderLayout.CENTER);
 
     // Check box for toggling the loop function
     toggleLoopCheckBox = new JCheckBox("Toggle the loop");
@@ -196,10 +203,10 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
   }
 
   /**
-   * Adds a controller to the editor view so that it can be used to handle commands and sets
-   * the listeners for the controller.
+   * Adds a controller to the editor view so that it can be used to handle commands and sets the
+   * listeners for the controller.
    *
-   * @param controller  the controller to be added
+   * @param controller the controller to be added
    * @throws IllegalArgumentException if the controller is null
    */
   public void addController(Controller controller) {

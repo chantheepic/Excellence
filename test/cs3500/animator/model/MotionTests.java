@@ -38,12 +38,6 @@ public class MotionTests {
     assertEquals(10, m.endTick());
   }
 
-//  @Test
-//  public void overview() {
-//    assertEquals("  0  1   2   3   4   5   6   7     10 11  12  13  14  15  16  17",
-//            m.getOverview());
-//  }
-
   @Test
   public void getState() {
     //Test math and getStateAtTick
@@ -76,7 +70,6 @@ public class MotionTests {
   public void reverseTick() {
     m = new BasicMotion(s, t, 20, 10);
   }
-
 
 
   @Test(expected = IllegalArgumentException.class)

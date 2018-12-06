@@ -24,13 +24,17 @@ import cs3500.animator.view.VisualAnimationView;
 
 /**
  * This is the class that creates a model, and a view from the main method arguments. The required
- * parameters are -in and -view. The optional parameters are -out, and -speed.
- *
- * -in [the input file] -out [where to output animation] (default is System.out) -speed [how many
- * ticks per second] -view [text | visual | svg]
+ * parameters are -in and -view. The optional parameters are -out, and -speed. -in [the input file]
+ * -out [where to output animation] (default is System.out) -speed [how many ticks per second] -view
+ * [text | visual | svg]
  */
 public class Excellence {
 
+  /**
+   * Inpoint for animator.
+   *
+   * @param args arguments provided by the user.
+   */
   public static void main(String[] args) throws FileNotFoundException {
 
     Factory factory = new Factory();
@@ -56,6 +60,7 @@ public class Excellence {
             factory.parseSpeed(args[i + 1]);
           }
           break;
+        default: // ignore unknown
       }
     }
     factory.execute();
@@ -66,6 +71,7 @@ public class Excellence {
    * default values are set.
    */
   private static final class Factory {
+
     private IModel model;
     private IView view;
     private int speed = 1;
@@ -81,7 +87,6 @@ public class Excellence {
         System.exit(0);
       }
 
-
       IController controller = new Controller(model, speed);
       controller.setView(view);
       out.close();
@@ -90,7 +95,7 @@ public class Excellence {
     private void parseIn(String in) {
       try {
         this.model = AnimationReader
-                .parseFile(new FileReader(new File(in)), Model.builder());
+            .parseFile(new FileReader(new File(in)), Model.builder());
       } catch (FileNotFoundException e) {
         ErrPanel.error(e.getMessage());
         System.exit(0);
@@ -127,8 +132,9 @@ public class Excellence {
             ErrPanel.error("Need to define input before the view :(");
             System.exit(0);
           }
-          EasyAnimatorModelReadOnly roModel = new IModelToProviderAdapter(model,speed);
-          this.view = new ProviderToIViewAdapter(new EditorViewImplDecorator (new EditorViewImpl(roModel,this.out,speed)));
+          EasyAnimatorModelReadOnly roModel = new IModelToProviderAdapter(model, speed);
+          this.view = new ProviderToIViewAdapter(
+              new EditorViewImplDecorator(new EditorViewImpl(roModel, this.out, speed)));
           break;
 
         default:
