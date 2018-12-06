@@ -8,8 +8,13 @@ import java.io.PrintWriter;
 import cs3500.animator.controller.Controller;
 import cs3500.animator.controller.IController;
 import cs3500.animator.model.IModel;
+import cs3500.animator.model.IModelToProviderAdapter;
 import cs3500.animator.model.Model;
+import cs3500.animator.provider.model.interfaces.EasyAnimatorModelReadOnly;
+import cs3500.animator.provider.view.EditorViewImpl;
 import cs3500.animator.util.AnimationReader;
+import cs3500.animator.view.EditorViewImplDecorator;
+import cs3500.animator.view.ProviderToIViewAdapter;
 import cs3500.animator.view.ErrPanel;
 import cs3500.animator.view.EditorView;
 import cs3500.animator.view.IView;
@@ -116,6 +121,14 @@ public class Excellence {
           break;
         case "edit":
           this.view = new EditorView();
+          break;
+        case "provider":
+          if (model == null) {
+            ErrPanel.error("Need to define input before the view :(");
+            System.exit(0);
+          }
+          EasyAnimatorModelReadOnly roModel = new IModelToProviderAdapter(model,speed);
+          this.view = new ProviderToIViewAdapter(new EditorViewImplDecorator (new EditorViewImpl(roModel,this.out,speed)));
           break;
 
         default:

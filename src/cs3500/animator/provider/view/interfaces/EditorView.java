@@ -26,5 +26,5 @@ public interface EditorView extends View {
    * different swing elements. Based on code from eventHandler lecture.
    */
   void setListeners(ChangeListener changes,
-                    ItemListener items, ActionListener actions, KeyListener keys);
+                    ItemListener items, ActionListener actions);
 }

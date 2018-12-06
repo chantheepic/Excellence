@@ -4,21 +4,14 @@ import cs3500.animator.provider.controller.classes.CommandType;
 import cs3500.animator.provider.controller.interfaces.Controller;
 import cs3500.animator.provider.model.interfaces.EasyAnimatorModelReadOnly;
 import cs3500.animator.provider.view.interfaces.EditorView;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyListener;
 import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.Timer;
+
+import javax.swing.*;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -63,7 +56,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
     this.controller = null;
     this.out = out;
     this.tempo = tempo;
-    this.timer = new Timer((1000 * (1 / tempo)), this);
+    this.timer = new Timer((1000 / tempo), this);
     this.tempo = 1;
     this.isLooping = false;
 
@@ -99,7 +92,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
     controlPanel.add(exportButton, BorderLayout.CENTER);
 
     // Tick rate slider and its label
-    tickRateSlider = new JSlider(JSlider.HORIZONTAL, 10,60, tempo);
+    tickRateSlider = new JSlider(JSlider.HORIZONTAL, 1,100, tempo);
     tickRateSlider.setSnapToTicks(true);
     tickRateSlider.setMinorTickSpacing(1);
     tickRateSlider.setValue(tempo);
@@ -116,10 +109,10 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
     toggleLoopCheckBox.setBorderPaintedFlat(false);
     controlPanel.add(toggleLoopCheckBox, BorderLayout.EAST);
 
-    panel = new EditorPanel(model.getShapes());
+    panel = new ViewPanel(model.getShapes());
     panel.setPreferredSize(new Dimension(750, 750));
     JScrollPane scroll = new JScrollPane(panel);
-    this.add(scroll, BorderLayout.NORTH);
+    this.add(scroll, BorderLayout.SOUTH);
 
     this.add(controlPanel, BorderLayout.NORTH);
 
@@ -166,7 +159,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
       case SET_SPEED:
         timer.stop();
         this.tempo = tempo;
-        timer.setDelay(1000 * (1 / tempo));
+        timer.setDelay(1000 / tempo);
         timer.start();
         break;
       case EXPORT:
@@ -183,10 +176,7 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
   }
 
   @Override
-  public void setListeners(ChangeListener changes, ItemListener items, ActionListener actions,
-      KeyListener keys) {
-    // adding the key listener
-    this.addKeyListener(keys);
+  public void setListeners(ChangeListener changes, ItemListener items, ActionListener actions) {
     // adding the action listeners
     playPauseButton.addActionListener(actions);
     restartButton.addActionListener(actions);
@@ -214,6 +204,6 @@ public class EditorViewImpl extends JFrame implements EditorView, ActionListener
    */
   public void addController(Controller controller) {
     this.controller = controller;
-    this.setListeners(controller, controller, controller, controller);
+    this.setListeners(controller, controller, controller);
   }
 }

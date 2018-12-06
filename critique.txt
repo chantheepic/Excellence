@@ -1,0 +1,75 @@
+*Note* This is fairly long because the "editing" of animations wasn't finished and Prof Lerner said to focus on this. 
+
+[Critique for Provider's Code]
+
+==[Overall Design Critique]==
+
+The primary View interface "View" contained three methods. The methods allow the user to display, refresh, and setTempo. Although most of the functionality of a View was encapsulated in this interface it is missing a few key pieces.
+
+1. There is know what to update the view on which shapes to draw. 
+
+Therefore one can assume that the "what" to draw is given in the constructor. At first this may seem like a fine design choice but there are a few bugs with this. This restricts the interaction between the View and other classes. This assumes that the view will take care of "knowing" what to draw and when. Here is a proposed solution: A method that said "draw these shapes" and passes in a list of shapes. Then whenever that method is called on the view, it can go ahead and draw them on the spot.
+
+2. There is no way to set a "big-event" listeners
+
+There is only a method to set "small-event" listeners. This is a problem because what if the user wants to make their own listener to deal with responses from the view. Without being able to set a listener the view MUST deal with everything on its own. The problem arises when a user clicks the button to "add shape". This must mutate the model. This means that the view is responsible for mutating the model and that is not ideal. A solution to this would be to create a Listener interface that contains the different messages that the view could emit. Then you can have a class implement that listener and deal with the messages accordingly.
+
+--
+
+The next interface is Shape. This interface contains methods to get the various properties of a shape such as color, x, y, etc. It ALSO contains methods to mutate those properties along with adding animations. 
+
+1. Shape is mutable and given to the view.
+
+This becomes a problem when Shape is the primary way the model is given to the view. The view can therefore mutate the model! There are a few solutions to this. What I would suggest is breaking the Shape interface into a Read-only and Mutable interface. This way you can just give the view the read only version.
+
+2. Shape has methods to draw and get SVG
+
+This is not a good design choice because it tightly couples the model to the view. This design choice is basically saying that the MODEL knows how to DRAW itself. What should happen is the VIEW knows how to DRAW the MODEL. The solution to this is to remove any methods from Shape that have to do with drawing or printing views. Instead give that ability to the view.
+
+Overall the Shape interface does a lot of things. The functionality should be broken down into different interfaces. Also, using mutation might not have been the best choice. It complicates things to say the least. Think about a Fundies1 data definition for this Animator.
+
+--
+
+==[Implementation Critique]==
+
+Few overall thoughts:
+
+The EditorViewImpl has a lot of the right ideas of how it should be laid out. It should have a Panel that displays the animation, and buttons to edit the animation.
+
+The timer should be moved to a different class. Doing so would make it possible to have multiple animations synched up to the same timer.
+
+The commands should be moved to a different class. Doing so would make it possible to mutate the model not from the view.
+
+1. The addController method is a step in the right direction. That method should have been declared in the interface. 
+
+2. The timer should be moved to a different class. 
+
+Doing so would make it possible to have multiple animations synched up to the same timer. One way to make this work is to have it exist in the Controller class. Then the controller would call a method that says "hey its time to display the following shapes with the following attributes." I will explain how stopping and starting can be achieved in the next bullet point.
+
+3. The commands should be moved to a different class. 
+
+Doing so would make it possible to mutate the model not from the view. This is also how the stopping and starting would work. There would be a callback that tells the controller "please stop the timer" or "please start the timer". 
+
+4. The different buttons are not given different command strings.
+
+This is a problem when we have the same ActionListener assigned to multiple buttons. We have to rely on other characteristics of the button instead (ie. The title). There is a simple method called setActionCommand(String) that can be used to define what string is used when the button is clicked.
+ 
+5. The timer delay calculation should be: (1000 / tempo)
+
+When setting the speed of the timer you had this: setDelay(1000 * (1 / tempo)). The problem with this is how integer division works. If we pass in a tempo other than 1, the following happens:
+
+tempo = 20
+(1 / tempo) = 0 (since it is an int)
+(1000 * (1 / tempo)) = 0, therefore you set the delay to 0 instead of 20.
+
+6. In the ViewPanel class, what purpose is visibleShapes serving?
+
+7. Mutation complicates the restart functionality. 
+
+==[Documentation Critique]==
+
+The interface documentation was rather vague. It would have been nearly impossible to get the editor view to work if we couldn't see the actual classes. One big thing was the documentation explaining WHAT the interfaces purpose was. For the Shape interface it said: "A representation of a 2D shape." This interface seemed to be the primary way to store data in the model, as well as display the view. The documentation should be much more detailed. 
+
+In general a lot of the documentation just reiterated what the signature of the methods already tell us. 
+
+

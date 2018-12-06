@@ -117,6 +117,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
       graphics2D.fillRect(shape.getX(), shape.getY(), shape.getFirstDimension(),
               shape.getSecondDimension());
     }
+
   }
 
   /**
