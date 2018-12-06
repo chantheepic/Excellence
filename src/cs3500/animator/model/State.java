@@ -77,13 +77,13 @@ public final class State {
   public boolean equals(Object o) {
     if (o instanceof State) {
       State that = (State) o;
-      return that.posX == this.posX &&
-              that.posY == this.posY &&
-              that.width == this.width &&
-              that.height == this.height &&
-              that.red == this.red &&
-              that.green == this.green &&
-              that.blue == this.blue;
+      return that.posX == this.posX
+          && that.posY == this.posY
+          && that.width == this.width
+          && that.height == this.height
+          && that.red == this.red
+          && that.green == this.green
+          && that.blue == this.blue;
     }
     return false;
   }

@@ -1,7 +1,13 @@
-This assignment was definitely interesting. There are a few things that we would change in our own code:
+This assignment was definitely interesting. There are a few things that we would change in our own
+code:
 
-1. Make the documentation at the top of each interface more detailed, describe what the purpose of the interface is.
+1. Make the documentation at the top of each interface more detailed, describe what the purpose of
+the interface is.
 
-2. Do not rely on classes to encapsulate data when dealing with interfaces. For instance in the Model interface instead of using a class called State which holds the x, y, width, etc. Make the methods just take in all of the details.
+2. Do not rely on classes to encapsulate data when dealing with interfaces. For instance in the
+Model interface instead of using a class called State which holds the x, y, width, etc. Make the
+methods just take in all of the details.
 
-The experience with our providers was pleasant. They were quick to respond and did there best to implement the requests we made. We wish that the readme they gave us was a little more detailed with what worked and what didn't work.
+The experience with our providers was pleasant. They were quick to respond and did there best to
+implement the requests we made. We wish that the readme they gave us was a little more detailed
+with what worked and what didn't work.

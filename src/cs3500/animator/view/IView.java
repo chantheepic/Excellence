@@ -13,14 +13,14 @@ public interface IView {
 
   /**
    * Sets the list of components, the canvas size of the view, and view tick speed.
-   * @param components
-   * @param speed
+   * @param components specified components
+   * @param speed specified speed
    */
   void setComponents(List<IROComponent> components, Boundary boundary, int speed);
 
   /**
    * Sets the output of the view.
-   * @param app
+   * @param app appendable output
    */
   void setOutput(Appendable app);
 
@@ -32,13 +32,13 @@ public interface IView {
 
   /**
    * Sets who to call back when a feature is requested.
-   * @param listener
+   * @param listener listener given
    */
   void setFeatureListener(Features listener);
 
   /**
    * Displays a message in whatever form specified.
-   * @param msg
+   * @param msg msgDisplayed
    */
   void displayError(String msg);
 }

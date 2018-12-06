@@ -12,9 +12,11 @@ import cs3500.animator.view.IView;
 import cs3500.animator.view.ErrPanel;
 
 /**
- * Represents the SVG View.
+ * Represents the SVG View. A SVGView is a type of IView that parses the model into an SVG format
+ * file.
  */
 public class SVGView implements IView {
+
   private List<IROComponent> components;
   private int speed;
   private Boundary boundary;
@@ -70,9 +72,9 @@ public class SVGView implements IView {
   // set canvas size
   private String setCanvas() {
     StringBuilder output = new StringBuilder();
-    output.append(String.format
-            ("<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n",
-                    boundary.getWidth(), boundary.getHeight()));
+    output.append(String.format(
+        "<svg width=\"%spx\" height=\"%spx\" xmlns=\"http://www.w3.org/2000/svg\"> \n",
+        boundary.getWidth(), boundary.getHeight()));
     SVGShapeFactory s = new SVGShapeFactory();
     for (IROComponent comp : components) {
       output.append(s.buildShapeAnimation(comp, boundary, speed));

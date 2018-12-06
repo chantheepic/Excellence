@@ -12,13 +12,15 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+/**
+ * Represents the visualView. A VisuialView is a type of IView that animates the model as specified
+ * by the user.
+ */
 public class VisualAnimationView extends JFrame implements IView {
 
   private VisualAnimationPanel panel;
-  private int finalTick;
   private Boundary boundary;
-  List<IROComponent> components;
-  private int currentTick;
+  private List<IROComponent> components;
 
   Features listener;
 
@@ -33,7 +35,6 @@ public class VisualAnimationView extends JFrame implements IView {
     setTitle("EXCELLENCE");
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    currentTick = 0;
   }
 
   @Override
@@ -85,7 +86,6 @@ public class VisualAnimationView extends JFrame implements IView {
         output = finalTick;
       }
     }
-    finalTick = output;
   }
 
   /**
@@ -104,7 +104,6 @@ public class VisualAnimationView extends JFrame implements IView {
     }
     panel.updatePanelStates(states, shapes, boundary);
   }
-
 
 
 }

@@ -13,10 +13,15 @@ import cs3500.animator.model.Boundary;
 import cs3500.animator.model.IMotion;
 import cs3500.animator.model.State;
 import cs3500.animator.model.components.IROComponent;
-import cs3500.animator.view.ErrPanel;
 import cs3500.animator.view.IView;
+import cs3500.animator.view.ErrPanel;
 
+/**
+ * Represents the Textual View. A TextualView is a type of IView that parses the model into an text
+ * format file.
+ */
 public class TextualView implements IView {
+
   private List<IROComponent> components;
   private Boundary boundary;
   private Appendable out;
@@ -39,10 +44,10 @@ public class TextualView implements IView {
 
   private String getCanvas() {
     List<Integer> canvas = Arrays.asList(boundary.getX(), boundary.getY(),
-            boundary.getWidth(), boundary.getHeight());
+        boundary.getWidth(), boundary.getHeight());
     return "canvas " + canvas.stream()
-            .map(n -> n.toString())
-            .collect(Collectors.joining(" "));
+        .map(n -> n.toString())
+        .collect(Collectors.joining(" "));
 
   }
 
@@ -77,9 +82,11 @@ public class TextualView implements IView {
   private String getComponentOverview(IROComponent component) {
 
     StringBuilder output = new StringBuilder();
-    output.append("shape ").append(component.getID()).append(" ").append(component.getShape().toString().toLowerCase()).append("\n");
+    output.append("shape ").append(component.getID()).append(" ")
+        .append(component.getShape().toString().toLowerCase()).append("\n");
     for (IMotion m : component.returnAllMotions()) {
-      output.append("motion ").append(component.getID()).append(" ").append(getMotionOverview(m)).append("\n");
+      output.append("motion ").append(component.getID()).append(" ").append(getMotionOverview(m))
+          .append("\n");
     }
     return output.toString();
 
@@ -87,16 +94,16 @@ public class TextualView implements IView {
 
   private String getStateOverview(State state) {
     return String.format("%d %d %d %d %d %d %d",
-            state.xPos(), state.yPos(), state.width(), state.height(),
-            state.red(), state.green(), state.blue());
+        state.xPos(), state.yPos(), state.width(), state.height(),
+        state.red(), state.green(), state.blue());
   }
 
   private String getMotionOverview(IMotion motion) {
     StringBuilder output = new StringBuilder();
     String initOut = String.format("%d %s",
-            motion.initialTick(), getStateOverview(motion.initialState()));
+        motion.initialTick(), getStateOverview(motion.initialState()));
     String endOut = String.format("%d %s",
-            motion.endTick(), getStateOverview(motion.endState()));
+        motion.endTick(), getStateOverview(motion.endState()));
     output.append(initOut).append("    ").append(endOut);
     return output.toString();
   }

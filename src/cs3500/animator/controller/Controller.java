@@ -19,9 +19,9 @@ import cs3500.animator.view.svg.SVGView;
 import cs3500.animator.view.text.TextualView;
 
 /**
- * This is the controller for our IModel and IView. It is responsible for holding
- * information about the current tick. It also is a callback for Features. It has a timer that tells
- * the view how often to update.
+ * This is the controller for our IModel and IView. It is responsible for holding information about
+ * the current tick. It also is a callback for Features. It has a timer that tells the view how
+ * often to update.
  */
 public class Controller implements IController, ActionListener, Features {
 
@@ -38,6 +38,7 @@ public class Controller implements IController, ActionListener, Features {
   /**
    * Creates an instance of the controller with a given model and speed. It creates the timer, and
    * sets the callback listener to this class.
+   *
    * @param m - the given model
    * @param speed - the given speed
    */
@@ -59,11 +60,11 @@ public class Controller implements IController, ActionListener, Features {
 
   @Override
   public void setSpeed(int speed) {
-    if(speed < 0) {
+    if (speed < 0) {
       view.displayError("Speed must be positive");
     }
     this.speed = speed;
-    tickTimer.setDelay(1000/this.speed);
+    tickTimer.setDelay(1000 / this.speed);
   }
 
   @Override
@@ -108,7 +109,7 @@ public class Controller implements IController, ActionListener, Features {
 
   @Override
   public void togglePlay() {
-    if(tickTimer.isRunning()){
+    if (tickTimer.isRunning()) {
       tickTimer.stop();
     } else {
       tickTimer.start();
@@ -129,7 +130,7 @@ public class Controller implements IController, ActionListener, Features {
 
   @Override
   public void setTick(int tick) {
-    if(validTick(tick)) {
+    if (validTick(tick)) {
       this.currentTick = tick;
       view.tick(currentTick);
     } else {
@@ -153,41 +154,38 @@ public class Controller implements IController, ActionListener, Features {
   }
 
   /**
-   * This method takes care of calculation when it receives a "tick" command. This tick
-   * command is given by the timer. If necessary is updates the currentTick and tells view to
-   * display it.
+   * This method takes care of calculation when it receives a "tick" command. This tick command is
+   * given by the timer. If necessary is updates the currentTick and tells view to display it.
+   *
    * @param e - the Action Event.
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      case "tick":
-        if(currentTick == model.getFinalTick()){
-          view.tick(currentTick);
-          if(loop) {
-            currentTick = 0;
-          } else {
-            tickTimer.stop();
-          }
-
+    if (e.getActionCommand().equals("tick")) {
+      if (currentTick == model.getFinalTick()) {
+        view.tick(currentTick);
+        if (loop) {
+          currentTick = 0;
         } else {
-          view.tick(currentTick++);
+          tickTimer.stop();
         }
-        break;
-    }
 
+      } else {
+        view.tick(currentTick++);
+      }
+    }
   }
 
   //Checks if a tick is valid
   private boolean validTick(int tick) {
-    return tick >=0;
+    return tick >= 0;
   }
 
   /*
     Refreshes the view by giving it the components, boundary, and speed. Then
     Then it tells it to draw the current tick.
    */
-  private void refreshView(){
+  private void refreshView() {
     view.setComponents(model.getAllComponents(), model.getBoundary(), this.speed);
     view.tick(this.currentTick);
   }
@@ -199,7 +197,7 @@ public class Controller implements IController, ActionListener, Features {
   private void loadFile(String fName) {
     try {
       this.model = AnimationReader
-              .parseFile(new FileReader(new File(fName)), Model.builder());
+          .parseFile(new FileReader(new File(fName)), Model.builder());
       refreshView();
     } catch (FileNotFoundException | IllegalStateException | IllegalArgumentException e) {
       view.displayError(e.getMessage());
@@ -212,31 +210,30 @@ public class Controller implements IController, ActionListener, Features {
    */
   private void saveWork(String type, String fName) {
 
-    if(fName.equals("")) {
+    if (fName.equals("")) {
       view.displayError("Output file not defined");
     }
-    switch (type) {
-      case "svg":
-        try {
-          FileWriter fw = new FileWriter(fName);
-          new SVGView(fw).setComponents(model.getAllComponents(),
-                  model.getBoundary(),this.speed);
-          fw.close();
-        } catch (IOException e) {
-          view.displayError(e.getMessage());
-        }
 
-        break;
-      case "text":
-        try {
-          FileWriter fw = new FileWriter(fName);
-          new TextualView(fw).setComponents(model.getAllComponents(),
-                  model.getBoundary(),this.speed);
-          fw.close();
-        } catch (IOException e) {
-          view.displayError(e.getMessage());
-        }
-        break;
+    if (type.equals("svg")) {
+      try {
+        FileWriter fw = new FileWriter(fName);
+        new SVGView(fw).setComponents(model.getAllComponents(),
+            model.getBoundary(), this.speed);
+        fw.close();
+      } catch (IOException e) {
+        view.displayError(e.getMessage());
+      }
+    }
+
+    if (type.equals("text")) {
+      try {
+        FileWriter fw = new FileWriter(fName);
+        new TextualView(fw).setComponents(model.getAllComponents(),
+            model.getBoundary(), this.speed);
+        fw.close();
+      } catch (IOException e) {
+        view.displayError(e.getMessage());
+      }
     }
   }
 }

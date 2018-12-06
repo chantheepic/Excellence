@@ -87,7 +87,7 @@ public class Model implements IModel {
 
   @Override
   public void addMotion(String id, State initialState, State endState, int initialTick, int endTick)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (initialState == null || endState == null) {
       throw new IllegalArgumentException("States cannot be null");
     }
@@ -100,7 +100,8 @@ public class Model implements IModel {
   }
 
   @Override
-  public void createKeyframe(String name, int tick, State newState) throws IllegalArgumentException {
+  public void createKeyframe(String name, int tick, State newState)
+      throws IllegalArgumentException {
     if (!registeredShapes.containsKey(name)) {
       throw new IllegalArgumentException("Name doesn't exist");
     }
@@ -162,7 +163,7 @@ public class Model implements IModel {
     }
     return output;
 
-}
+  }
 
   public static final class Builder implements AnimationBuilder<IModel> {
 
@@ -201,7 +202,8 @@ public class Model implements IModel {
     }
 
     @Override
-    public AnimationBuilder<IModel> addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+    public AnimationBuilder<IModel> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
+        int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
       if (!registeredShapes.containsKey(name)) {
         throw new IllegalArgumentException("Name does not exist");
       }
@@ -210,12 +212,14 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Motions do not lineup");
       }
       //Throws errors if invalid.
-      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1), new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
+      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1),
+          new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
       return this;
     }
 
     @Override
-    public AnimationBuilder<IModel> addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    public AnimationBuilder<IModel> addKeyframe(String name, int t, int x, int y, int w, int h,
+        int r, int g, int b) {
 
       if (!registeredShapes.containsKey(name)) {
         throw new IllegalArgumentException("Name does not exist");

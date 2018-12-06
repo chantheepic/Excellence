@@ -12,6 +12,7 @@ public class BasicMotion implements IMotion {
 
   /**
    * Constructs a BasicMotion.
+   *
    * @param initial - starting State of the motion
    * @param end - ending State of the motion
    * @param initialTick - starting tick
@@ -32,20 +33,20 @@ public class BasicMotion implements IMotion {
 
   @Override
   public State getStateAtTick(int tick) {
-    if(endTick == initialTick) {
+    if (endTick == initialTick) {
       return initial;
     }
     double tickDelta = endTick - initialTick;
     double relTick = tick - initialTick;
     double timeDelta = relTick / tickDelta;
 
-    int posX = (int)(initial.xPos() + ((end.xPos() - initial.xPos()) * timeDelta));
-    int posY = (int)(initial.yPos() + ((end.yPos() - initial.yPos()) * timeDelta));
-    int width = (int)(initial.width() + ((end.width() - initial.width()) * timeDelta));
-    int height = (int)(initial.height() + ((end.height() - initial.height()) * timeDelta));
-    int red = (int)(initial.red() + ((end.red() - initial.red()) * timeDelta));
-    int green = (int)(initial.green() + ((end.green() - initial.green()) * timeDelta));
-    int blue = (int)(initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
+    int posX = (int) (initial.xPos() + ((end.xPos() - initial.xPos()) * timeDelta));
+    int posY = (int) (initial.yPos() + ((end.yPos() - initial.yPos()) * timeDelta));
+    int width = (int) (initial.width() + ((end.width() - initial.width()) * timeDelta));
+    int height = (int) (initial.height() + ((end.height() - initial.height()) * timeDelta));
+    int red = (int) (initial.red() + ((end.red() - initial.red()) * timeDelta));
+    int green = (int) (initial.green() + ((end.green() - initial.green()) * timeDelta));
+    int blue = (int) (initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
     State newState = new State(posX, posY, width, height, red, green, blue);
     return newState;
   }

@@ -62,7 +62,7 @@ public class EditorViewImplDecorator implements EditorView {
   }
 
   /**
-   * This class is used to handle stateChanges from the EditorView
+   * This class is used to handle stateChanges from the EditorView.
    */
   class HandleChanges implements ChangeListener {
     @Override
@@ -84,7 +84,7 @@ public class EditorViewImplDecorator implements EditorView {
   }
 
   /**
-   * This class is used to handle itemStateChanges from the EditorView
+   * This class is used to handle itemStateChanges from the EditorView.
    */
   class HandleItems implements ItemListener {
 
@@ -107,7 +107,7 @@ public class EditorViewImplDecorator implements EditorView {
   }
 
   /**
-   * This class is used to handle actions from the EditorView
+   * This class is used to handle actions from the EditorView.
    */
   class HandleActions implements ActionListener {
 

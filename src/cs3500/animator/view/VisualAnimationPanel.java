@@ -10,11 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
+
+/**
+ * VisualAnimationPanel holds the methods necessary to draw shapes on the visualvie and editorview.
+ */
 public class VisualAnimationPanel extends JPanel {
 
   private List<State> states = new ArrayList<>();
   private List<Shape> shapes = new ArrayList<>();
-  private Boundary boundary = new Boundary(0,0,0,0);
+  private Boundary boundary = new Boundary(0, 0, 0, 0);
 
   /**
    * Constructor for VisualAnimationPanel. Emptiness is explained below.

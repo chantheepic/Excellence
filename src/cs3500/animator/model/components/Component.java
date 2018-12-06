@@ -10,11 +10,10 @@ import cs3500.animator.model.State;
 
 /**
  * Represents an animate-able object in the animation. Each component knows its name(String),
- * type(Shape), and moves(List<IMotion>). Contains fields List of motions, a String name, a Shape
- * type.
- * Invariant: The list of keyframes should be in ascending order of tick.
- * Changes: Instead of storing motions we not only store keyframes. We still have the methods to
- * get motions, and therefore we convert between keyframes and motions.
+ * type(Shape), and {@code moves(List<IMotion>)}. Contains fields List of motions, a String name, a
+ * Shape type. Invariant: The list of keyframes should be in ascending order of tick. Changes:
+ * Instead of storing motions we not only store keyframes. We still have the methods to get motions,
+ * and therefore we convert between keyframes and motions.
  */
 public class Component implements IComponent, IROComponent {
 
@@ -63,7 +62,8 @@ public class Component implements IComponent, IROComponent {
       return;
     }
     Keyframe last = lastKeyframe();
-    if (last.getTick() != motion.initialTick() || !(last.getState().equals(motion.initialState()))) {
+    if (last.getTick() != motion.initialTick() || !(last.getState()
+        .equals(motion.initialState()))) {
       throw new IllegalArgumentException("Motions must not overlap");
     }
     this.createKeyframe(motion.initialTick(), motion.initialState());
@@ -106,7 +106,7 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public void removeKeyframe(int tick) throws IllegalArgumentException {
-    if(!hasKeyframeAtTick(tick)) {
+    if (!hasKeyframeAtTick(tick)) {
       throw new IllegalArgumentException("no keyframe at the tick");
     }
     keyframes.removeIf(k -> k.getTick() == tick);
@@ -129,16 +129,14 @@ public class Component implements IComponent, IROComponent {
 
     // Find index just larger than tick
     int index = 0;
-    while(keyframes.get(index).getTick() < tick) {
+    while (keyframes.get(index).getTick() < tick) {
       index++;
     }
-
 
     //The only way for index to be 0 is for tick to align with first keyframe
     if (index == 0) {
       return keyframes.get(0).getState();
     }
-
 
     State iState = keyframes.get(index - 1).getState();
     State eState = keyframes.get(index).getState();
@@ -165,17 +163,17 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public boolean hasMotionAtTick(int tick) {
-    if(hasMotion()) {
-      return tick >= keyframes.get(0).getTick() &&
-              tick <= keyframes.get(keyframes.size() - 1).getTick();
+    if (hasMotion()) {
+      return tick >= keyframes.get(0).getTick()
+          && tick <= keyframes.get(keyframes.size() - 1).getTick();
     }
     return false;
   }
 
   @Override
   public boolean hasKeyframeAtTick(int tick) {
-    for(Keyframe k : keyframes) {
-      if(k.getTick() == tick) {
+    for (Keyframe k : keyframes) {
+      if (k.getTick() == tick) {
         return true;
       }
     }
@@ -184,7 +182,7 @@ public class Component implements IComponent, IROComponent {
 
   @Override
   public int getFinalTick() {
-    if(keyframes.size()!=0) {
+    if (keyframes.size() != 0) {
       return keyframes.get(keyframes.size() - 1).getTick();
     }
     return -1;
