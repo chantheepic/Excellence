@@ -51,6 +51,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private JTextField shapeNameField; //input name
   private JTextField shapeTypeField; //input type
+  private JTextField layerChoice; //input type
+
 
   private JTextField shapeXField; //input x
   private JTextField shapeYField; //input y
@@ -222,6 +224,21 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     add(playback);
 
+
+    //Sets the tick
+    JPanel setLayer = new JPanel();
+    setLayer.setLayout(new GridLayout());
+    setLayer.setBorder(BorderFactory.createTitledBorder("Set Layer"));
+    layerChoice = new JTextField();
+    setLayer.add(layerChoice);
+
+    JButton layerGo = new JButton("Go");
+    layerGo.setActionCommand("layerGo");
+    layerGo.addActionListener(this);
+    setLayer.add(layerGo);
+
+    playback.add(setLayer);
+
     JPanel io = new JPanel();
     io.setLayout(new GridLayout(3, 1));
 
@@ -298,6 +315,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
           }
         }
         break;
+      case "layerGo": //from tick selector
+        if (layerChoice.getText().matches("[0-9]+")) {
+          listener.setLayer(shapeNameField.getText(), Integer.parseInt(layerChoice.getText()));
+        }
+        break;
       case "create keyframe":
         listener.createFrame(shapeNameField.getText(),
                 Integer.parseInt(shapeXField.getText()),
@@ -309,7 +331,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
                 colorChooserDisplay.getBackground().getBlue());
         break;
       case "create shape":
-        listener.addShape(shapeNameField.getText(), shapeTypeField.getText(), 0);
+        listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
+                Integer.parseInt(layerChoice.getText()));
         break;
       case "delete shape":
         listener.deleteShape(shapeNameField.getText());
@@ -470,6 +493,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     shapeNameField.setText(component.getID());
     shapeTypeField.setText(component.getShape().toString().toLowerCase());
+    int l = component.getLayer();
+    layerChoice.setText(component.getLayer()+"");
 
     if (component.hasMotionAtTick(tick)) {
       State currentState = component.getStateAtTick(tick);
@@ -487,6 +512,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   private void clearData() {
     shapeNameField.setText("");
     shapeTypeField.setText("");
+    tickChoice.setText("");
     shapeXField.setText("");
     shapeYField.setText("");
     shapeWidthField.setText("");

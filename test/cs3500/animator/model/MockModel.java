@@ -60,6 +60,11 @@ public class MockModel implements IModel {
   }
 
   @Override
+  public void setLayer(String name, int layer) throws IllegalArgumentException {
+    output.append("layer changed\n");
+  }
+
+  @Override
   public Set<String> getAllIds() {
     output.append("all ID");
     return null;

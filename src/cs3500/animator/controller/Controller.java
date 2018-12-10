@@ -139,6 +139,16 @@ public class Controller implements IController, ActionListener, Features {
   }
 
   @Override
+  public void setLayer(String name, int layer) {
+    try {
+      model.setLayer(name, layer);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
+    refreshView();
+  }
+
+  @Override
   public void saveAsText(String fName) {
     saveWork("text", fName);
   }

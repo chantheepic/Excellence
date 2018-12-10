@@ -70,4 +70,12 @@ public interface IModel extends IROModel {
    */
   void removeKeyframe(String name, int tick) throws IllegalArgumentException;
 
+  /**
+   * This methos attempts to change the layer of the given shape.
+   * @param name - the name of the shape
+   * @param layer - the layer of the shape
+   * @throws IllegalArgumentException - if the shape doesn't exist or the layer is invalid.
+   */
+  void setLayer(String name, int layer) throws IllegalArgumentException;
+
 }

@@ -74,6 +74,13 @@ public interface Features {
   void setTick(int tick);
 
   /**
+   * Requests that the selected shape change its layer.
+   * @param name - the unique name for the shape
+   * @param layer - layer to switch to
+   */
+  void setLayer(String name, int layer);
+
+  /**
    * Requests that the animation be saved as a text view to the given file.
    *
    * @param fName - the name of the file

@@ -130,6 +130,14 @@ public class Model implements IModel {
   }
 
   @Override
+  public void setLayer(String name, int layer) throws IllegalArgumentException {
+    if (!registeredShapes.containsKey(name)) {
+      throw new IllegalArgumentException("Invalid name");
+    }
+    registeredShapes.get(name).setLayer(layer);
+  }
+
+  @Override
   // IS anything using this?
   public Set<String> getAllIds() {
     return new TreeSet<>(registeredShapes.keySet());
