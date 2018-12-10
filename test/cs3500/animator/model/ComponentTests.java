@@ -17,8 +17,8 @@ public class ComponentTests {
 
   @Before
   public void setUp() {
-    e = new Component("E", Shape.ELLIPSE);
-    r = new Component("R", Shape.RECTANGLE);
+    e = new Component("E", Shape.ELLIPSE,0);
+    r = new Component("R", Shape.RECTANGLE,0);
   }
 
   @Test

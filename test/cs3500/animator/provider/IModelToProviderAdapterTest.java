@@ -31,7 +31,7 @@ public class IModelToProviderAdapterTest {
   @Test
   public void mutateIDs() {
 
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
     assertEquals(1, basicModel.getAllIds().size());
     basicModel.getAllIds().clear();
     assertEquals(1, basicModel.getAllIds().size());

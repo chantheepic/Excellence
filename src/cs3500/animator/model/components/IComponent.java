@@ -45,4 +45,10 @@ public interface IComponent extends IROComponent {
    */
   void removeKeyframe(int tick) throws IllegalArgumentException;
 
+  /**
+   * Sets the layer of the component to what is given.
+   * @param layer - given layer [0, infinity)
+   */
+  void setLayer(int layer);
+
 }

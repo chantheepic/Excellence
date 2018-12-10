@@ -17,12 +17,14 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
   /**
    * Constructor for mock editor.
    */
-  public MockEditorView(int keyframeTick, int speed, String shapeName, String shapeType, int shapeX,
-      int shapeY, int shapeW, int shapeH, int shapeR, int shapeG, int shapeB, String saveName) {
+  public MockEditorView(int keyframeTick, int speed, String shapeName, String shapeType,
+                        int shapeLayer, int shapeX, int shapeY, int shapeW, int shapeH, int shapeR,
+                        int shapeG, int shapeB, String saveName) {
     this.keyframeTick = keyframeTick;
     this.speed = speed;
     this.shapeName = shapeName;
     this.shapeType = shapeType;
+    this.shapeLayer = shapeLayer;
     this.shapeX = shapeX;
     this.shapeY = shapeY;
     this.shapeW = shapeW;
@@ -38,6 +40,7 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
   private int speed;
   private String shapeName;
   private String shapeType;
+  private int shapeLayer;
   private int shapeX;
   private int shapeY;
   private int shapeW;
@@ -70,7 +73,7 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
         listener.createFrame(shapeName, shapeX, shapeY, shapeW, shapeH, shapeR, shapeG, shapeB);
         break;
       case "create shape":
-        listener.addShape(shapeName, shapeType);
+        listener.addShape(shapeName, shapeType,shapeLayer);
         break;
       case "delete shape":
         listener.deleteShape(shapeName);

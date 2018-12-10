@@ -2,6 +2,9 @@ package cs3500.animator.model;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -40,12 +43,15 @@ public class Model implements IModel {
   }
 
   @Override
-  public void addComponent(String name, String type) throws IllegalArgumentException {
+  public void addComponent(String name, String type, int layer) throws IllegalArgumentException {
     if (name == null) {
       throw new IllegalArgumentException("Name cannot be null");
     }
     if (type == null) {
       throw new IllegalArgumentException("Type cannot be null");
+    }
+    if (layer < 0) {
+      throw new IllegalArgumentException("Layer cannot be negative");
     }
     if (registeredShapes.containsKey(name)) {
       throw new IllegalArgumentException("Object already exists");
@@ -53,7 +59,7 @@ public class Model implements IModel {
 
     //Tries to create a shape based on the input.
     //Can throw and error
-    registeredShapes.put(name, new Component(name, createShape(type)));
+    registeredShapes.put(name, new Component(name, createShape(type), layer));
   }
 
   @Override
@@ -139,7 +145,9 @@ public class Model implements IModel {
 
   @Override
   public List<IROComponent> getAllComponents() {
-    return new ArrayList<>(this.registeredShapes.values());
+    List<IROComponent> output = new ArrayList<>(this.registeredShapes.values());
+    Collections.sort(output);
+    return output;
   }
 
   @Override
@@ -182,16 +190,16 @@ public class Model implements IModel {
     }
 
     @Override
-    public AnimationBuilder<IModel> declareShape(String name, String type) {
+    public AnimationBuilder<IModel> declareShape(String name, String type, int layer) {
 
       IComponent shape;
 
       switch (type) {
         case "rectangle":
-          shape = new Component(name, Shape.RECTANGLE);
+          shape = new Component(name, Shape.RECTANGLE, layer);
           break;
         case "ellipse":
-          shape = new Component(name, Shape.ELLIPSE);
+          shape = new Component(name, Shape.ELLIPSE, layer);
           break;
         default:
           throw new IllegalArgumentException("Invalid type");
@@ -229,6 +237,5 @@ public class Model implements IModel {
       return this;
     }
   }
-
 
 }

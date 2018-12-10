@@ -22,7 +22,7 @@ public class EditorViewAndControllerTests {
     output = new StringBuilder();
     this.mockModel = new MockModel(output);
     this.mockView = new MockEditorView(10, speed, "name of shape",
-        "rectangle", 10, 20, 30, 40, 50,
+        "rectangle", 0, 10, 20, 30, 40, 50,
         60, 70, "name of save");
     this.controller = new Controller(mockModel, speed);
     controller.setView(mockView);

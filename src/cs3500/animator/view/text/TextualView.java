@@ -83,7 +83,8 @@ public class TextualView implements IView {
 
     StringBuilder output = new StringBuilder();
     output.append("shape ").append(component.getID()).append(" ")
-        .append(component.getShape().toString().toLowerCase()).append("\n");
+        .append(component.getShape().toString().toLowerCase()).append(" ")
+            .append(component.getLayer()).append("\n");
     for (IMotion m : component.returnAllMotions()) {
       output.append("motion ").append(component.getID()).append(" ").append(getMotionOverview(m))
           .append("\n");

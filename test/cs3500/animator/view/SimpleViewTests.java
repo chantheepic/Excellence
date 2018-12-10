@@ -26,8 +26,8 @@ public class SimpleViewTests {
 
   @Before
   public void setUp() {
-    e = new Component("E", Shape.ELLIPSE);
-    r = new Component("R", Shape.RECTANGLE);
+    e = new Component("E", Shape.ELLIPSE,0);
+    r = new Component("R", Shape.RECTANGLE,0);
     State s = new State(1, 2, 33, 40, 5, 6, 7);
     State t = new State(110, 120, 13, 14, 15, 16, 17);
     IMotion forward = new BasicMotion(s, t, 0, 10);

@@ -30,7 +30,7 @@ public class BasicMoveModelTest {
   @Test
   public void mutateIDs() {
 
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
     assertEquals(1, basicModel.getAllIds().size());
     basicModel.getAllIds().clear();
     assertEquals(1, basicModel.getAllIds().size());
@@ -39,12 +39,12 @@ public class BasicMoveModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void nullName() {
-    basicModel.addComponent(null, "rectangle");
+    basicModel.addComponent(null, "rectangle",0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void nullType() {
-    basicModel.addComponent("R", null);
+    basicModel.addComponent("R", null,0);
   }
 
   @Test
@@ -57,14 +57,14 @@ public class BasicMoveModelTest {
   public void wellFormedTests() {
 
     // Test simple add shape
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     //has no motions
     assertEquals(0, basicModel.getComponentByID("E").returnAllMotions().size());
     assertEquals(Shape.ELLIPSE, basicModel.getComponentByID("E").getShape());
 
     assertEquals(1, basicModel.getAllIds().size());
 
-    basicModel.addComponent("C", "rectangle");
+    basicModel.addComponent("C", "rectangle",0);
     assertTrue(basicModel.getAllIds().contains("C"));
 
     // Test simple single command
@@ -75,7 +75,7 @@ public class BasicMoveModelTest {
     assertEquals(t, basicModel.getComponentByID("C").returnAllMotions().get(0).endState());
 
     // Test if second object can be added to the model
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
     basicModel.addMotion("R", t, s, 2, 10);
     assertEquals(3, basicModel.getAllComponents().size());
 
@@ -102,10 +102,10 @@ public class BasicMoveModelTest {
   // Test for when object already exists in hashmap
   @Test
   public void badInput() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     basicModel.addMotion("C", s, t, 2, 10);
     try {
-      basicModel.addComponent("R", "rectangle");
+      basicModel.addComponent("R", "rectangle",0);
     } catch (IllegalArgumentException e) {
       assertEquals(e.getMessage(), "Object already exists");
       assertEquals(1, basicModel.getComponentByID("C").returnAllMotions().size());
@@ -115,9 +115,9 @@ public class BasicMoveModelTest {
   // Test for when object doesn't exist in hashmap (has not been registered)
   @Test
   public void badInput2() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     basicModel.addMotion("C", s, t, 2, 10);
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
     try {
       basicModel.addMotion("S", t, s, 2, 10);
     } catch (IllegalArgumentException e) {
@@ -129,9 +129,9 @@ public class BasicMoveModelTest {
   // Get state for tick that doesn't exist
   @Test
   public void badInput3() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     basicModel.addMotion("C", s, t, 0, 10);
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
     try {
       basicModel.getComponentByID("C").getStateAtTick(11);
     } catch (IllegalArgumentException e) {
@@ -147,7 +147,7 @@ public class BasicMoveModelTest {
   // Starting tick is later than ending tick
   @Test
   public void badInput4() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     try {
       basicModel.addMotion("E", s, t, 10, 2);
     } catch (IllegalArgumentException e) {
@@ -158,7 +158,7 @@ public class BasicMoveModelTest {
   // New starting tick conflicts with existing motion
   @Test
   public void badInput5() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     basicModel.addMotion("C", s, t, 2, 10);
     try {
       basicModel.addMotion("C", s, t, 8, 12);
@@ -171,7 +171,7 @@ public class BasicMoveModelTest {
   // New ending tick conflicts with existing motion
   @Test
   public void badInput6() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     basicModel.addMotion("C", s, t, 10, 14);
     try {
       basicModel.addMotion("C", s, t, 8, 12);
@@ -184,7 +184,7 @@ public class BasicMoveModelTest {
   // Both start and end ticks conflict with existing ticks
   @Test
   public void badInput7() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.addMotion("E", s, t, 10, 14);
     basicModel.addMotion("E", s, t, 14, 20);
     try {
@@ -198,7 +198,7 @@ public class BasicMoveModelTest {
   // Endpoints match but commands are given in non-chronological order
   @Test
   public void anachronicInput() {
-    basicModel.addComponent("C", "ellipse");
+    basicModel.addComponent("C", "ellipse",0);
     try {
       basicModel.addMotion("C", s, t, 14, 20);
       basicModel.addMotion("C", s, t, 1, 14);
@@ -210,32 +210,32 @@ public class BasicMoveModelTest {
   // Endpoints match but commands are given in non-chronological order
   @Test(expected = IllegalArgumentException.class)
   public void motionGap() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.addMotion("E", s, t, 1, 10);
     basicModel.addMotion("E", s, t, 15, 20);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void noID() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.getComponentByID("zack");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void nullStatesBoth() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.addMotion("E", null, null, 1, 10);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void nullStatesFirst() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.addMotion("E", null, t, 1, 10);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void nullStatesSecond() {
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
     basicModel.addMotion("E", s, null, 1, 10);
   }
 

@@ -22,14 +22,14 @@ public class MockModel implements IModel {
    * @param out output as string.
    */
   public MockModel(StringBuilder out) {
-    e = new Component("E", Shape.ELLIPSE);
+    e = new Component("E", Shape.ELLIPSE,0);
     roList = new ArrayList<>();
     roList.add(e);
     this.output = out;
   }
 
   @Override
-  public void addComponent(String name, String type) {
+  public void addComponent(String name, String type, int layer) {
     output.append("component added\n");
   }
 

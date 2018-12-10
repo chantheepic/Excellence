@@ -11,7 +11,7 @@ import cs3500.animator.model.State;
  * component knows its name(String), type(Shape), and {@code moves(List<Keyframe>)} Different
  * components may have different shapes.
  */
-public interface IROComponent {
+public interface IROComponent extends Comparable<IROComponent> {
 
   /**
    * Returns all motions made by the component.
@@ -80,4 +80,11 @@ public interface IROComponent {
    * @return name of the component
    */
   String getID();
+
+  /**
+   * Gets the layer information for the component
+   * @return - the layer 0-infinity
+   */
+  int getLayer();
+
 }

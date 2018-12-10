@@ -68,9 +68,9 @@ public class Controller implements IController, ActionListener, Features {
   }
 
   @Override
-  public void addShape(String name, String type) {
+  public void addShape(String name, String type, int layer) {
     try {
-      model.addComponent(name, type);
+      model.addComponent(name, type, layer);
     } catch (IllegalArgumentException e) {
       view.displayError(e.getMessage());
     }

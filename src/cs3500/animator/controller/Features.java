@@ -19,8 +19,9 @@ public interface Features {
    *
    * @param name - given name of shape.
    * @param type - given type of shape (See supported types)
+   * @param layer - given layer of a shape
    */
-  void addShape(String name, String type);
+  void addShape(String name, String type, int layer);
 
   /**
    * Requests that the shape with the given name be deleted.

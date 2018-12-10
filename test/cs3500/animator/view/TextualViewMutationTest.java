@@ -32,7 +32,7 @@ public class TextualViewMutationTest {
     assertTestRun(basicModel,
         prints());
 
-    basicModel.addComponent("R", "rectangle");
+    basicModel.addComponent("R", "rectangle",0);
 
     assertTestRun(basicModel,
         prints("shape R RECTANGLE\n\n"));
@@ -48,7 +48,7 @@ public class TextualViewMutationTest {
         prints("motion R 0 1 2 3 4 5 6 7    10 11 12 13 14 15 16 17"),
         prints("motion R 10 11 12 13 14 15 16 17    20 1 2 3 4 5 6 7\n\n"));
 
-    basicModel.addComponent("E", "ellipse");
+    basicModel.addComponent("E", "ellipse",0);
 
     assertTestRun(basicModel,
         prints("shape R RECTANGLE"),

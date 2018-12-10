@@ -20,6 +20,7 @@ public class Component implements IComponent, IROComponent {
   private final String name;
   private final Shape type;
   private List<Keyframe> keyframes;
+  private int layer;
 
 
   /**
@@ -28,10 +29,14 @@ public class Component implements IComponent, IROComponent {
    * @param name - the name of the component.
    * @param type - the type of the component.
    */
-  public Component(String name, Shape type) {
+  public Component(String name, Shape type, int layer) {
     this.keyframes = new ArrayList<>();
     this.name = Objects.requireNonNull(name, "Name not valid");
     this.type = Objects.requireNonNull(type, "Type not valid");
+    if (layer < 0) {
+      throw new IllegalArgumentException("Layer cannot be negative");
+    }
+    this.layer = layer;
   }
 
   @Override
@@ -110,6 +115,14 @@ public class Component implements IComponent, IROComponent {
       throw new IllegalArgumentException("no keyframe at the tick");
     }
     keyframes.removeIf(k -> k.getTick() == tick);
+  }
+
+  @Override
+  public void setLayer(int layer) {
+    if (layer < 0) {
+      throw new IllegalArgumentException("Layer must be positive");
+    }
+    this.layer = layer;
   }
 
 
@@ -198,4 +211,13 @@ public class Component implements IComponent, IROComponent {
     return name;
   }
 
+  @Override
+  public int getLayer() {
+    return this.layer;
+  }
+
+  @Override
+  public int compareTo(IROComponent o) {
+    return this.layer - o.getLayer();
+  }
 }

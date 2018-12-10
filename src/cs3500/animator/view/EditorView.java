@@ -11,19 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -56,6 +44,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
   private JComboBox<Integer> keyframeTicks; //shape-frame selector
   private JTextField tickChoice; //tick selector
   private JLabel currentTick; //display tick
+  private JSlider scrubber; //Scrub through animation
+
 
   private JLabel colorChooserDisplay; //color chooser
 
@@ -72,6 +62,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private JLabel fileOpenDisplay; //load file
   private JLabel fileSaveDisplay; //save file
+
+  private ScrubHandler scrubHandler = new ScrubHandler();
 
   /**
    * Method creates a default editorView.
@@ -223,6 +215,11 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     playback.add(loop);
 
+    scrubber = new JSlider(0,10);
+    scrubber.addChangeListener(scrubHandler);
+
+    playback.add(scrubber);
+
     add(playback);
 
     JPanel io = new JPanel();
@@ -303,16 +300,16 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         break;
       case "create keyframe":
         listener.createFrame(shapeNameField.getText(),
-            Integer.parseInt(shapeXField.getText()),
-            Integer.parseInt(shapeYField.getText()),
-            Integer.parseInt(shapeWidthField.getText()),
-            Integer.parseInt(shapeHeightField.getText()),
-            colorChooserDisplay.getBackground().getRed(),
-            colorChooserDisplay.getBackground().getGreen(),
-            colorChooserDisplay.getBackground().getBlue());
+                Integer.parseInt(shapeXField.getText()),
+                Integer.parseInt(shapeYField.getText()),
+                Integer.parseInt(shapeWidthField.getText()),
+                Integer.parseInt(shapeHeightField.getText()),
+                colorChooserDisplay.getBackground().getRed(),
+                colorChooserDisplay.getBackground().getGreen(),
+                colorChooserDisplay.getBackground().getBlue());
         break;
       case "create shape":
-        listener.addShape(shapeNameField.getText(), shapeTypeField.getText());
+        listener.addShape(shapeNameField.getText(), shapeTypeField.getText(), 0);
         break;
       case "delete shape":
         listener.deleteShape(shapeNameField.getText());
@@ -328,7 +325,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
       case "Color chooser":
         Color col = JColorChooser
-            .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
+                .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
         colorChooserDisplay.setBackground(col);
         break;
 
@@ -359,7 +356,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       case "saveSVG":
         listener.saveAsSVG(fileSaveDisplay.getText());
         break;
-        // Do nothing by default
+      // Do nothing by default
       default:
     }
 
@@ -400,8 +397,25 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     mainScroll.getViewport().revalidate();
 
     populateCompSelector();
+    setMaxScrub();
 
   }
+
+  private void setMaxScrub() {
+
+    scrubber.setMaximum(getMaxTick(components));
+
+  }
+
+  private int getMaxTick(List<IROComponent> components) {
+    int max = 0;
+    for (IROComponent component : components) {
+      max = Math.max(component.getFinalTick(), max);
+    }
+    return max;
+  }
+
+
 
   @Override
   public void setOutput(Appendable app) {
@@ -424,6 +438,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     drawFrame(currentTick);
     //Updates the current tick label
     this.currentTick.setText(currentTick + "");
+    this.scrubber.setValue(currentTick);//update the scrubber
   }
 
 
@@ -463,8 +478,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       shapeHeightField.setText(currentState.height() + "");
       shapeWidthField.setText(currentState.width() + "");
       colorChooserDisplay.setBackground(new Color(currentState.red(),
-          currentState.green(),
-          currentState.blue()));
+              currentState.green(),
+              currentState.blue()));
     }
   }
 
@@ -478,4 +493,13 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     shapeHeightField.setText("");
     colorChooserDisplay.setBackground(Color.white);
   }
+
+  class ScrubHandler implements ChangeListener {
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+      listener.setTick(((JSlider) e.getSource()).getValue());
+    }
+  }
+
 }
