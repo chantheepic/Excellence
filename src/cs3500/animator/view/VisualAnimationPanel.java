@@ -55,7 +55,9 @@ public class VisualAnimationPanel extends JPanel {
     for (int i = 0; i < states.size(); i++) {
       State state = states.get(i);
       AffineTransform at = new AffineTransform();
-      at.rotate(Math.toRadians(state.heading()), (state.xPos() - boundary.getX()) + state.height()/2, state.yPos() - boundary.getY() + state.width()/2);
+      at.rotate(Math.toRadians(state.heading()),
+          (state.xPos() - boundary.getX()) + state.height() / 2,
+          state.yPos() - boundary.getY() + state.width() / 2);
       gfx.setTransform(at);
       gfx.setPaint(new Color(state.red(), state.green(), state.blue()));
       switch (shapes.get(i)) {
