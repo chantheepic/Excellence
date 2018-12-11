@@ -88,9 +88,9 @@ public class Controller implements IController, ActionListener, Features {
   }
 
   @Override
-  public void createFrame(String name, int x, int y, int w, int h, int r, int g, int b) {
+  public void createFrame(String name, int x, int y, int w, int h, int r, int g, int b, int rot) {
     try {
-      model.createKeyframe(name, this.currentTick, new State(x, y, w, h, r, g, b));
+      model.createKeyframe(name, this.currentTick, new State(x, y, w, h, r, g, b, rot));
     } catch (IllegalArgumentException e) {
       view.displayError(e.getMessage());
     }

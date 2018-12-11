@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import cs3500.animator.model.Boundary;
 import cs3500.animator.model.State;
 import cs3500.animator.model.components.Shape;
@@ -58,10 +59,12 @@ public class VisualAnimationPanel extends JPanel {
         case RECTANGLE:
           gfx.fillRect(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(),
               state.width(), state.height());
+          gfx.rotate(Math.toRadians(state.heading()));
           break;
         case ELLIPSE:
           gfx.fillOval(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(),
               state.width(), state.height());
+          gfx.rotate(Math.toRadians(state.heading()));
           break;
 
         default:

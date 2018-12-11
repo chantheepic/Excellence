@@ -32,6 +32,7 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
     this.shapeR = shapeR;
     this.shapeG = shapeG;
     this.shapeB = shapeB;
+    this.shapeRot = 0;
     this.saveName = saveName;
   }
 
@@ -48,6 +49,7 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
   private int shapeR;
   private int shapeG;
   private int shapeB;
+  private int shapeRot;
   private String saveName;
 
   /**
@@ -70,7 +72,7 @@ public class MockEditorView implements IView, ActionListener, ChangeListener {
         listener.setTick(keyframeTick);
         break;
       case "create keyframe":
-        listener.createFrame(shapeName, shapeX, shapeY, shapeW, shapeH, shapeR, shapeG, shapeB);
+        listener.createFrame(shapeName, shapeX, shapeY, shapeW, shapeH, shapeR, shapeG, shapeB, shapeRot);
         break;
       case "create shape":
         listener.addShape(shapeName, shapeType,shapeLayer);

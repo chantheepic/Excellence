@@ -138,7 +138,6 @@ public class Model implements IModel {
   }
 
   @Override
-  // IS anything using this?
   public Set<String> getAllIds() {
     return new TreeSet<>(registeredShapes.keySet());
   }
@@ -211,7 +210,6 @@ public class Model implements IModel {
           break;
         default:
           throw new IllegalArgumentException("Invalid type");
-          //TODO interface doesn't declare this
       }
       registeredShapes.put(name, shape);
       return this;

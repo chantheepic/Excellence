@@ -166,8 +166,9 @@ public class Component implements IComponent, IROComponent {
     int red = (int) (iState.red() + ((eState.red() - iState.red()) * timeDelta));
     int green = (int) (iState.green() + ((eState.green() - iState.green()) * timeDelta));
     int blue = (int) (iState.blue() + ((eState.blue() - iState.blue()) * timeDelta));
+    int rot = (int) (iState.heading() + ((eState.heading() - iState.heading()) * timeDelta));
 
-    return new State(posX, posY, width, height, red, green, blue);
+    return new State(posX, posY, width, height, red, green, blue, rot);
   }
 
   private int getInitialTick() {

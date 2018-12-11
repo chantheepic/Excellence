@@ -15,6 +15,7 @@ public final class State {
   private final int red;
   private final int green;
   private final int blue;
+  private final int heading;
 
   /**
    * Constructs a State with the following parameters.
@@ -28,6 +29,10 @@ public final class State {
    * @param b - blue
    */
   public State(int x, int y, int w, int h, int r, int g, int b) {
+    this(x,y,w,h,r,g,b,0);
+  }
+
+  public State(int x, int y, int w, int h, int r, int g, int b, int rot) {
     if (r > 255 || g > 255 || b > 255) {
       throw new IllegalArgumentException("Color values cannot exceed 255");
     }
@@ -41,6 +46,7 @@ public final class State {
     this.red = r;
     this.green = g;
     this.blue = b;
+    this.heading = rot;
   }
 
   // getters
@@ -58,6 +64,10 @@ public final class State {
 
   public int yPos() {
     return posY;
+  }
+
+  public int heading() {
+    return heading;
   }
 
   public int red() {
@@ -81,6 +91,7 @@ public final class State {
           && that.posY == this.posY
           && that.width == this.width
           && that.height == this.height
+          && that.heading == this.heading
           && that.red == this.red
           && that.green == this.green
           && that.blue == this.blue;
@@ -90,7 +101,7 @@ public final class State {
 
   @Override
   public int hashCode() {
-    return posX + posY + width + height + red + green + blue;
+    return posX + posY + width + heading + red + green + blue;
   }
 
 

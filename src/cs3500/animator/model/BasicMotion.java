@@ -47,7 +47,8 @@ public class BasicMotion implements IMotion {
     int red = (int) (initial.red() + ((end.red() - initial.red()) * timeDelta));
     int green = (int) (initial.green() + ((end.green() - initial.green()) * timeDelta));
     int blue = (int) (initial.blue() + ((end.blue() - initial.blue()) * timeDelta));
-    State newState = new State(posX, posY, width, height, red, green, blue);
+    int rot = (int) (initial.heading() + ((end.heading() - initial.heading()) * timeDelta));
+    State newState = new State(posX, posY, width, height, red, green, blue, rot);
     return newState;
   }
 

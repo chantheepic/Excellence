@@ -42,7 +42,7 @@ public interface Features {
    * @param g - green
    * @param b - blue
    */
-  void createFrame(String name, int x, int y, int w, int h, int r, int g, int b);
+  void createFrame(String name, int x, int y, int w, int h, int r, int g, int b, int rot);
 
   /**
    * Requests that a frame be deleted from the shape with given name (at the current tick).
