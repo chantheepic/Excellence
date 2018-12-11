@@ -144,6 +144,11 @@ public class SVGShapeFactory {
       output.append(String.format(stringFormat
           , height, s.height(), e.height(), initialTime, timeDelta));
     }
+    if(s.heading() != e.heading()){
+      String rotateFormat = "  <animateTransform attributeName=\"transform\" type=\"rotate\" from=\"%s %s %s\" to=\"%s %s %s\" begin=\"%sms\" "
+          + "dur=\"%sms\"/> \n";
+      output.append(String.format(rotateFormat, s.heading(), s.xPos(), s.yPos(), e.heading(), e.xPos(), e.yPos(), initialTime, timeDelta));
+    }
     return output.toString();
   }
 }
