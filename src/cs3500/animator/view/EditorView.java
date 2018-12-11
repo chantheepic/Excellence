@@ -80,8 +80,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     mainScroll = new JScrollPane(display);
     add(mainScroll);
 
-    display.setBorder(BorderFactory.createLineBorder(Color.black));
-
     setLayout(new GridLayout(2, 2));
 
     JPanel edit = new JPanel();
