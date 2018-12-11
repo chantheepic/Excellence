@@ -339,8 +339,12 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
               Integer.parseInt(shapeRotationField.getText()));
           break;
         case "create shape":
-          listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
-              Integer.parseInt(layerChoice.getText()));
+          if(layerChoice.getText().equals("")){
+            listener.addShape(shapeNameField.getText(), shapeTypeField.getText(), 0);
+          } else {
+            listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
+                Integer.parseInt(layerChoice.getText()));
+          }
           break;
         case "delete shape":
           listener.deleteShape(shapeNameField.getText());
@@ -382,18 +386,17 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
         break;
 
         case "saveText":
-          listener.saveAsText(fileSaveDisplay.getText());
+          listener.saveAsText(fileSaveDisplay.getText() + ".txt");
           break;
         case "saveSVG":
-          listener.saveAsSVG(fileSaveDisplay.getText());
+          listener.saveAsSVG(fileSaveDisplay.getText() + ".svg");
           break;
         // Do nothing by default
         default:
       }
-    } catch (Exception nfe) {
+    } catch (IllegalArgumentException nfe) {
       new ErrPanel().error("Fields not filled out");
     }
-
 
   }
 
