@@ -7,6 +7,7 @@ import cs3500.animator.model.components.Shape;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -53,18 +54,18 @@ public class VisualAnimationPanel extends JPanel {
     Graphics2D gfx = (Graphics2D) g;
     for (int i = 0; i < states.size(); i++) {
       State state = states.get(i);
+      AffineTransform at = new AffineTransform();
+      at.rotate(Math.toRadians(state.heading()), (state.xPos() - boundary.getX()) + state.height()/2, state.yPos() - boundary.getY() + state.width()/2);
+      gfx.setTransform(at);
       gfx.setPaint(new Color(state.red(), state.green(), state.blue()));
-
       switch (shapes.get(i)) {
         case RECTANGLE:
           gfx.fillRect(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(),
               state.width(), state.height());
-          gfx.rotate(Math.toRadians(state.heading()));
           break;
         case ELLIPSE:
           gfx.fillOval(state.xPos() - boundary.getX(), state.yPos() - boundary.getY(),
               state.width(), state.height());
-          gfx.rotate(Math.toRadians(state.heading()));
           break;
 
         default:

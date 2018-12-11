@@ -299,99 +299,103 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
    * @param e specified ActionEvent
    */
   public void actionPerformed(ActionEvent e) {
+    try {
+      switch (e.getActionCommand()) {
+        case "togglePlay": //from start/stop button
+          listener.togglePlay();
+          break;
+        case "restart": //from restart button
+          listener.restart();
+          break;
+        case "component options": //from shape selector
+          populateTickSelector(compBox.getSelectedIndex());
+          break;
+        case "keyframe go": //from shape-frame selector
+          if (keyframeTicks.getSelectedItem() instanceof Integer) {
+            listener.setTick((Integer) keyframeTicks.getSelectedItem());
+            populateData(compBox.getSelectedIndex(), (Integer) keyframeTicks.getSelectedItem());
+          }
+          break;
+        case "tickGo": //from tick selector
+          if (tickChoice.getText().matches("[0-9]+")) {
+            listener.setTick(Integer.parseInt(tickChoice.getText()));
+            if (keyframeTicks.getSelectedItem().toString().matches("[0-9]]")) {
+              populateData(compBox.getSelectedIndex(), Integer.parseInt(tickChoice.getText()));
+            }
+          }
+          break;
+        case "layerGo": //from tick selector
+          if (layerChoice.getText().matches("[0-9]+")) {
+            listener.setLayer(shapeNameField.getText(), Integer.parseInt(layerChoice.getText()));
+          }
+          break;
+        case "create keyframe":
+          listener.createFrame(shapeNameField.getText(),
+              Integer.parseInt(shapeXField.getText()),
+              Integer.parseInt(shapeYField.getText()),
+              Integer.parseInt(shapeWidthField.getText()),
+              Integer.parseInt(shapeHeightField.getText()),
+              colorChooserDisplay.getBackground().getRed(),
+              colorChooserDisplay.getBackground().getGreen(),
+              colorChooserDisplay.getBackground().getBlue(),
+              Integer.parseInt(shapeRotationField.getText()));
+          break;
+        case "create shape":
+          listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
+              Integer.parseInt(layerChoice.getText()));
+          break;
+        case "delete shape":
+          listener.deleteShape(shapeNameField.getText());
+          clearData();
+          break;
+        case "delete keyframe":
+          listener.deleteFrame(shapeNameField.getText());
+          clearData();
+          break;
+        case "loop":
+          listener.toggleLoop();
+          break;
 
-    switch (e.getActionCommand()) {
-      case "togglePlay": //from start/stop button
-        listener.togglePlay();
-        break;
-      case "restart": //from restart button
-        listener.restart();
-        break;
-      case "component options": //from shape selector
-        populateTickSelector(compBox.getSelectedIndex());
-        break;
-      case "keyframe go": //from shape-frame selector
-        if (keyframeTicks.getSelectedItem() instanceof Integer) {
-          listener.setTick((Integer) keyframeTicks.getSelectedItem());
-          populateData(compBox.getSelectedIndex(), (Integer) keyframeTicks.getSelectedItem());
+        case "Color chooser":
+          Color col = JColorChooser
+              .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
+          colorChooserDisplay.setBackground(col);
+          break;
+
+        case "Open file": {
+          final JFileChooser fchooser = new JFileChooser(".");
+          int retvalue = fchooser.showOpenDialog(this);
+          if (retvalue == JFileChooser.APPROVE_OPTION) {
+            File f = fchooser.getSelectedFile();
+            fileOpenDisplay.setText(f.getAbsolutePath());
+            listener.load(fileOpenDisplay.getText());
+          }
+
         }
         break;
-      case "tickGo": //from tick selector
-        if (tickChoice.getText().matches("[0-9]+")) {
-          listener.setTick(Integer.parseInt(tickChoice.getText()));
-          if (keyframeTicks.getSelectedItem().toString().matches("[0-9]]")) {
-            populateData(compBox.getSelectedIndex(), Integer.parseInt(tickChoice.getText()));
+        case "Save file": {
+          final JFileChooser fchooser = new JFileChooser(".");
+          int retvalue = fchooser.showSaveDialog(this);
+          if (retvalue == JFileChooser.APPROVE_OPTION) {
+            File f = fchooser.getSelectedFile();
+            fileSaveDisplay.setText(f.getAbsolutePath());
           }
         }
         break;
-      case "layerGo": //from tick selector
-        if (layerChoice.getText().matches("[0-9]+")) {
-          listener.setLayer(shapeNameField.getText(), Integer.parseInt(layerChoice.getText()));
-        }
-        break;
-      case "create keyframe":
-        listener.createFrame(shapeNameField.getText(),
-            Integer.parseInt(shapeXField.getText()),
-            Integer.parseInt(shapeYField.getText()),
-            Integer.parseInt(shapeWidthField.getText()),
-            Integer.parseInt(shapeHeightField.getText()),
-            colorChooserDisplay.getBackground().getRed(),
-            colorChooserDisplay.getBackground().getGreen(),
-            colorChooserDisplay.getBackground().getBlue(),
-            Integer.parseInt(shapeRotationField.getText()));
-        break;
-      case "create shape":
-        listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
-            Integer.parseInt(layerChoice.getText()));
-        break;
-      case "delete shape":
-        listener.deleteShape(shapeNameField.getText());
-        clearData();
-        break;
-      case "delete keyframe":
-        listener.deleteFrame(shapeNameField.getText());
-        clearData();
-        break;
-      case "loop":
-        listener.toggleLoop();
-        break;
 
-      case "Color chooser":
-        Color col = JColorChooser
-            .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
-        colorChooserDisplay.setBackground(col);
-        break;
-
-      case "Open file": {
-        final JFileChooser fchooser = new JFileChooser(".");
-        int retvalue = fchooser.showOpenDialog(this);
-        if (retvalue == JFileChooser.APPROVE_OPTION) {
-          File f = fchooser.getSelectedFile();
-          fileOpenDisplay.setText(f.getAbsolutePath());
-          listener.load(fileOpenDisplay.getText());
-        }
-
+        case "saveText":
+          listener.saveAsText(fileSaveDisplay.getText());
+          break;
+        case "saveSVG":
+          listener.saveAsSVG(fileSaveDisplay.getText());
+          break;
+        // Do nothing by default
+        default:
       }
-      break;
-      case "Save file": {
-        final JFileChooser fchooser = new JFileChooser(".");
-        int retvalue = fchooser.showSaveDialog(this);
-        if (retvalue == JFileChooser.APPROVE_OPTION) {
-          File f = fchooser.getSelectedFile();
-          fileSaveDisplay.setText(f.getAbsolutePath());
-        }
-      }
-      break;
-
-      case "saveText":
-        listener.saveAsText(fileSaveDisplay.getText());
-        break;
-      case "saveSVG":
-        listener.saveAsSVG(fileSaveDisplay.getText());
-        break;
-      // Do nothing by default
-      default:
+    } catch (Exception nfe) {
+      new ErrPanel().error("Fields not filled out");
     }
+
 
   }
 
