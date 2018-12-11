@@ -29,7 +29,7 @@ public final class State {
    * @param b - blue
    */
   public State(int x, int y, int w, int h, int r, int g, int b) {
-    this(x,y,w,h,r,g,b,0);
+    this(x, y, w, h, r, g, b, 0);
   }
 
   public State(int x, int y, int w, int h, int r, int g, int b, int rot) {
@@ -66,10 +66,6 @@ public final class State {
     return posY;
   }
 
-  public int heading() {
-    return heading;
-  }
-
   public int red() {
     return red;
   }
@@ -82,6 +78,10 @@ public final class State {
     return blue;
   }
 
+  public int heading() {
+    return heading;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -91,17 +91,17 @@ public final class State {
           && that.posY == this.posY
           && that.width == this.width
           && that.height == this.height
-          && that.heading == this.heading
           && that.red == this.red
           && that.green == this.green
-          && that.blue == this.blue;
+          && that.blue == this.blue
+          && that.heading == this.heading;
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return posX + posY + width + heading + red + green + blue;
+    return posX + posY + width + red + green + blue + heading;
   }
 
 

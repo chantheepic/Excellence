@@ -217,7 +217,7 @@ public class Model implements IModel {
 
     @Override
     public AnimationBuilder<IModel> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
-        int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+        int r1, int g1, int b1, int rot1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int rot2) {
       if (!registeredShapes.containsKey(name)) {
         throw new IllegalArgumentException("Name does not exist");
       }
@@ -226,20 +226,20 @@ public class Model implements IModel {
         throw new IllegalArgumentException("Motions do not lineup");
       }
       //Throws errors if invalid.
-      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1),
-          new State(x2, y2, w2, h2, r2, g2, b2), t1, t2));
+      comp.addMotion(new BasicMotion(new State(x1, y1, w1, h1, r1, g1, b1, rot1),
+          new State(x2, y2, w2, h2, r2, g2, b2, rot2), t1, t2));
       return this;
     }
 
     @Override
     public AnimationBuilder<IModel> addKeyframe(String name, int t, int x, int y, int w, int h,
-        int r, int g, int b) {
+        int r, int g, int b, int rot) {
 
       if (!registeredShapes.containsKey(name)) {
         throw new IllegalArgumentException("Name does not exist");
       }
       IComponent comp = registeredShapes.get(name);
-      comp.createKeyframe(t, new State(x, y, w, h, r, g, b));
+      comp.createKeyframe(t, new State(x, y, w, h, r, g, b, rot));
       return this;
     }
   }
