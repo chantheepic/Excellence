@@ -89,3 +89,21 @@ overview.
     an error. tick(int) and setListener(listener) are do absolutely nothing in the text, svg  and
     visual view.
 
+==[HW09]==
+
+- State now holds an additional parameter called heading. This is the rotation of the shape stored
+  as degrees. The old constructor is still there to retain compatibility with some tests and the
+  provider adapter.
+
+- Animation Reader holds a new method that parses RMotion. The previous readMotion is still there
+  for backwards compatibility.
+
+- addMotion and addKeyframe in Model was modified to accommodate rotation input.
+
+- Textual view adds rotation value as the 9th value in initial state and 9-th value of final state.
+
+- SVGshapefactory adds rotation transformations when a shape rotates.
+
+- Actionlistener in EditorView handles adding or editing keyframes with rotation.
+
+- VisaulAnimationPanel rotates Graphics2D using affineTransform.

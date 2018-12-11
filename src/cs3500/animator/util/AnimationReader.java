@@ -20,10 +20,10 @@ public class AnimationReader {
    * alphabetic strings with no spaces), giving the unique name of the shape, and the type of shape
    * it is.</li>
    * <li>Motion lines: the keyword "motion" followed by an identifier giving the name of the shape
-   * to move,
-   * and 16 integers giving the initial and final conditions of the motion: eight numbers giving the
-   * time, the x and y coordinates, the width and height, and the red, green and blue color values
-   * at the start of the motion; followed by eight numbers for the end of the motion.  See {@link
+   * to move, and 16 or 18 integers giving the initial and final conditions of the motion (depending
+   * on the type of motion): eight or nine numbers giving the time, the x and y coordinates, the
+   * width and height, and the red, green, blue color values, and (selective rotation) at the start
+   * of the motion; followed by eight or nine numbers for the end of the motion.  See {@link
    * AnimationBuilder#addMotion}</li>
    * </ul>
    * </p>
@@ -143,7 +143,8 @@ public class AnimationReader {
     }
     builder.addMotion(name,
         vals[0], vals[1], vals[2], vals[3], vals[4], vals[5], vals[6], vals[7],
-        vals[8], vals[9], vals[10], vals[11], vals[12], vals[13], vals[14], vals[15], vals[16], vals[17]);
+        vals[8], vals[9], vals[10], vals[11], vals[12], vals[13], vals[14], vals[15], vals[16],
+        vals[17]);
   }
 
   private static int getInt(Scanner s, String label, String fieldName) {

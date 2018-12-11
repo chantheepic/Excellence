@@ -94,9 +94,9 @@ public class TextualView implements IView {
   }
 
   private String getStateOverview(State state) {
-    return String.format("%d %d %d %d %d %d %d",
+    return String.format("%d %d %d %d %d %d %d %d",
         state.xPos(), state.yPos(), state.width(), state.height(),
-        state.red(), state.green(), state.blue());
+        state.red(), state.green(), state.blue(), state.heading());
   }
 
   private String getMotionOverview(IMotion motion) {
