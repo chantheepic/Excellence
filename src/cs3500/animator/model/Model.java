@@ -138,6 +138,39 @@ public class Model implements IModel {
   }
 
   @Override
+  public void swapLayer(int origin, int target) {
+    List<String> originLayer = new ArrayList<>();
+    List<String> targetLayer = new ArrayList<>();
+    for (IComponent component : registeredShapes.values()) {
+      if (component.getLayer() == origin) {
+        originLayer.add(component.getID());
+      }
+      if (component.getLayer() == target) {
+        targetLayer.add(component.getID());
+      }
+    }
+    for (String name : originLayer) {
+      registeredShapes.get(name).setLayer(target);
+    }
+    for (String name : targetLayer) {
+      registeredShapes.get(name).setLayer(origin);
+    }
+  }
+
+  @Override
+  public void deleteLayer(int layer) {
+    List<String> toDelete = new ArrayList<>();
+    for (IComponent component : registeredShapes.values()) {
+      if (component.getLayer() == layer) {
+        toDelete.add(component.getID());
+      }
+    }
+    for (String name : toDelete) {
+      registeredShapes.remove(name);
+    }
+  }
+
+  @Override
   public Set<String> getAllIds() {
     return new TreeSet<>(registeredShapes.keySet());
   }

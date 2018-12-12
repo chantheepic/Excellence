@@ -65,6 +65,16 @@ public class MockModel implements IModel {
   }
 
   @Override
+  public void swapLayer(int origin, int target) {
+
+  }
+
+  @Override
+  public void deleteLayer(int layer) {
+
+  }
+
+  @Override
   public Set<String> getAllIds() {
     output.append("all ID");
     return null;

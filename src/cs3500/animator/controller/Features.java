@@ -81,6 +81,19 @@ public interface Features {
   void setLayer(String name, int layer);
 
   /**
+   * Requests that the selected shape change its layer.
+   * @param origin - the unique name for the shape
+   * @param target - layer to switch to
+   */
+  void swapLayer(int origin, int target);
+
+  /**
+   * Requests that the selected shape change its layer.
+   * @param layer - layer to delete
+   */
+  void deleteLayer( int layer);
+
+  /**
    * Requests that the animation be saved as a text view to the given file.
    *
    * @param fName - the name of the file

@@ -78,4 +78,7 @@ public interface IModel extends IROModel {
    */
   void setLayer(String name, int layer) throws IllegalArgumentException;
 
+  void swapLayer(int origin, int target);
+
+  void deleteLayer(int layer);
 }

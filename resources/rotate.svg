@@ -1,0 +1,5 @@
+<svg width="360px" height="360px" xmlns="http://www.w3.org/2000/svg"> 
+<rect x="100" y="230" width="120" height="60" fill="rgb(0,0,255)"> 
+  <animateTransform attributeName="transform" type="rotate" from="0 160 260" to="180 160 260" begin="0ms" dur="2500ms" fill="freeze"/> 
+</rect> 
+</svg>

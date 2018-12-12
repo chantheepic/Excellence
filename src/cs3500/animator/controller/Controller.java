@@ -149,6 +149,26 @@ public class Controller implements IController, ActionListener, Features {
   }
 
   @Override
+  public void swapLayer(int origin, int target) {
+    try {
+      model.swapLayer(origin, target);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
+    refreshView();
+  }
+
+  @Override
+  public void deleteLayer(int layer) {
+    try {
+      model.deleteLayer(layer);
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
+    }
+    refreshView();
+  }
+
+  @Override
   public void saveAsText(String fName) {
     saveWork("text", fName);
   }

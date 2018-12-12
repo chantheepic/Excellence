@@ -1,14 +1,14 @@
 package cs3500.animator.view;
 
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.*;
@@ -51,7 +51,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private JTextField shapeNameField; //input name
   private JTextField shapeTypeField; //input type
-  private JTextField layerChoice; //input type
+  private JTextField originLayer; //input type
+  private JTextField targetLayer; //input type
 
 
   private JTextField shapeXField; //input x
@@ -66,6 +67,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
   private JLabel fileOpenDisplay; //load file
   private JLabel fileSaveDisplay; //save file
+
+  private JTextArea layerInfo;
 
   private ScrubHandler scrubHandler = new ScrubHandler();
 
@@ -231,19 +234,6 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     add(playback);
 
-    //Sets the tick
-    JPanel setLayer = new JPanel();
-    setLayer.setLayout(new GridLayout());
-    setLayer.setBorder(BorderFactory.createTitledBorder("Set Layer"));
-    layerChoice = new JTextField();
-    setLayer.add(layerChoice);
-
-    JButton layerGo = new JButton("Go");
-    layerGo.setActionCommand("layerGo");
-    layerGo.addActionListener(this);
-    setLayer.add(layerGo);
-
-    playback.add(setLayer);
 
     JPanel io = new JPanel();
     io.setLayout(new GridLayout(3, 1));
@@ -280,7 +270,42 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
     saveAsSVG.addActionListener(this);
     filesavePanel.add(saveAsSVG);
 
+
+    JPanel setLayer = new JPanel();
+    setLayer.setLayout(new GridLayout());
+    setLayer.setBorder(BorderFactory.createTitledBorder("Set Layer"));
+
+    layerInfo = new JTextArea();
+    layerInfo.setEditable(false);
+    setLayer.add(layerInfo);
+
+
+    //Sets the layer
+    originLayer = new JTextField();
+    setLayer.add(originLayer);
+
+    targetLayer = new JTextField();
+    setLayer.add(targetLayer);
+
+    JButton layerSet = new JButton("Set");
+    layerSet.setActionCommand("layerSet");
+    layerSet.addActionListener(this);
+    setLayer.add(layerSet);
+
+    JButton layerDelete = new JButton("Delete");
+    layerDelete.setActionCommand("layerDel");
+    layerDelete.addActionListener(this);
+    setLayer.add(layerDelete);
+
+    JButton layerGo = new JButton("Swap");
+    layerGo.setActionCommand("layerSwap");
+    layerGo.addActionListener(this);
+    setLayer.add(layerGo);
+
+    io.add(setLayer);
+
     add(io);
+
 
     setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -322,28 +347,43 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
             }
           }
           break;
-        case "layerGo": //from tick selector
-          if (layerChoice.getText().matches("[0-9]+")) {
-            listener.setLayer(shapeNameField.getText(), Integer.parseInt(layerChoice.getText()));
+        case "layerSet": //from tick selector
+          if (originLayer.getText().matches("[0-9]+")) {
+            listener.setLayer(shapeNameField.getText(), Integer.parseInt(originLayer.getText()));
+          }
+          break;
+        case "layerDel": //from tick selector
+          if (originLayer.getText().matches("[0-9]+")) {
+            listener.deleteLayer(Integer.parseInt(originLayer.getText()));
+          }
+          break;
+        case "layerSwap": //from tick selector
+          if (originLayer.getText().matches("[0-9]+") && targetLayer.getText().matches("[0-9]+")) {
+            listener.swapLayer(Integer.parseInt(originLayer.getText()),
+                    Integer.parseInt(targetLayer.getText()));
           }
           break;
         case "create keyframe":
+          int heading = 0;
+          if(shapeRotationField.getText().matches("[0-9]+")) {
+            heading = Integer.parseInt(shapeRotationField.getText());
+          }
           listener.createFrame(shapeNameField.getText(),
-              Integer.parseInt(shapeXField.getText()),
-              Integer.parseInt(shapeYField.getText()),
-              Integer.parseInt(shapeWidthField.getText()),
-              Integer.parseInt(shapeHeightField.getText()),
-              colorChooserDisplay.getBackground().getRed(),
-              colorChooserDisplay.getBackground().getGreen(),
-              colorChooserDisplay.getBackground().getBlue(),
-              Integer.parseInt(shapeRotationField.getText()));
+                  Integer.parseInt(shapeXField.getText()),
+                  Integer.parseInt(shapeYField.getText()),
+                  Integer.parseInt(shapeWidthField.getText()),
+                  Integer.parseInt(shapeHeightField.getText()),
+                  colorChooserDisplay.getBackground().getRed(),
+                  colorChooserDisplay.getBackground().getGreen(),
+                  colorChooserDisplay.getBackground().getBlue(),
+                  heading);
           break;
         case "create shape":
-          if(layerChoice.getText().equals("")){
+          if (originLayer.getText().equals("")) {
             listener.addShape(shapeNameField.getText(), shapeTypeField.getText(), 0);
           } else {
             listener.addShape(shapeNameField.getText(), shapeTypeField.getText(),
-                Integer.parseInt(layerChoice.getText()));
+                    Integer.parseInt(originLayer.getText()));
           }
           break;
         case "delete shape":
@@ -360,7 +400,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
         case "Color chooser":
           Color col = JColorChooser
-              .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
+                  .showDialog(this, "Choose a color", colorChooserDisplay.getBackground());
           colorChooserDisplay.setBackground(col);
           break;
 
@@ -436,7 +476,30 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     populateCompSelector();
     setMaxScrub();
+    populateLayers();
 
+  }
+
+  private void populateLayers() {
+    HashMap<Integer, ArrayList<String>> layers = new LinkedHashMap<>();
+
+    for (int i = 0; i <components.size(); i++) {
+      int l = components.get(i).getLayer();
+      String name = components.get(i).getID();
+      if(layers.containsKey(l)) {
+        layers.get(l).add(name);
+      }
+      else {
+        layers.put(l, new ArrayList<>(Arrays.asList(name)));
+      }
+    }
+
+    StringBuilder output = new StringBuilder();
+    for (int l : layers.keySet()) {
+      output.append(l + ": " +String.join(",", layers.get(l)));
+      output.append("\n");
+    }
+    layerInfo.setText(output.toString());
   }
 
   private void setMaxScrub() {
@@ -507,8 +570,7 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
 
     shapeNameField.setText(component.getID());
     shapeTypeField.setText(component.getShape().toString().toLowerCase());
-    int l = component.getLayer();
-    layerChoice.setText(component.getLayer() + "");
+    originLayer.setText(component.getLayer() + "");
 
     if (component.hasMotionAtTick(tick)) {
       State currentState = component.getStateAtTick(tick);
@@ -518,8 +580,8 @@ public class EditorView extends JFrame implements IView, ActionListener, ChangeL
       shapeWidthField.setText(currentState.width() + "");
       shapeRotationField.setText(currentState.heading() + "");
       colorChooserDisplay.setBackground(new Color(currentState.red(),
-          currentState.green(),
-          currentState.blue()));
+              currentState.green(),
+              currentState.blue()));
     }
   }
 
